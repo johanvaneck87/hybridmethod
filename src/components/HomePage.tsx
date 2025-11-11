@@ -1,52 +1,125 @@
-import { LinkCard } from './LinkCard'
-import { InstagramIcon, MailIcon } from './Icons'
-import { Header } from './Header'
+import { useEffect, useRef, useState } from 'preact/hooks'
+import backgroundImage from '../picture/pexels-victorfreitas-841130.jpg'
 
 export function HomePage() {
+  const [scrollProgress, setScrollProgress] = useState(0)
+  const contentRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (contentRef.current) {
+        const rect = contentRef.current.getBoundingClientRect()
+        const windowHeight = window.innerHeight
+
+        // Calculate progress - starts at 100% (on screen, covering), moves to 0% (off screen left)
+        // At 50% scroll should be around 95% (still mostly covering)
+        // At 100% scroll should be 0% (fully revealed)
+        const rawProgress = 1 - (rect.top / windowHeight)
+        const progress = Math.max(0, Math.min(1, rawProgress))
+        // Use cubic curve: starts at 100, ends at 0
+        setScrollProgress(100 - (Math.pow(progress, 3.5) * 100))
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    handleScroll() // Initial calculation
+
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  // scrollProgress goes from 100 (covering) to 0 (revealed)
+  // Need negative values: 0 (start) to -100 (end)
+  const translateX = -100 + scrollProgress
+
   return (
-    <div className="min-h-screen bg-neutral-lighter">
-      {/* Header */}
-      <Header />
+    <div className="bg-black">
+      {/* Hero Section - Fixed */}
+      <div className="sticky top-0 h-screen flex">
+        {/* Left side - Image */}
+        <div className="w-1/2 relative">
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: `url(${backgroundImage})` }}
+          >
+            {/* Dark overlay with gradient to blend into right side */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-black/30 to-black"></div>
+          </div>
+        </div>
 
-      {/* Main Content */}
-      <div className="pt-32 pb-12 px-4">
-        <div className="max-w-2xl mx-auto">
-          {/* Hero Section */}
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold text-neutral-charcoal mb-4">
-              Transform Your Fitness
+        {/* Right side - Text box */}
+        <div className="w-1/2 bg-black flex items-center justify-start pl-12 pr-0">
+          <div className="bg-[#FF4500] px-12 py-32 pr-24">
+            <h2 className="text-black font-semibold text-4xl md:text-5xl lg:text-6xl leading-tight uppercase tracking-wide">
+              DE PLEK
+              <br />
+              OM JE VOOR
+              <br />
+              TE BEREIDEN
+              <br />
+              OP JE
+              <br />
+              VOLGENDE DOEL
             </h2>
-            <p className="text-lg md:text-xl text-neutral-darker">
-              Personalized training programs designed for your goals
-            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Content Section - Scrolls over hero with fade gradient reveal */}
+      <div ref={contentRef} className="relative z-10 bg-black" style={{ minHeight: '150vh' }}>
+        <div className="sticky top-0 h-screen flex items-center overflow-hidden">
+          <div className="max-w-4xl mx-auto px-8 w-full">
+            <div className="bg-black p-12">
+              <h2 className="text-white text-3xl font-bold mb-8 uppercase tracking-wide">
+                Hybrid Method Approach
+              </h2>
+
+              <div className="text-white space-y-8">
+                <p className="text-lg leading-relaxed">
+                  De personal training / coaching bestaat uit drie pijlers, namelijk <span className="text-[#FF4500] font-semibold">persoonlijk</span>, <span className="text-[#FF4500] font-semibold">doelgericht</span> en <span className="text-[#FF4500] font-semibold">methodisch</span>.
+                </p>
+
+                <div className="space-y-6 pl-6 border-l-4 border-[#FF4500]">
+                  <div>
+                    <h3 className="text-[#FF4500] text-xl font-semibold mb-3 uppercase tracking-wide">
+                      Persoonlijk
+                    </h3>
+                    <p className="text-gray-300 leading-relaxed">
+                      Trainingsschema's afgestemd op de individu, die in verschillende vormen kan trainen, namelijk individueel, in groepsverband (bijvoorbeeld Crossfit of Hyrox) of een hybride vorm. Daarnaast ook de mogelijkheid tot (duo) personal training.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h3 className="text-[#FF4500] text-xl font-semibold mb-3 uppercase tracking-wide">
+                      Doelgericht
+                    </h3>
+                    <p className="text-gray-300 leading-relaxed">
+                      Het is bedoeld voor sporters die naar een bepaald evenement, zoals Hyrox of andere hybride evenementen toe trainen. Hybrid Method ondersteunt daarbij de weg naar het doel.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h3 className="text-[#FF4500] text-xl font-semibold mb-3 uppercase tracking-wide">
+                      Methodisch
+                    </h3>
+                    <p className="text-gray-300 leading-relaxed">
+                      Er wordt gewerkt vanuit een bepaalde methodiek. Hierbij wordt rekening gehouden met de belastbaarheid van de individu, aantal keer per week trainen en juiste verdeling kracht en conditie. Ook techniek komt hier aan bod.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* Links Section */}
-          <div className="bg-neutral-lightest rounded-2xl p-6 md:p-8 shadow-sm mb-8">
-            <nav className="space-y-3">
-              <LinkCard
-                href="https://www.instagram.com/hybridmethod/"
-                icon={<InstagramIcon size={20} />}
-                external
-              >
-                Follow on Instagram
-              </LinkCard>
-              <LinkCard
-                href="mailto:contact@hybridmethod.com"
-                icon={<MailIcon size={20} />}
-              >
-                Get in Touch
-              </LinkCard>
-            </nav>
-          </div>
-
-          {/* About Section */}
-          <div className="text-center text-neutral-darker">
-            <p className="text-sm md:text-base">
-              Hybrid Method combines strength training, mobility work, and personalized coaching
-              to help you achieve sustainable results.
-            </p>
-          </div>
+          {/* Fade gradient overlay that slides away - positioned to cover the entire sticky container */}
+          <div
+            className="absolute inset-0 pointer-events-none z-20"
+            style={{
+              background: 'linear-gradient(90deg, rgb(0, 0, 0) 0%, transparent 100%)',
+              transform: `translate3d(${translateX}%, 0px, 0px) scale3d(1, 1, 1)`,
+              willChange: 'transform',
+              transformStyle: 'preserve-3d'
+            }}
+          />
         </div>
       </div>
     </div>

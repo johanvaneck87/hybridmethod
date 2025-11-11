@@ -1,5 +1,5 @@
 import { render } from 'preact'
 import './style.css'
-import { HomePage } from './components/HomePage'
+import { App } from './components/App'
 
-render(<HomePage />, document.getElementById('app')!)
+render(<App />, document.getElementById('app')!)

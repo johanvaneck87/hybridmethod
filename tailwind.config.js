@@ -17,6 +17,11 @@ export default {
           'darkest': '#5A5550',
           'charcoal': '#3B3935',
           'accent': '#A39080',
+        },
+        'orange': {
+          'DEFAULT': '#FF6B35',
+          'light': '#FF8C61',
+          'dark': '#E55A2B',
         }
       },
       fontFamily: {

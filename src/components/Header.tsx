@@ -1,47 +1,71 @@
 import { InstagramIcon, MailIcon } from './Icons'
+import { navigate, type Route } from '../router'
 
-export function Header() {
+interface HeaderProps {
+  currentRoute: Route
+}
+
+export function Header({ currentRoute }: HeaderProps) {
+  const handleNavClick = (e: MouseEvent, route: Route) => {
+    e.preventDefault()
+    navigate(route)
+  }
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-neutral-lighter border-b border-neutral-light">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-black border-b border-white/20">
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          {/* Left side */}
-          <div className="flex items-center gap-6">
-            <a
-              href="mailto:contact@hybridmethod.com"
-              className="flex items-center gap-2 text-neutral-charcoal hover:text-neutral-darkest transition-colors duration-300"
-              aria-label="Send email"
+          {/* Left side - HYBRID METHOD logo */}
+          <button
+            onClick={(e) => handleNavClick(e, 'home')}
+            className="text-white font-semibold text-xl tracking-[0.25em] hover:text-[#FF4500] transition-colors duration-200"
+          >
+            HYBRID METHOD
+          </button>
+
+          {/* Right side - Navigation */}
+          <nav className="flex items-center gap-10">
+            <button
+              onClick={(e) => handleNavClick(e, 'events')}
+              className={`text-sm font-medium uppercase tracking-wide transition-colors duration-200 ${
+                currentRoute === 'events' ? 'text-[#FF4500]' : 'text-white hover:text-[#FF4500]'
+              }`}
             >
-              <MailIcon size={20} />
-              <span className="hidden sm:inline text-sm font-medium">Contact</span>
-            </a>
-          </div>
-
-          {/* Center - Logo/Title */}
-          <div className="flex-shrink-0 text-center">
-            <a href="/" className="block">
-              <h1 className="text-2xl md:text-3xl font-bold text-neutral-charcoal">
-                Hybrid Method
-              </h1>
-              <p className="text-neutral-darker text-xs md:text-sm font-medium mt-1">
-                Personal Training
-              </p>
-            </a>
-          </div>
-
-          {/* Right side - Social Links */}
-          <div className="flex items-center gap-6">
+              EVENTS
+            </button>
+            <button
+              onClick={(e) => handleNavClick(e, 'blog')}
+              className={`text-sm font-medium uppercase tracking-wide transition-colors duration-200 ${
+                currentRoute === 'blog' ? 'text-[#FF4500]' : 'text-white hover:text-[#FF4500]'
+              }`}
+            >
+              BLOG
+            </button>
+            <button
+              onClick={(e) => handleNavClick(e, 'hybrid-method')}
+              className={`text-sm font-medium uppercase tracking-wide transition-colors duration-200 ${
+                currentRoute === 'hybrid-method' ? 'text-[#FF4500]' : 'text-white hover:text-[#FF4500]'
+              }`}
+            >
+              HYBRID METHOD
+            </button>
             <a
               href="https://www.instagram.com/hybridmethod/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-neutral-charcoal hover:text-neutral-darkest transition-colors duration-300"
+              className="text-sm font-medium uppercase tracking-wide text-white hover:text-[#FF4500] transition-colors duration-200"
               aria-label="Follow on Instagram"
             >
-              <InstagramIcon size={20} />
-              <span className="hidden sm:inline text-sm font-medium">Instagram</span>
+              INSTAGRAM
             </a>
-          </div>
+            <a
+              href="mailto:contact@hybridmethod.com"
+              className="text-sm font-medium uppercase tracking-wide text-white hover:text-[#FF4500] transition-colors duration-200"
+              aria-label="Send email"
+            >
+              EMAIL
+            </a>
+          </nav>
         </div>
       </div>
     </header>

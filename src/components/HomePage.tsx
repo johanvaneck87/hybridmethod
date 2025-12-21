@@ -12,12 +12,11 @@ export function HomePage() {
         const windowHeight = window.innerHeight
 
         // Calculate progress - starts at 100% (on screen, covering), moves to 0% (off screen left)
-        // At 50% scroll should be around 95% (still mostly covering)
-        // At 100% scroll should be 0% (fully revealed)
+        // Delayed start - text appears later in the scroll
         const rawProgress = 1 - (rect.top / windowHeight)
         const progress = Math.max(0, Math.min(1, rawProgress))
-        // Use cubic curve: starts at 100, ends at 0
-        setScrollProgress(100 - (Math.pow(progress, 3.5) * 100))
+        // Use steeper curve for later reveal: starts at 100, ends at 0
+        setScrollProgress(100 - (Math.pow(progress, 2.5) * 100))
       }
     }
 
@@ -48,17 +47,17 @@ export function HomePage() {
 
         {/* Right side - Text box */}
         <div className="w-1/2 bg-black flex items-center justify-start pl-12 pr-0">
-          <div className="bg-[#FF4500] px-12 py-32 pr-24">
+          <div className="bg-[#D94800] px-12 py-32 pr-24">
             <h2 className="text-black font-semibold text-4xl md:text-5xl lg:text-6xl leading-tight uppercase tracking-wide">
-              DE PLEK
+              PREPARE
               <br />
-              OM JE VOOR
+              FOR YOUR
               <br />
-              TE BEREIDEN
+              NEXT
               <br />
-              OP JE
+              HYBRID
               <br />
-              VOLGENDE DOEL
+              RACE
             </h2>
           </div>
         </div>
@@ -69,18 +68,18 @@ export function HomePage() {
         <div className="sticky top-0 h-screen flex items-center overflow-hidden">
           <div className="max-w-4xl mx-auto px-8 w-full">
             <div className="bg-black p-12">
-              <h2 className="text-white text-3xl font-bold mb-8 uppercase tracking-wide">
+              <h2 className="text-white text-3xl font-bold mb-8 uppercase tracking-wide text-center">
                 Hybrid Method Approach
               </h2>
 
               <div className="text-white space-y-8">
                 <p className="text-lg leading-relaxed">
-                  De personal training / coaching bestaat uit drie pijlers, namelijk <span className="text-[#FF4500] font-semibold">persoonlijk</span>, <span className="text-[#FF4500] font-semibold">doelgericht</span> en <span className="text-[#FF4500] font-semibold">methodisch</span>.
+                  De personal training / coaching bestaat uit drie pijlers, namelijk <span className="text-[#D94800] font-semibold">persoonlijk</span>, <span className="text-[#D94800] font-semibold">doelgericht</span> en <span className="text-[#D94800] font-semibold">methodisch</span>.
                 </p>
 
-                <div className="space-y-6 pl-6 border-l-4 border-[#FF4500]">
+                <div className="space-y-6 pl-6 border-l-4 border-[#D94800]">
                   <div>
-                    <h3 className="text-[#FF4500] text-xl font-semibold mb-3 uppercase tracking-wide">
+                    <h3 className="text-[#D94800] text-xl font-semibold mb-3 uppercase tracking-wide">
                       Persoonlijk
                     </h3>
                     <p className="text-gray-300 leading-relaxed">
@@ -89,7 +88,7 @@ export function HomePage() {
                   </div>
 
                   <div>
-                    <h3 className="text-[#FF4500] text-xl font-semibold mb-3 uppercase tracking-wide">
+                    <h3 className="text-[#D94800] text-xl font-semibold mb-3 uppercase tracking-wide">
                       Doelgericht
                     </h3>
                     <p className="text-gray-300 leading-relaxed">
@@ -98,7 +97,7 @@ export function HomePage() {
                   </div>
 
                   <div>
-                    <h3 className="text-[#FF4500] text-xl font-semibold mb-3 uppercase tracking-wide">
+                    <h3 className="text-[#D94800] text-xl font-semibold mb-3 uppercase tracking-wide">
                       Methodisch
                     </h3>
                     <p className="text-gray-300 leading-relaxed">
@@ -114,7 +113,7 @@ export function HomePage() {
           <div
             className="absolute inset-0 pointer-events-none z-20"
             style={{
-              background: 'linear-gradient(90deg, rgb(0, 0, 0) 0%, transparent 100%)',
+              background: 'linear-gradient(90deg, rgb(0, 0, 0) 0%, rgb(0, 0, 0) 30%, transparent 100%)',
               transform: `translate3d(${translateX}%, 0px, 0px) scale3d(1, 1, 1)`,
               willChange: 'transform',
               transformStyle: 'preserve-3d'

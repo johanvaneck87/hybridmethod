@@ -19,9 +19,9 @@ export default {
           'accent': '#A39080',
         },
         'orange': {
-          'DEFAULT': '#FF6B35',
-          'light': '#FF8C61',
-          'dark': '#E55A2B',
+          'DEFAULT': '#D94800',
+          'light': '#E85D00',
+          'dark': '#C44000',
         }
       },
       fontFamily: {

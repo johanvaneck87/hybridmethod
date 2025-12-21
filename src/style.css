@@ -16,3 +16,9 @@
     letter-spacing: 0.02em;
   }
 }
+
+/* Override Leaflet zoom controls z-index to appear behind header */
+.leaflet-top,
+.leaflet-bottom {
+  z-index: 400 !important;
+}

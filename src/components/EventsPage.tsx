@@ -15,6 +15,7 @@ interface Event {
   difficulty: 'beginner' | 'intermediate' | 'advanced'
   url: string
   description: string
+  image: string
 }
 
 type SortField = 'date' | 'location' | 'name'
@@ -75,12 +76,16 @@ export function EventsPage() {
   return (
     <div className="min-h-screen bg-black text-white pt-24 pb-12">
       <div className="max-w-7xl mx-auto px-6">
-        <h1 className="text-4xl md:text-6xl font-bold mb-12 text-[#FF4500] uppercase tracking-wide">
-          Events
+        <h1 className="text-4xl md:text-6xl font-bold mb-4 text-[#D94800] uppercase tracking-wide text-center">
+          Races
         </h1>
 
+        <p className="text-lg mb-12 text-gray-300 text-center">
+          Mis je een race? <a href="/hybridmethod/submit-event" className="text-[#D94800] hover:text-[#E85D00] underline transition-colors duration-200">Meld een nieuwe race</a>
+        </p>
+
         {/* Interactive Map with event markers */}
-        <div className="mb-12">
+        <div className="mb-12 -mx-6 md:mx-0 px-6 md:px-0">
           <EventMap events={events} />
         </div>
 
@@ -94,7 +99,7 @@ export function EventsPage() {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.currentTarget.value as SortField)}
-              className="bg-gray-900 border border-white/20 rounded px-4 py-2 text-white focus:outline-none focus:border-[#FF4500]"
+              className="bg-gray-900 border border-white/20 rounded px-4 py-2 text-white focus:outline-none focus:border-[#D94800]"
             >
               <option value="date">Date</option>
               <option value="location">Location</option>
@@ -110,7 +115,7 @@ export function EventsPage() {
             <select
               value={filterType}
               onChange={(e) => setFilterType(e.currentTarget.value as FilterType)}
-              className="bg-gray-900 border border-white/20 rounded px-4 py-2 text-white focus:outline-none focus:border-[#FF4500]"
+              className="bg-gray-900 border border-white/20 rounded px-4 py-2 text-white focus:outline-none focus:border-[#D94800]"
             >
               <option value="all">All</option>
               <option value="solo">Solo</option>
@@ -126,7 +131,7 @@ export function EventsPage() {
             <select
               value={filterDifficulty}
               onChange={(e) => setFilterDifficulty(e.currentTarget.value as FilterDifficulty)}
-              className="bg-gray-900 border border-white/20 rounded px-4 py-2 text-white focus:outline-none focus:border-[#FF4500]"
+              className="bg-gray-900 border border-white/20 rounded px-4 py-2 text-white focus:outline-none focus:border-[#D94800]"
             >
               <option value="all">All</option>
               <option value="beginner">Beginner</option>
@@ -145,7 +150,7 @@ export function EventsPage() {
                 type="checkbox"
                 checked={showUpcomingOnly}
                 onChange={(e) => setShowUpcomingOnly(e.currentTarget.checked)}
-                className="w-5 h-5 bg-gray-900 border border-white/20 rounded focus:outline-none focus:ring-2 focus:ring-[#FF4500] checked:bg-[#FF4500] cursor-pointer"
+                className="w-5 h-5 bg-gray-900 border border-white/20 rounded focus:outline-none focus:ring-2 focus:ring-[#D94800] checked:bg-[#D94800] cursor-pointer"
               />
               <span className="text-white">Upcoming only</span>
             </label>
@@ -157,53 +162,66 @@ export function EventsPage() {
           Showing {filteredAndSortedEvents.length} event{filteredAndSortedEvents.length !== 1 ? 's' : ''}
         </p>
 
-        {/* Events list */}
+        {/* Events list - Instagram square format (1:1) */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {filteredAndSortedEvents.map((event) => (
             <div
               key={event.id}
-              className="bg-gray-900 border border-white/20 rounded-lg p-6 hover:border-[#FF4500] transition-colors duration-200"
+              className="relative aspect-square bg-gray-900 border border-white/20 rounded-lg overflow-hidden hover:border-[#D94800] transition-colors duration-200 group"
             >
-              <div className="flex items-start justify-between mb-4">
-                <h3 className="text-2xl font-bold text-white uppercase tracking-wide">
-                  {event.name}
-                </h3>
-                <span className={`px-3 py-1 rounded text-xs font-medium uppercase ${
-                  event.type === 'solo'
-                    ? 'bg-[#FF4500] text-black'
-                    : 'bg-gray-700 text-white'
-                }`}>
-                  {event.type}
-                </span>
-              </div>
-
-              <div className="space-y-2 text-gray-300 mb-4">
-                <p className="flex items-center gap-2">
-                  <span>📅</span>
-                  <span>{formatDate(event.date)}</span>
-                </p>
-                <p className="flex items-center gap-2">
-                  <span>📍</span>
-                  <span>{event.location}</span>
-                </p>
-                <p className="flex items-center gap-2">
-                  <span>⚡</span>
-                  <span className="capitalize">{event.difficulty}</span>
-                </p>
-              </div>
-
-              <p className="text-sm text-gray-400 mb-4">
-                {event.description}
-              </p>
-
-              <a
-                href={event.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block bg-[#FF4500] text-black font-medium px-6 py-2 rounded uppercase tracking-wide text-sm hover:bg-[#FF6B35] transition-colors duration-200"
+              {/* Background Image */}
+              <div
+                className="absolute inset-0 bg-cover bg-center"
+                style={{ backgroundImage: `url(${event.image})` }}
               >
-                View Event
-              </a>
+                <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/70 to-black/90"></div>
+              </div>
+
+              {/* Content */}
+              <div className="relative h-full flex flex-col justify-between p-6">
+                <div>
+                  <div className="flex items-start justify-between mb-3">
+                    <h3 className="text-2xl font-bold text-white uppercase tracking-wide">
+                      {event.name}
+                    </h3>
+                    <span className={`px-3 py-1 rounded text-xs font-medium uppercase ${
+                      event.type === 'solo'
+                        ? 'bg-[#D94800] text-black'
+                        : 'bg-gray-700 text-white'
+                    }`}>
+                      {event.type}
+                    </span>
+                  </div>
+
+                  <div className="space-y-2 text-white mb-3">
+                    <p className="flex items-center gap-2 text-sm">
+                      <span>📅</span>
+                      <span>{formatDate(event.date)}</span>
+                    </p>
+                    <p className="flex items-center gap-2 text-sm">
+                      <span>📍</span>
+                      <span>{event.location}</span>
+                    </p>
+                    <p className="flex items-center gap-2 text-sm">
+                      <span>⚡</span>
+                      <span className="capitalize">{event.difficulty}</span>
+                    </p>
+                  </div>
+
+                  <p className="text-sm text-gray-200 line-clamp-2">
+                    {event.description}
+                  </p>
+                </div>
+
+                <a
+                  href={event.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block bg-[#D94800] text-black font-medium px-6 py-2 rounded uppercase tracking-wide text-sm hover:bg-[#E85D00] transition-colors duration-200 text-center"
+                >
+                  View Event
+                </a>
+              </div>
             </div>
           ))}
         </div>

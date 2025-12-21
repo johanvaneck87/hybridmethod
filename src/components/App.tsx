@@ -4,6 +4,7 @@ import { HomePage } from './HomePage'
 import { EventsPage } from './EventsPage'
 import { BlogPage } from './BlogPage'
 import { HybridMethodPage } from './HybridMethodPage'
+import { SubmitEventPage } from './SubmitEventPage'
 
 export function App() {
   const [currentRoute] = useRouter()
@@ -15,6 +16,7 @@ export function App() {
       {currentRoute === 'events' && <EventsPage />}
       {currentRoute === 'blog' && <BlogPage />}
       {currentRoute === 'hybrid-method' && <HybridMethodPage />}
+      {currentRoute === 'submit-event' && <SubmitEventPage />}
     </div>
   )
 }

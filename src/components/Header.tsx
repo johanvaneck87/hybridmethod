@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'preact/hooks'
 import { InstagramIcon, MailIcon } from './Icons'
 import { navigate, type Route } from '../router'
 
@@ -6,67 +7,160 @@ interface HeaderProps {
 }
 
 export function Header({ currentRoute }: HeaderProps) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   const handleNavClick = (e: MouseEvent, route: Route) => {
     e.preventDefault()
     navigate(route)
+    setMobileMenuOpen(false)
+  }
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen)
   }
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-black border-b border-white/20">
-      <div className="max-w-7xl mx-auto px-6 py-4">
+    <header className={`fixed top-0 left-0 right-0 z-[1000] transition-all duration-300 ${
+      isScrolled ? 'bg-black/95 backdrop-blur-sm' : 'bg-black'
+    }`}>
+      <div className={`max-w-7xl mx-auto px-6 transition-all duration-300 ${
+        isScrolled ? 'py-2' : 'py-4'
+      }`}>
         <div className="flex items-center justify-between">
-          {/* Left side - HYBRID METHOD logo */}
+          {/* Left side - HYBRID RACES logo */}
           <button
             onClick={(e) => handleNavClick(e, 'home')}
-            className="text-white font-semibold text-xl tracking-[0.25em] hover:text-[#FF4500] transition-colors duration-200"
+            className={`font-semibold tracking-[0.25em] transition-all duration-300 ${
+              isScrolled ? 'text-2xl' : 'text-3xl'
+            } ${
+              currentRoute === 'home' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
+            }`}
           >
-            HYBRID METHOD
+            HYBRID RACES
           </button>
 
-          {/* Right side - Navigation */}
-          <nav className="flex items-center gap-10">
-            <button
-              onClick={(e) => handleNavClick(e, 'events')}
-              className={`text-sm font-medium uppercase tracking-wide transition-colors duration-200 ${
-                currentRoute === 'events' ? 'text-[#FF4500]' : 'text-white hover:text-[#FF4500]'
-              }`}
-            >
-              EVENTS
-            </button>
-            <button
-              onClick={(e) => handleNavClick(e, 'blog')}
-              className={`text-sm font-medium uppercase tracking-wide transition-colors duration-200 ${
-                currentRoute === 'blog' ? 'text-[#FF4500]' : 'text-white hover:text-[#FF4500]'
-              }`}
-            >
-              BLOG
-            </button>
+          {/* Hamburger menu button - visible on mobile only */}
+          <button
+            onClick={toggleMobileMenu}
+            className="md:hidden flex flex-col gap-1.5 w-8 h-8 justify-center items-center"
+            aria-label="Toggle menu"
+          >
+            <span className={`w-6 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
+            <span className={`w-6 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? 'opacity-0' : ''}`}></span>
+            <span className={`w-6 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
+          </button>
+
+          {/* Desktop Navigation - hidden on mobile */}
+          <nav className="hidden md:flex items-center gap-10">
+            <div className="relative group">
+              <button
+                onClick={(e) => handleNavClick(e, 'events')}
+                className={`text-sm font-medium uppercase tracking-wide transition-colors duration-200 ${
+                  currentRoute === 'events' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
+                }`}
+              >
+                RACES
+              </button>
+              {/* Dropdown submenu */}
+              <div className="absolute top-full left-0 mt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-in-out">
+                <div className="bg-gray-900 border border-white/20 rounded-lg shadow-lg py-2 px-4 min-w-[180px]">
+                  <button
+                    onClick={(e) => handleNavClick(e, 'submit-event')}
+                    className={`text-sm font-normal tracking-wide transition-colors duration-200 whitespace-nowrap ${
+                      currentRoute === 'submit-event' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
+                    }`}
+                  >
+                    Submit A Race
+                  </button>
+                </div>
+              </div>
+            </div>
             <button
               onClick={(e) => handleNavClick(e, 'hybrid-method')}
               className={`text-sm font-medium uppercase tracking-wide transition-colors duration-200 ${
-                currentRoute === 'hybrid-method' ? 'text-[#FF4500]' : 'text-white hover:text-[#FF4500]'
+                currentRoute === 'hybrid-method' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
               }`}
             >
               HYBRID METHOD
             </button>
             <a
-              href="https://www.instagram.com/hybridmethod/"
+              href="https://www.instagram.com/hybridraces/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm font-medium uppercase tracking-wide text-white hover:text-[#FF4500] transition-colors duration-200"
+              className="text-sm font-medium uppercase tracking-wide text-white hover:text-[#D94800] transition-colors duration-200"
               aria-label="Follow on Instagram"
             >
               INSTAGRAM
             </a>
             <a
               href="mailto:contact@hybridmethod.com"
-              className="text-sm font-medium uppercase tracking-wide text-white hover:text-[#FF4500] transition-colors duration-200"
+              className="text-sm font-medium uppercase tracking-wide text-white hover:text-[#D94800] transition-colors duration-200"
               aria-label="Send email"
             >
               EMAIL
             </a>
           </nav>
         </div>
+
+        {/* Mobile Navigation Menu */}
+        <nav className={`md:hidden overflow-hidden transition-all duration-300 ${mobileMenuOpen ? 'max-h-96 mt-6' : 'max-h-0'}`}>
+          <div className="flex flex-col gap-4 pb-4">
+            <div className="flex flex-col gap-1">
+              <button
+                onClick={(e) => handleNavClick(e, 'events')}
+                className={`text-sm font-medium uppercase tracking-wide transition-colors duration-200 text-left ${
+                  currentRoute === 'events' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
+                }`}
+              >
+                RACES
+              </button>
+              <button
+                onClick={(e) => handleNavClick(e, 'submit-event')}
+                className={`text-xs font-normal tracking-wide transition-colors duration-200 text-left ${
+                  currentRoute === 'submit-event' ? 'text-[#D94800]' : 'text-gray-400 hover:text-[#D94800]'
+                }`}
+              >
+                Submit A Race
+              </button>
+            </div>
+            <button
+              onClick={(e) => handleNavClick(e, 'hybrid-method')}
+              className={`text-sm font-medium uppercase tracking-wide transition-colors duration-200 text-left ${
+                currentRoute === 'hybrid-method' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
+              }`}
+            >
+              HYBRID METHOD
+            </button>
+            <a
+              href="https://www.instagram.com/hybridraces/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-medium uppercase tracking-wide text-white hover:text-[#D94800] transition-colors duration-200"
+              aria-label="Follow on Instagram"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              INSTAGRAM
+            </a>
+            <a
+              href="mailto:contact@hybridmethod.com"
+              className="text-sm font-medium uppercase tracking-wide text-white hover:text-[#D94800] transition-colors duration-200"
+              aria-label="Send email"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              EMAIL
+            </a>
+          </div>
+        </nav>
       </div>
     </header>
   )

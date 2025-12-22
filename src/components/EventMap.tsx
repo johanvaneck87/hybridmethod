@@ -29,7 +29,6 @@ export function EventMap({ events }: EventMapProps) {
     // Initialize map centered on Netherlands
     const map = L.map(mapRef.current, {
       scrollWheelZoom: false,
-      tap: true,
       touchZoom: true,
       dragging: true
     }).setView([52.1326, 5.2913], 7)

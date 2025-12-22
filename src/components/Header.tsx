@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'preact/hooks'
-import { InstagramIcon, MailIcon } from './Icons'
 import { navigate, type Route } from '../router'
 
 interface HeaderProps {

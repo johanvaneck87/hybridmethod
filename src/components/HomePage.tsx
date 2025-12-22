@@ -33,32 +33,36 @@ export function HomePage() {
   return (
     <div className="bg-black">
       {/* Hero Section - Fixed */}
-      <div className="sticky top-0 h-screen flex">
-        {/* Left side - Image */}
-        <div className="w-1/2 relative">
-          <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: `url(${backgroundImage})` }}
-          >
-            {/* Dark overlay with gradient to blend into right side */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-black/30 to-black"></div>
-          </div>
-        </div>
+      <div className="sticky top-0 h-screen flex items-center">
+        <div className="max-w-7xl mx-auto px-6 w-full">
+          <div className="flex">
+            {/* Left side - Image */}
+            <div className="w-1/2 relative h-screen">
+              <div
+                className="absolute inset-0 bg-cover bg-center bg-no-repeat rounded-lg"
+                style={{ backgroundImage: `url(${backgroundImage})` }}
+              >
+                {/* Dark overlay with gradient to blend into right side */}
+                <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-black/20 to-black rounded-lg"></div>
+              </div>
+            </div>
 
-        {/* Right side - Text box */}
-        <div className="w-1/2 bg-black flex items-center justify-start pl-12 pr-0">
-          <div className="bg-[#D94800] px-12 py-32 pr-24">
-            <h2 className="text-black font-semibold text-4xl md:text-5xl lg:text-6xl leading-tight uppercase tracking-wide">
-              PREPARE
-              <br />
-              FOR YOUR
-              <br />
-              NEXT
-              <br />
-              HYBRID
-              <br />
-              RACE
-            </h2>
+            {/* Right side - Text box */}
+            <div className="w-1/2 bg-black flex items-center justify-end pl-12">
+              <div className="bg-[#D94800] px-12 py-32">
+                <h2 className="text-black font-semibold text-4xl md:text-5xl lg:text-6xl leading-tight uppercase tracking-wide">
+                  PREPARE
+                  <br />
+                  FOR YOUR
+                  <br />
+                  NEXT
+                  <br />
+                  HYBRID
+                  <br />
+                  RACE
+                </h2>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -68,8 +72,8 @@ export function HomePage() {
         <div className="sticky top-0 h-screen flex items-center overflow-hidden">
           <div className="max-w-4xl mx-auto px-8 w-full">
             <div className="bg-black p-12">
-              <h2 className="text-white text-3xl font-bold mb-8 uppercase tracking-wide text-center">
-                Hybrid Method Approach
+              <h2 className="text-4xl md:text-6xl font-bold mb-8 text-[#D94800] uppercase tracking-wide text-center">
+                Hybrid Method
               </h2>
 
               <div className="text-white space-y-8">

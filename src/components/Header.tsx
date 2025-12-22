@@ -8,6 +8,7 @@ interface HeaderProps {
 export function Header({ currentRoute }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [language, setLanguage] = useState<'nl' | 'en'>('nl')
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,10 +40,8 @@ export function Header({ currentRoute }: HeaderProps) {
           {/* Left side - HYBRID RACES logo */}
           <button
             onClick={(e) => handleNavClick(e, 'home')}
-            className={`font-semibold tracking-[0.25em] transition-all duration-300 ${
-              isScrolled ? 'text-2xl' : 'text-3xl'
-            } ${
-              currentRoute === 'home' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
+            className={`font-semibold tracking-[0.25em] transition-all duration-300 text-[#D94800] ${
+              isScrolled ? 'text-2xl lg:text-3xl' : 'text-3xl lg:text-4xl'
             }`}
           >
             HYBRID RACES
@@ -61,21 +60,39 @@ export function Header({ currentRoute }: HeaderProps) {
 
           {/* Desktop Navigation - hidden on mobile */}
           <nav className="hidden md:flex items-center gap-10">
+            <button
+              onClick={(e) => handleNavClick(e, 'home')}
+              className={`text-sm lg:text-base font-medium uppercase tracking-wide transition-colors duration-200 flex flex-col leading-tight ${
+                currentRoute === 'home' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
+              }`}
+            >
+              <span>HYBRID</span>
+              <span>METHOD</span>
+            </button>
             <div className="relative group">
               <button
                 onClick={(e) => handleNavClick(e, 'events')}
-                className={`text-sm font-medium uppercase tracking-wide transition-colors duration-200 ${
+                className={`text-sm lg:text-base font-medium uppercase tracking-wide transition-colors duration-200 flex flex-col leading-tight ${
                   currentRoute === 'events' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
                 }`}
               >
-                RACES
+                <span>HYBRID</span>
+                <span>RACES</span>
               </button>
               {/* Dropdown submenu */}
               <div className="absolute top-full left-0 mt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-in-out">
-                <div className="bg-gray-900 border border-white/20 rounded-lg shadow-lg py-2 px-4 min-w-[180px]">
+                <div className="bg-gray-900 border border-white/20 rounded-lg shadow-lg py-2 px-4 min-w-[180px] flex flex-col gap-2">
+                  <button
+                    onClick={(e) => handleNavClick(e, 'events')}
+                    className={`text-sm lg:text-base font-normal tracking-wide transition-colors duration-200 whitespace-nowrap text-left ${
+                      currentRoute === 'events' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
+                    }`}
+                  >
+                    Find A Race
+                  </button>
                   <button
                     onClick={(e) => handleNavClick(e, 'submit-event')}
-                    className={`text-sm font-normal tracking-wide transition-colors duration-200 whitespace-nowrap ${
+                    className={`text-sm lg:text-base font-normal tracking-wide transition-colors duration-200 whitespace-nowrap text-left ${
                       currentRoute === 'submit-event' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
                     }`}
                   >
@@ -85,43 +102,70 @@ export function Header({ currentRoute }: HeaderProps) {
               </div>
             </div>
             <button
-              onClick={(e) => handleNavClick(e, 'hybrid-method')}
-              className={`text-sm font-medium uppercase tracking-wide transition-colors duration-200 ${
-                currentRoute === 'hybrid-method' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
+              onClick={(e) => handleNavClick(e, 'coaching')}
+              className={`text-sm lg:text-base font-medium uppercase tracking-wide transition-colors duration-200 flex flex-col leading-tight ${
+                currentRoute === 'coaching' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
               }`}
             >
-              HYBRID METHOD
+              <span>HYBRID</span>
+              <span>COACHING</span>
             </button>
             <a
               href="https://www.instagram.com/hybridraces/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm font-medium uppercase tracking-wide text-white hover:text-[#D94800] transition-colors duration-200"
+              className="text-sm lg:text-base font-medium uppercase tracking-wide text-white hover:text-[#D94800] transition-colors duration-200"
               aria-label="Follow on Instagram"
             >
               INSTAGRAM
             </a>
             <a
               href="mailto:contact@hybridmethod.com"
-              className="text-sm font-medium uppercase tracking-wide text-white hover:text-[#D94800] transition-colors duration-200"
+              className="text-sm lg:text-base font-medium uppercase tracking-wide text-white hover:text-[#D94800] transition-colors duration-200"
               aria-label="Send email"
             >
               EMAIL
             </a>
+            <select
+              value={language}
+              onChange={(e) => setLanguage(e.currentTarget.value as 'nl' | 'en')}
+              className="bg-transparent border border-white/20 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-[#D94800] cursor-pointer"
+            >
+              <option value="nl" className="bg-gray-900">NL</option>
+              <option value="en" className="bg-gray-900">EN</option>
+            </select>
           </nav>
         </div>
 
         {/* Mobile Navigation Menu */}
         <nav className={`md:hidden overflow-hidden transition-all duration-300 ${mobileMenuOpen ? 'max-h-96 mt-6' : 'max-h-0'}`}>
           <div className="flex flex-col gap-4 pb-4">
+            <button
+              onClick={(e) => handleNavClick(e, 'home')}
+              className={`text-sm font-medium uppercase tracking-wide transition-colors duration-200 text-left flex flex-col leading-tight ${
+                currentRoute === 'home' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
+              }`}
+            >
+              <span>HYBRID</span>
+              <span>METHOD</span>
+            </button>
             <div className="flex flex-col gap-1">
               <button
                 onClick={(e) => handleNavClick(e, 'events')}
-                className={`text-sm font-medium uppercase tracking-wide transition-colors duration-200 text-left ${
+                className={`text-sm font-medium uppercase tracking-wide transition-colors duration-200 text-left flex flex-col leading-tight ${
                   currentRoute === 'events' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
                 }`}
               >
-                RACES
+                <span>HYBRID</span>
+                <span>RACES</span>
+              </button>
+              <button
+                onClick={(e) => handleNavClick(e, 'events')}
+                className={`text-xs font-normal tracking-wide transition-colors duration-200 text-left ${
+                  currentRoute === 'events' ? 'text-[#D94800]' : 'text-gray-400 hover:text-[#D94800]'
+                }`}
+              >
+                Find A Race
               </button>
               <button
                 onClick={(e) => handleNavClick(e, 'submit-event')}
@@ -133,12 +177,13 @@ export function Header({ currentRoute }: HeaderProps) {
               </button>
             </div>
             <button
-              onClick={(e) => handleNavClick(e, 'hybrid-method')}
-              className={`text-sm font-medium uppercase tracking-wide transition-colors duration-200 text-left ${
-                currentRoute === 'hybrid-method' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
+              onClick={(e) => handleNavClick(e, 'coaching')}
+              className={`text-sm font-medium uppercase tracking-wide transition-colors duration-200 text-left flex flex-col leading-tight ${
+                currentRoute === 'coaching' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
               }`}
             >
-              HYBRID METHOD
+              <span>HYBRID</span>
+              <span>COACHING</span>
             </button>
             <a
               href="https://www.instagram.com/hybridraces/"
@@ -158,6 +203,19 @@ export function Header({ currentRoute }: HeaderProps) {
             >
               EMAIL
             </a>
+            <div>
+              <label className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
+                Language
+              </label>
+              <select
+                value={language}
+                onChange={(e) => setLanguage(e.currentTarget.value as 'nl' | 'en')}
+                className="bg-gray-900 border border-white/20 rounded px-4 py-2 text-white focus:outline-none focus:border-[#D94800] w-full"
+              >
+                <option value="nl">Nederlands</option>
+                <option value="en">English</option>
+              </select>
+            </div>
           </div>
         </nav>
       </div>

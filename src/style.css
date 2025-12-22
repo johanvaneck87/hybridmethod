@@ -5,6 +5,10 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    overflow-y: scroll;
+  }
+
   body {
     font-family: 'Barlow', sans-serif;
     font-weight: 400;

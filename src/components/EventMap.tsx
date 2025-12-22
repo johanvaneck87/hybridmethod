@@ -30,14 +30,21 @@ export function EventMap({ events }: EventMapProps) {
     const map = L.map(mapRef.current, {
       scrollWheelZoom: false,
       touchZoom: true,
-      dragging: true
+      dragging: true,
+      attributionControl: false
     }).setView([52.1326, 5.2913], 7)
+
+    // Add custom attribution control with only Google Maps
+    L.control.attribution({
+      position: 'bottomright',
+      prefix: false
+    }).addAttribution('© Google Maps').addTo(map)
 
     // Add Google Maps tiles
     L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
       maxZoom: 20,
       subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-      attribution: '© Google Maps'
+      attribution: ''
     }).addTo(map)
 
     // Invalidate size after a short delay to ensure proper rendering

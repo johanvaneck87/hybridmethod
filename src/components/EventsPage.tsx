@@ -27,6 +27,7 @@ export function EventsPage() {
   const [filterType, setFilterType] = useState<FilterType>('all')
   const [filterDifficulty, setFilterDifficulty] = useState<FilterDifficulty>('all')
   const [showUpcomingOnly, setShowUpcomingOnly] = useState(true)
+  const [showMap, setShowMap] = useState(true)
 
   const events = eventsData as Event[]
 
@@ -62,7 +63,7 @@ export function EventsPage() {
     })
 
     return filtered
-  }, [events, sortBy, filterType, filterDifficulty])
+  }, [events, sortBy, filterType, filterDifficulty, showUpcomingOnly])
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
@@ -77,20 +78,15 @@ export function EventsPage() {
     <div className="min-h-screen bg-black text-white pt-24 pb-12">
       <div className="max-w-7xl mx-auto px-6">
         <h1 className="text-4xl md:text-6xl font-bold mb-4 text-[#D94800] uppercase tracking-wide text-center">
-          Races
+          Find A Race
         </h1>
 
         <p className="text-lg mb-12 text-gray-300 text-center">
           Mis je een race? <a href="/hybridmethod/submit-event" className="text-[#D94800] hover:text-[#E85D00] underline transition-colors duration-200">Meld een nieuwe race</a>
         </p>
 
-        {/* Interactive Map with event markers */}
-        <div className="mb-12 -mx-6 md:mx-0 px-6 md:px-0">
-          <EventMap events={events} />
-        </div>
-
         {/* Filters and sorting */}
-        <div className="mb-8 flex flex-wrap gap-4">
+        <div className="sticky top-[64px] z-30 bg-black/60 backdrop-blur-sm pt-2 pb-4 mb-8 flex flex-wrap gap-4">
           {/* Sort by */}
           <div>
             <label className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
@@ -150,12 +146,35 @@ export function EventsPage() {
                 type="checkbox"
                 checked={showUpcomingOnly}
                 onChange={(e) => setShowUpcomingOnly(e.currentTarget.checked)}
-                className="w-5 h-5 bg-gray-900 border border-white/20 rounded focus:outline-none focus:ring-2 focus:ring-[#D94800] checked:bg-[#D94800] cursor-pointer"
+                className="w-5 h-5 cursor-pointer accent-[#D94800]"
               />
               <span className="text-white">Upcoming only</span>
             </label>
           </div>
+
+          {/* Show Map checkbox */}
+          <div>
+            <label className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
+              Show Map
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={showMap}
+                onChange={(e) => setShowMap(e.currentTarget.checked)}
+                className="w-5 h-5 cursor-pointer accent-[#D94800]"
+              />
+              <span className="text-white">Show</span>
+            </label>
+          </div>
         </div>
+
+        {/* Interactive Map with event markers */}
+        {showMap && (
+          <div className="mb-8 -mx-6 md:mx-0 px-6 md:px-0 relative z-10">
+            <EventMap events={events} />
+          </div>
+        )}
 
         {/* Results count */}
         <p className="text-gray-400 mb-6">
@@ -163,7 +182,7 @@ export function EventsPage() {
         </p>
 
         {/* Events list - Instagram square format (1:1) */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {filteredAndSortedEvents.map((event) => (
             <div
               key={event.id}
@@ -207,10 +226,6 @@ export function EventsPage() {
                       <span className="capitalize">{event.difficulty}</span>
                     </p>
                   </div>
-
-                  <p className="text-sm text-gray-200 line-clamp-2">
-                    {event.description}
-                  </p>
                 </div>
 
                 <a

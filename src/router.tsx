@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'preact/hooks'
 
-export type Route = 'home' | 'events' | 'blog' | 'hybrid-method' | 'submit-event' | 'coaching'
+export type Route = 'home' | 'hybrid-races' | 'events' | 'blog' | 'hybrid-method' | 'submit-event'
 
 let currentRoute: Route = 'home'
 const listeners: Set<(route: Route) => void> = new Set()
@@ -27,6 +27,6 @@ export function useRouter(): [Route, (route: Route) => void] {
 
 // Initialize route from URL
 const path = window.location.pathname.replace('/hybridmethod', '').replace(/^\//, '')
-if (path === 'events' || path === 'blog' || path === 'hybrid-method' || path === 'submit-event' || path === 'coaching') {
+if (path === 'hybrid-races' || path === 'events' || path === 'blog' || path === 'hybrid-method' || path === 'submit-event') {
   currentRoute = path
 }

@@ -39,7 +39,7 @@ export function Header({ currentRoute }: HeaderProps) {
         <div className="flex items-center justify-between">
           {/* Left side - HYBRID RACES logo */}
           <button
-            onClick={(e) => handleNavClick(e, 'home')}
+            onClick={(e) => handleNavClick(e, 'hybrid-races')}
             className={`font-semibold tracking-[0.25em] transition-all duration-300 text-[#D94800] ${
               isScrolled ? 'text-2xl lg:text-3xl' : 'text-3xl lg:text-4xl'
             }`}
@@ -62,22 +62,20 @@ export function Header({ currentRoute }: HeaderProps) {
           <nav className="hidden md:flex items-center gap-10">
             <button
               onClick={(e) => handleNavClick(e, 'home')}
-              className={`text-sm lg:text-base font-medium uppercase tracking-wide transition-colors duration-200 flex flex-col leading-tight ${
+              className={`text-sm lg:text-base font-medium uppercase tracking-wide transition-colors duration-200 ${
                 currentRoute === 'home' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
               }`}
             >
-              <span>HYBRID</span>
-              <span>METHOD</span>
+              METHOD
             </button>
             <div className="relative group">
               <button
-                onClick={(e) => handleNavClick(e, 'events')}
-                className={`text-sm lg:text-base font-medium uppercase tracking-wide transition-colors duration-200 flex flex-col leading-tight ${
-                  currentRoute === 'events' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
+                onClick={(e) => handleNavClick(e, 'submit-event')}
+                className={`text-sm lg:text-base font-medium uppercase tracking-wide transition-colors duration-200 ${
+                  currentRoute === 'submit-event' || currentRoute === 'events' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
                 }`}
               >
-                <span>HYBRID</span>
-                <span>RACES</span>
+                SUBMIT A RACE
               </button>
               {/* Dropdown submenu */}
               <div className="absolute top-full left-0 mt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-in-out">
@@ -90,26 +88,9 @@ export function Header({ currentRoute }: HeaderProps) {
                   >
                     Find A Race
                   </button>
-                  <button
-                    onClick={(e) => handleNavClick(e, 'submit-event')}
-                    className={`text-sm lg:text-base font-normal tracking-wide transition-colors duration-200 whitespace-nowrap text-left ${
-                      currentRoute === 'submit-event' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
-                    }`}
-                  >
-                    Submit A Race
-                  </button>
                 </div>
               </div>
             </div>
-            <button
-              onClick={(e) => handleNavClick(e, 'coaching')}
-              className={`text-sm lg:text-base font-medium uppercase tracking-wide transition-colors duration-200 flex flex-col leading-tight ${
-                currentRoute === 'coaching' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
-              }`}
-            >
-              <span>HYBRID</span>
-              <span>COACHING</span>
-            </button>
             <a
               href="https://www.instagram.com/hybridraces/"
               target="_blank"
@@ -142,22 +123,20 @@ export function Header({ currentRoute }: HeaderProps) {
           <div className="flex flex-col gap-4 pb-4">
             <button
               onClick={(e) => handleNavClick(e, 'home')}
-              className={`text-sm font-medium uppercase tracking-wide transition-colors duration-200 text-left flex flex-col leading-tight ${
+              className={`text-sm font-medium uppercase tracking-wide transition-colors duration-200 text-left ${
                 currentRoute === 'home' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
               }`}
             >
-              <span>HYBRID</span>
-              <span>METHOD</span>
+              METHOD
             </button>
             <div className="flex flex-col gap-1">
               <button
-                onClick={(e) => handleNavClick(e, 'events')}
-                className={`text-sm font-medium uppercase tracking-wide transition-colors duration-200 text-left flex flex-col leading-tight ${
-                  currentRoute === 'events' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
+                onClick={(e) => handleNavClick(e, 'submit-event')}
+                className={`text-sm font-medium uppercase tracking-wide transition-colors duration-200 text-left ${
+                  currentRoute === 'submit-event' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
                 }`}
               >
-                <span>HYBRID</span>
-                <span>RACES</span>
+                SUBMIT A RACE
               </button>
               <button
                 onClick={(e) => handleNavClick(e, 'events')}
@@ -167,24 +146,7 @@ export function Header({ currentRoute }: HeaderProps) {
               >
                 Find A Race
               </button>
-              <button
-                onClick={(e) => handleNavClick(e, 'submit-event')}
-                className={`text-xs font-normal tracking-wide transition-colors duration-200 text-left ${
-                  currentRoute === 'submit-event' ? 'text-[#D94800]' : 'text-gray-400 hover:text-[#D94800]'
-                }`}
-              >
-                Submit A Race
-              </button>
             </div>
-            <button
-              onClick={(e) => handleNavClick(e, 'coaching')}
-              className={`text-sm font-medium uppercase tracking-wide transition-colors duration-200 text-left flex flex-col leading-tight ${
-                currentRoute === 'coaching' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
-              }`}
-            >
-              <span>HYBRID</span>
-              <span>COACHING</span>
-            </button>
             <a
               href="https://www.instagram.com/hybridraces/"
               target="_blank"

@@ -199,18 +199,9 @@ export function EventsPage() {
               {/* Content */}
               <div className="relative h-full flex flex-col justify-between p-6">
                 <div>
-                  <div className="flex items-start justify-between mb-3">
-                    <h3 className="text-2xl font-bold text-white uppercase tracking-wide">
-                      {event.name}
-                    </h3>
-                    <span className={`px-3 py-1 rounded text-xs font-medium uppercase ${
-                      event.type === 'solo'
-                        ? 'bg-[#D94800] text-black'
-                        : 'bg-gray-700 text-white'
-                    }`}>
-                      {event.type}
-                    </span>
-                  </div>
+                  <h3 className="text-2xl font-bold text-white uppercase tracking-wide mb-3">
+                    {event.name}
+                  </h3>
 
                   <div className="space-y-2 text-white mb-3">
                     <p className="flex items-center gap-2 text-sm">

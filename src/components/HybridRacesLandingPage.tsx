@@ -36,7 +36,7 @@ function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: numbe
   return R * c
 }
 
-export function HybridRacesPage() {
+export function HybridRacesLandingPage() {
   const [sortBy, setSortBy] = useState<SortField>('date')
   const [filterType, setFilterType] = useState<FilterType>('all')
   const [filterDifficulty, setFilterDifficulty] = useState<FilterDifficulty>('all')

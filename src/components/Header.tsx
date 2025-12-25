@@ -39,9 +39,9 @@ export function Header({ currentRoute }: HeaderProps) {
         <div className="flex items-center justify-between">
           {/* Left side - HYBRID RACES logo */}
           <button
-            onClick={(e) => handleNavClick(e, 'hybrid-races')}
-            className={`font-semibold tracking-[0.25em] transition-all duration-300 text-[#D94800] ${
-              isScrolled ? 'text-2xl lg:text-3xl' : 'text-3xl lg:text-4xl'
+            onClick={(e) => handleNavClick(e, 'home')}
+            className={`font-semibold tracking-[0.25em] transition-all duration-300 text-[#D94800] whitespace-nowrap ${
+              isScrolled ? 'text-xl lg:text-3xl' : 'text-2xl lg:text-4xl'
             }`}
           >
             HYBRID RACES
@@ -59,20 +59,20 @@ export function Header({ currentRoute }: HeaderProps) {
           </button>
 
           {/* Desktop Navigation - hidden on mobile */}
-          <nav className="hidden md:flex items-center gap-10">
+          <nav className="hidden md:flex items-center gap-6 lg:gap-8">
             <button
-              onClick={(e) => handleNavClick(e, 'home')}
-              className={`text-sm lg:text-base font-medium uppercase tracking-wide transition-colors duration-200 ${
-                currentRoute === 'home' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
+              onClick={(e) => handleNavClick(e, 'find-a-race')}
+              className={`text-sm lg:text-base font-medium uppercase tracking-wide transition-colors duration-200 whitespace-nowrap ${
+                currentRoute === 'find-a-race' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
               }`}
             >
-              METHOD
+              FIND A RACE
             </button>
             <div className="relative group">
               <button
                 onClick={(e) => handleNavClick(e, 'submit-event')}
-                className={`text-sm lg:text-base font-medium uppercase tracking-wide transition-colors duration-200 ${
-                  currentRoute === 'submit-event' || currentRoute === 'events' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
+                className={`text-sm lg:text-base font-medium uppercase tracking-wide transition-colors duration-200 whitespace-nowrap ${
+                  currentRoute === 'submit-event' || currentRoute === 'events' || currentRoute === 'hybrid-races' || currentRoute === 'hybrid-method' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
                 }`}
               >
                 SUBMIT A RACE
@@ -82,11 +82,27 @@ export function Header({ currentRoute }: HeaderProps) {
                 <div className="bg-gray-900 border border-white/20 rounded-lg shadow-lg py-2 px-4 min-w-[180px] flex flex-col gap-2">
                   <button
                     onClick={(e) => handleNavClick(e, 'events')}
-                    className={`text-sm lg:text-base font-normal tracking-wide transition-colors duration-200 whitespace-nowrap text-left ${
+                    className={`text-sm font-normal tracking-wide transition-colors duration-200 whitespace-nowrap text-left ${
                       currentRoute === 'events' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
                     }`}
                   >
-                    Find A Race
+                    Events
+                  </button>
+                  <button
+                    onClick={(e) => handleNavClick(e, 'hybrid-races')}
+                    className={`text-sm font-normal tracking-wide transition-colors duration-200 whitespace-nowrap text-left ${
+                      currentRoute === 'hybrid-races' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
+                    }`}
+                  >
+                    Hybrid Races
+                  </button>
+                  <button
+                    onClick={(e) => handleNavClick(e, 'hybrid-method')}
+                    className={`text-sm font-normal tracking-wide transition-colors duration-200 whitespace-nowrap text-left ${
+                      currentRoute === 'hybrid-method' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
+                    }`}
+                  >
+                    Method
                   </button>
                 </div>
               </div>
@@ -95,14 +111,14 @@ export function Header({ currentRoute }: HeaderProps) {
               href="https://www.instagram.com/hybridraces/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm lg:text-base font-medium uppercase tracking-wide text-white hover:text-[#D94800] transition-colors duration-200"
+              className="text-sm lg:text-base font-medium uppercase tracking-wide text-white hover:text-[#D94800] transition-colors duration-200 whitespace-nowrap"
               aria-label="Follow on Instagram"
             >
               INSTAGRAM
             </a>
             <a
               href="mailto:contact@hybridmethod.com"
-              className="text-sm lg:text-base font-medium uppercase tracking-wide text-white hover:text-[#D94800] transition-colors duration-200"
+              className="text-sm lg:text-base font-medium uppercase tracking-wide text-white hover:text-[#D94800] transition-colors duration-200 whitespace-nowrap"
               aria-label="Send email"
             >
               EMAIL
@@ -122,12 +138,12 @@ export function Header({ currentRoute }: HeaderProps) {
         <nav className={`md:hidden overflow-hidden transition-all duration-300 ${mobileMenuOpen ? 'max-h-96 mt-6' : 'max-h-0'}`}>
           <div className="flex flex-col gap-4 pb-4">
             <button
-              onClick={(e) => handleNavClick(e, 'home')}
+              onClick={(e) => handleNavClick(e, 'find-a-race')}
               className={`text-sm font-medium uppercase tracking-wide transition-colors duration-200 text-left ${
-                currentRoute === 'home' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
+                currentRoute === 'find-a-race' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
               }`}
             >
-              METHOD
+              FIND A RACE
             </button>
             <div className="flex flex-col gap-1">
               <button
@@ -144,7 +160,23 @@ export function Header({ currentRoute }: HeaderProps) {
                   currentRoute === 'events' ? 'text-[#D94800]' : 'text-gray-400 hover:text-[#D94800]'
                 }`}
               >
-                Find A Race
+                Events
+              </button>
+              <button
+                onClick={(e) => handleNavClick(e, 'hybrid-races')}
+                className={`text-xs font-normal tracking-wide transition-colors duration-200 text-left ${
+                  currentRoute === 'hybrid-races' ? 'text-[#D94800]' : 'text-gray-400 hover:text-[#D94800]'
+                }`}
+              >
+                Hybrid Races
+              </button>
+              <button
+                onClick={(e) => handleNavClick(e, 'hybrid-method')}
+                className={`text-xs font-normal tracking-wide transition-colors duration-200 text-left ${
+                  currentRoute === 'hybrid-method' ? 'text-[#D94800]' : 'text-gray-400 hover:text-[#D94800]'
+                }`}
+              >
+                Method
               </button>
             </div>
             <a

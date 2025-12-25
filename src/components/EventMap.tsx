@@ -173,5 +173,5 @@ export function EventMap({ events, highlightedEventId, selectedEventId, onEventC
     })
   }, [highlightedEventId, selectedEventId])
 
-  return <div ref={mapRef} className="h-64 md:h-96 w-full rounded-lg" style={{ minHeight: '300px' }} />
+  return <div ref={mapRef} className="w-full rounded-lg" style={{ height: '100%', minHeight: '300px' }} />
 }

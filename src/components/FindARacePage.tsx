@@ -28,7 +28,8 @@ export function FindARacePage() {
   const [filterType, setFilterType] = useState<FilterType>('all')
   const [filterDifficulty, setFilterDifficulty] = useState<FilterDifficulty>('all')
   const [showUpcomingOnly, setShowUpcomingOnly] = useState(true)
-  const [showMap, setShowMap] = useState(true)
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
+  const [viewMode, setViewMode] = useState<'list' | 'map'>('list')
 
   const events = eventsData as Event[]
 
@@ -111,14 +112,153 @@ export function FindARacePage() {
       </div>
 
       {/* Content Section - Events List */}
-      <div className="relative z-10 bg-black pt-24 md:pt-12 pb-12 min-h-screen text-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <p className="text-lg mb-12 text-gray-300 text-center">
-            Mis je een race? <a href="/hybridmethod/submit-event" className="text-[#D94800] hover:text-[#E85D00] underline transition-colors duration-200">Meld een nieuwe race</a>
-          </p>
+      <div className="relative z-10 bg-black text-white pt-24 md:pt-12 pb-12 min-h-screen">
+        <div className="mx-auto max-w-7xl px-6">
+        {/* Mobile Filter Toggle and View Mode - Only visible on mobile and not in map view */}
+        <div className="md:hidden sticky top-[64px] z-30 mb-4 flex gap-2">
+          <button
+            onClick={() => setMobileFiltersOpen(!mobileFiltersOpen)}
+            className="flex-1 bg-gray-900 border border-white/20 rounded px-4 py-3 text-white flex items-center justify-between"
+          >
+            <span className="font-medium uppercase tracking-wide">Filters</span>
+            <span className={`transform transition-transform duration-200 ${mobileFiltersOpen ? 'rotate-180' : ''}`}>▼</span>
+          </button>
 
-        {/* Filters and sorting */}
-        <div className="sticky top-[64px] z-30 bg-black/60 backdrop-blur-sm pt-2 pb-4 mb-8 flex flex-wrap gap-4">
+          <button
+            onClick={() => setViewMode(viewMode === 'list' ? 'map' : 'list')}
+            className="bg-gray-900 border border-white/20 rounded px-4 py-3 text-white flex items-center gap-2"
+          >
+            {viewMode === 'list' ? (
+              <>
+                <span>🗺️</span>
+                <span className="font-medium uppercase tracking-wide text-sm">Map</span>
+              </>
+            ) : (
+              <>
+                <span>📋</span>
+                <span className="font-medium uppercase tracking-wide text-sm">List</span>
+              </>
+            )}
+          </button>
+        </div>
+
+        {/* Mobile Filters Fullscreen Overlay */}
+        {mobileFiltersOpen && (
+          <div className="md:hidden fixed top-0 left-0 right-0 bottom-0 bg-black z-40 overflow-y-auto pt-16">
+            {/* Close button at top */}
+            <div className="sticky top-0 bg-black z-50 px-6 py-4 border-b border-white/20">
+              <button
+                onClick={() => setMobileFiltersOpen(false)}
+                className="w-full bg-gray-900 border border-white/20 rounded px-4 py-3 text-white flex items-center justify-between"
+              >
+                <span className="font-medium uppercase tracking-wide">Filters</span>
+                <span className="transform rotate-180">▼</span>
+              </button>
+            </div>
+
+            <div className="p-6 space-y-6">
+              {/* Sort by */}
+              <div>
+                <label className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
+                  Sort by
+                </label>
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.currentTarget.value as SortField)}
+                  className="w-full bg-gray-900 border border-white/20 rounded px-4 py-2 text-white focus:outline-none focus:border-[#D94800]"
+                >
+                  <option value="date">Date</option>
+                  <option value="location">Location</option>
+                  <option value="name">Name</option>
+                </select>
+              </div>
+
+              {/* Filter by type */}
+              <div>
+                <label className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
+                  Race Type
+                </label>
+                <select
+                  value={filterType}
+                  onChange={(e) => setFilterType(e.currentTarget.value as FilterType)}
+                  className="w-full bg-gray-900 border border-white/20 rounded px-4 py-2 text-white focus:outline-none focus:border-[#D94800]"
+                >
+                  <option value="all">All</option>
+                  <option value="solo">Solo</option>
+                  <option value="duo">Duo</option>
+                </select>
+              </div>
+
+              {/* Filter by difficulty */}
+              <div>
+                <label className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
+                  Difficulty
+                </label>
+                <select
+                  value={filterDifficulty}
+                  onChange={(e) => setFilterDifficulty(e.currentTarget.value as FilterDifficulty)}
+                  className="w-full bg-gray-900 border border-white/20 rounded px-4 py-2 text-white focus:outline-none focus:border-[#D94800]"
+                >
+                  <option value="all">All</option>
+                  <option value="beginner">Beginner</option>
+                  <option value="intermediate">Intermediate</option>
+                  <option value="advanced">Advanced</option>
+                </select>
+              </div>
+
+              {/* Show upcoming only checkbox */}
+              <div>
+                <label className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
+                  Show
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={showUpcomingOnly}
+                    onChange={(e) => setShowUpcomingOnly(e.currentTarget.checked)}
+                    className="w-5 h-5 cursor-pointer accent-[#D94800]"
+                  />
+                  <span className="text-white">Upcoming only</span>
+                </label>
+              </div>
+
+              {/* Apply button to close filters */}
+              <button
+                onClick={() => setMobileFiltersOpen(false)}
+                className="w-full bg-[#D94800] text-black font-medium px-6 py-3 rounded uppercase tracking-wide hover:bg-[#E85D00] transition-colors duration-200"
+              >
+                Apply Filters
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Layout Container - Desktop: Sidebar + Grid, Mobile: Stacked */}
+        <div className="flex gap-6 items-start">
+          {/* Filters Sidebar - Left on desktop, hidden on mobile */}
+          <div className="hidden md:block md:sticky md:top-[80px] md:w-[calc((100%-3*1.5rem)/4)] flex-shrink-0">
+            <div className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-6 space-y-6">
+              {/* Header with FILTERS and MAP/LIST toggle */}
+              <div className="flex items-center justify-between pb-4 border-b border-white/20">
+                <h3 className="text-lg font-semibold uppercase tracking-wide text-white">Filters</h3>
+                <button
+                  onClick={() => setViewMode(viewMode === 'list' ? 'map' : 'list')}
+                  className="flex items-center gap-2 text-sm font-medium uppercase tracking-wide text-white hover:text-[#D94800] transition-colors duration-200"
+                >
+                  {viewMode === 'list' ? (
+                    <>
+                      <span>🗺️</span>
+                      <span>Map</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>📋</span>
+                      <span>List</span>
+                    </>
+                  )}
+                </button>
+              </div>
+
           {/* Sort by */}
           <div>
             <label className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
@@ -183,38 +323,45 @@ export function FindARacePage() {
               <span className="text-white">Upcoming only</span>
             </label>
           </div>
-
-          {/* Show Map checkbox */}
-          <div>
-            <label className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
-              Show Map
-            </label>
-            <label className="flex items-center gap-2 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={showMap}
-                onChange={(e) => setShowMap(e.currentTarget.checked)}
-                className="w-5 h-5 cursor-pointer accent-[#D94800]"
-              />
-              <span className="text-white">Show</span>
-            </label>
+            </div>
           </div>
-        </div>
 
-        {/* Interactive Map with event markers */}
-        {showMap && (
-          <div className="mb-8 -mx-6 md:mx-0 px-6 md:px-0 relative z-10">
-            <EventMap events={events} />
-          </div>
-        )}
+          {/* Main Content Area - Events Grid or Map */}
+          <div className="flex-1">
+            {viewMode === 'map' ? (
+              /* Map View - Full available height */
+              <>
+                {/* Results count and submit link */}
+                <div className="flex items-center justify-between mb-6">
+                  <p className="text-gray-400">
+                    Showing {filteredAndSortedEvents.length} event{filteredAndSortedEvents.length !== 1 ? 's' : ''}
+                  </p>
+                  <p className="text-gray-400">
+                    Race not found? <a href="/hybridmethod/submit-event" className="text-[#D94800] hover:text-[#E85D00] underline transition-colors duration-200">Submit a race</a>
+                  </p>
+                </div>
 
-        {/* Results count */}
-        <p className="text-gray-400 mb-6">
-          Showing {filteredAndSortedEvents.length} event{filteredAndSortedEvents.length !== 1 ? 's' : ''}
-        </p>
+                <div className="relative z-10 mb-6 md:mb-12">
+                  <div className="h-[calc(100vh-320px)] md:h-[calc(100vh-200px)]">
+                    <EventMap events={events} />
+                  </div>
+                </div>
+              </>
+            ) : (
+              /* List View */
+              <>
+                {/* Results count and submit link */}
+                <div className="flex items-center justify-between mb-6">
+                  <p className="text-gray-400">
+                    Showing {filteredAndSortedEvents.length} event{filteredAndSortedEvents.length !== 1 ? 's' : ''}
+                  </p>
+                  <p className="text-gray-400">
+                    Race not found? <a href="/hybridmethod/submit-event" className="text-[#D94800] hover:text-[#E85D00] underline transition-colors duration-200">Submit a race</a>
+                  </p>
+                </div>
 
-        {/* Events list - Instagram square format (1:1) */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+                {/* Events list - 3 columns on desktop */}
+                <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {filteredAndSortedEvents.map((event) => (
             <div
               key={event.id}
@@ -262,13 +409,17 @@ export function FindARacePage() {
               </div>
             </div>
           ))}
-        </div>
+                </div>
 
-        {filteredAndSortedEvents.length === 0 && (
-          <div className="text-center text-gray-400 py-12">
-            <p className="text-xl">No events found matching your filters.</p>
+                {filteredAndSortedEvents.length === 0 && (
+                  <div className="text-center text-gray-400 py-12">
+                    <p className="text-xl">No events found matching your filters.</p>
+                  </div>
+                )}
+              </>
+            )}
           </div>
-        )}
+        </div>
         </div>
       </div>
     </div>

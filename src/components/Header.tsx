@@ -41,7 +41,7 @@ export function Header({ currentRoute }: HeaderProps) {
           <button
             onClick={(e) => handleNavClick(e, 'home')}
             className={`font-semibold tracking-[0.25em] transition-all duration-300 text-[#D94800] whitespace-nowrap ${
-              isScrolled ? 'text-xl lg:text-3xl' : 'text-2xl lg:text-4xl'
+              isScrolled ? 'text-2xl lg:text-3xl' : 'text-3xl lg:text-4xl'
             }`}
           >
             HYBRID RACES
@@ -139,7 +139,7 @@ export function Header({ currentRoute }: HeaderProps) {
           <div className="flex flex-col gap-4 pb-4">
             <button
               onClick={(e) => handleNavClick(e, 'find-a-race')}
-              className={`text-sm font-medium uppercase tracking-wide transition-colors duration-200 text-left ${
+              className={`text-lg font-medium uppercase tracking-wide transition-colors duration-200 text-left ${
                 currentRoute === 'find-a-race' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
               }`}
             >
@@ -148,7 +148,7 @@ export function Header({ currentRoute }: HeaderProps) {
             <div className="flex flex-col gap-1">
               <button
                 onClick={(e) => handleNavClick(e, 'submit-event')}
-                className={`text-sm font-medium uppercase tracking-wide transition-colors duration-200 text-left ${
+                className={`text-lg font-medium uppercase tracking-wide transition-colors duration-200 text-left ${
                   currentRoute === 'submit-event' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
                 }`}
               >
@@ -156,7 +156,7 @@ export function Header({ currentRoute }: HeaderProps) {
               </button>
               <button
                 onClick={(e) => handleNavClick(e, 'events')}
-                className={`text-xs font-normal tracking-wide transition-colors duration-200 text-left ${
+                className={`text-base font-normal tracking-wide transition-colors duration-200 text-left ${
                   currentRoute === 'events' ? 'text-[#D94800]' : 'text-gray-400 hover:text-[#D94800]'
                 }`}
               >
@@ -164,7 +164,7 @@ export function Header({ currentRoute }: HeaderProps) {
               </button>
               <button
                 onClick={(e) => handleNavClick(e, 'hybrid-races')}
-                className={`text-xs font-normal tracking-wide transition-colors duration-200 text-left ${
+                className={`text-base font-normal tracking-wide transition-colors duration-200 text-left ${
                   currentRoute === 'hybrid-races' ? 'text-[#D94800]' : 'text-gray-400 hover:text-[#D94800]'
                 }`}
               >
@@ -172,7 +172,7 @@ export function Header({ currentRoute }: HeaderProps) {
               </button>
               <button
                 onClick={(e) => handleNavClick(e, 'hybrid-method')}
-                className={`text-xs font-normal tracking-wide transition-colors duration-200 text-left ${
+                className={`text-base font-normal tracking-wide transition-colors duration-200 text-left ${
                   currentRoute === 'hybrid-method' ? 'text-[#D94800]' : 'text-gray-400 hover:text-[#D94800]'
                 }`}
               >
@@ -183,7 +183,7 @@ export function Header({ currentRoute }: HeaderProps) {
               href="https://www.instagram.com/hybridraces/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm font-medium uppercase tracking-wide text-white hover:text-[#D94800] transition-colors duration-200"
+              className="text-lg font-medium uppercase tracking-wide text-white hover:text-[#D94800] transition-colors duration-200"
               aria-label="Follow on Instagram"
               onClick={() => setMobileMenuOpen(false)}
             >
@@ -191,7 +191,7 @@ export function Header({ currentRoute }: HeaderProps) {
             </a>
             <a
               href="mailto:contact@hybridmethod.com"
-              className="text-sm font-medium uppercase tracking-wide text-white hover:text-[#D94800] transition-colors duration-200"
+              className="text-lg font-medium uppercase tracking-wide text-white hover:text-[#D94800] transition-colors duration-200"
               aria-label="Send email"
               onClick={() => setMobileMenuOpen(false)}
             >

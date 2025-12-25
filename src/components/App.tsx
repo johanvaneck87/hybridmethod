@@ -5,7 +5,6 @@ import { HybridRacesLandingPage } from './HybridRacesLandingPage'
 import { HybridRacesPage } from './HybridRacesPage'
 import { EventsPage } from './EventsPage'
 import { BlogPage } from './BlogPage'
-import { HybridMethodPage } from './HybridMethodPage'
 import { SubmitEventPage } from './SubmitEventPage'
 import { FindARacePage } from './FindARacePage'
 

@@ -144,7 +144,7 @@ export function FindARacePage() {
       <div className="relative z-10 bg-black text-white pt-24 md:pt-12 pb-12 min-h-screen">
         <div className="mx-auto max-w-7xl px-6">
         {/* Mobile Filter Toggle and View Mode - Fixed at bottom on mobile */}
-        <div className="md:hidden fixed bottom-0 left-0 right-0 z-30 bg-transparent px-6 py-4 flex gap-2">
+        <div className="md:hidden fixed bottom-0 left-0 right-0 z-30 bg-transparent px-6 pt-4 flex gap-2">
           <button
             onClick={() => setMobileFiltersOpen(!mobileFiltersOpen)}
             className="flex-1 bg-gray-900 border border-white/20 rounded px-4 py-3 text-white flex items-center justify-between"

@@ -55,6 +55,11 @@ export function FindARacePage() {
     setTempFilterType('all')
     setTempFilterDifficulty('all')
     setTempShowUpcomingOnly(true)
+    // Also apply the reset immediately
+    setSortBy('date')
+    setFilterType('all')
+    setFilterDifficulty('all')
+    setShowUpcomingOnly(true)
   }
 
   const filteredAndSortedEvents = useMemo(() => {

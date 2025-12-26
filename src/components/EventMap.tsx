@@ -181,7 +181,7 @@ export function EventMap({ events, highlightedEventId, selectedEventId, onEventC
       {/* Event Popup Overlay */}
       {selectedEvent && (
         <div
-          className="fixed inset-0 z-[1001] flex items-center justify-center bg-black/70 p-4"
+          className="absolute inset-0 z-[1001] flex items-center justify-center bg-black/70 p-4"
           onClick={() => setSelectedEvent(null)}
         >
           <div

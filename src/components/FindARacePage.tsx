@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'preact/hooks'
+import { useState, useMemo, useEffect } from 'preact/hooks'
 import backgroundImage from '../picture/pexels-victorfreitas-841130.jpg'
 import eventsData from '../data/events.json'
 import { EventMap } from './EventMap'
@@ -39,6 +39,16 @@ export function FindARacePage() {
 
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
   const [viewMode, setViewMode] = useState<'list' | 'map'>('list')
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   const events = eventsData as Event[]
 
@@ -141,43 +151,51 @@ export function FindARacePage() {
       </div>
 
       {/* Content Section - Events List */}
-      <div className="relative z-10 bg-black text-white pt-24 md:pt-12 pb-12 min-h-screen">
+      <div className="relative z-10 bg-black text-white pt-40 md:pt-12 pb-12 min-h-screen">
         <div className="mx-auto max-w-7xl px-6">
-        {/* Mobile Filter Toggle and View Mode - Fixed at bottom on mobile */}
-        <div className="md:hidden fixed bottom-0 left-0 right-0 z-30 bg-transparent px-6 flex gap-2">
-          <button
-            onClick={() => setMobileFiltersOpen(!mobileFiltersOpen)}
-            className="flex-1 bg-gray-900 border border-white/20 rounded px-4 py-3 mb-3 text-white flex items-center justify-between"
-          >
-            <span className="font-medium uppercase tracking-wide">Filters</span>
-            <span className={`transform transition-transform duration-200 ${mobileFiltersOpen ? 'rotate-180' : ''}`}>▼</span>
-          </button>
+        {/* Mobile Filter Toggle and View Mode - Fixed at top on mobile */}
+        <div
+          className="md:hidden fixed top-0 left-0 right-0 z-30 bg-black px-6 py-4 border-b border-white/20 transition-all duration-300"
+          style={{ marginTop: isScrolled ? '40px' : '56px' }}
+        >
+          <div className="flex gap-3">
+            <button
+              onClick={() => setMobileFiltersOpen(!mobileFiltersOpen)}
+              className="flex-1 bg-gray-900 border border-white/20 rounded px-4 py-3 text-white flex items-center justify-between"
+            >
+              <span className="font-medium uppercase tracking-wide">Filters</span>
+              <span className={`transform transition-transform duration-200 ${mobileFiltersOpen ? 'rotate-180' : ''}`}>▼</span>
+            </button>
 
-          <button
-            onClick={() => setViewMode(viewMode === 'list' ? 'map' : 'list')}
-            className="bg-gray-900 border border-white/20 rounded px-4 py-3 mb-3 text-white flex items-center gap-2"
-          >
-            {viewMode === 'list' ? (
-              <>
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-                </svg>
-                <span className="font-medium uppercase tracking-wide text-sm">MAP</span>
-              </>
-            ) : (
-              <>
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
-                </svg>
-                <span className="font-medium uppercase tracking-wide text-sm">LIST</span>
-              </>
-            )}
-          </button>
+            <button
+              onClick={() => setViewMode(viewMode === 'list' ? 'map' : 'list')}
+              className="flex-1 bg-gray-900 border border-white/20 rounded px-4 py-3 text-white flex items-center justify-center gap-2"
+            >
+              {viewMode === 'list' ? (
+                <>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                  </svg>
+                  <span className="font-medium uppercase tracking-wide text-sm">MAP</span>
+                </>
+              ) : (
+                <>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                  </svg>
+                  <span className="font-medium uppercase tracking-wide text-sm">LIST</span>
+                </>
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Filters Fullscreen Overlay */}
         {mobileFiltersOpen && (
-          <div className="md:hidden fixed top-0 left-0 right-0 bottom-0 bg-black z-40 overflow-y-auto pt-16">
+          <div
+            className="md:hidden fixed top-0 left-0 right-0 bottom-0 bg-black z-40 overflow-y-auto transition-all duration-300"
+            style={{ paddingTop: isScrolled ? '40px' : '56px' }}
+          >
             {/* Close button at top */}
             <div className="sticky top-0 bg-black z-50 px-6 py-4 border-b border-white/20">
               <button
@@ -189,7 +207,7 @@ export function FindARacePage() {
               </button>
             </div>
 
-            <div className="p-4 space-y-3">
+            <div className="px-6 py-4 space-y-3">
               {/* Reset Filters button */}
               <button
                 onClick={resetFilters}
@@ -402,7 +420,7 @@ export function FindARacePage() {
                 </div>
 
                 <div className="relative z-10 mb-6 md:mb-12">
-                  <div className="h-[calc(100vh-240px)] md:h-[calc(100vh-200px)]">
+                  <div className="h-[calc(100vh-380px)] md:h-[calc(100vh-280px)]">
                     <EventMap events={filteredAndSortedEvents} />
                   </div>
                 </div>

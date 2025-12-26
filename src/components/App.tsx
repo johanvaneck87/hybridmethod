@@ -7,9 +7,10 @@ import { EventsPage } from './EventsPage'
 import { BlogPage } from './BlogPage'
 import { SubmitEventPage } from './SubmitEventPage'
 import { FindARacePage } from './FindARacePage'
+import { EventDetailPage } from './EventDetailPage'
 
 export function App() {
-  const [currentRoute] = useRouter()
+  const [currentRoute, eventId] = useRouter()
 
   return (
     <div className="min-h-screen">
@@ -21,6 +22,7 @@ export function App() {
       {currentRoute === 'hybrid-method' && <HomePage />}
       {currentRoute === 'submit-event' && <SubmitEventPage />}
       {currentRoute === 'find-a-race' && <FindARacePage />}
+      {currentRoute === 'event-detail' && eventId && <EventDetailPage eventId={eventId} />}
     </div>
   )
 }

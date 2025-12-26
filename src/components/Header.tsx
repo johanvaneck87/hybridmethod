@@ -8,7 +8,6 @@ interface HeaderProps {
 export function Header({ currentRoute }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
-  const [language, setLanguage] = useState<'nl' | 'en'>('nl')
 
   useEffect(() => {
     const handleScroll = () => {
@@ -123,14 +122,6 @@ export function Header({ currentRoute }: HeaderProps) {
             >
               EMAIL
             </a>
-            <select
-              value={language}
-              onChange={(e) => setLanguage(e.currentTarget.value as 'nl' | 'en')}
-              className="bg-transparent border border-white/20 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-[#D94800] cursor-pointer"
-            >
-              <option value="nl" className="bg-gray-900">NL</option>
-              <option value="en" className="bg-gray-900">EN</option>
-            </select>
           </nav>
         </div>
 
@@ -197,19 +188,6 @@ export function Header({ currentRoute }: HeaderProps) {
             >
               EMAIL
             </a>
-            <div>
-              <label className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
-                Language
-              </label>
-              <select
-                value={language}
-                onChange={(e) => setLanguage(e.currentTarget.value as 'nl' | 'en')}
-                className="bg-gray-900 border border-white/20 rounded px-4 py-2 text-white focus:outline-none focus:border-[#D94800] w-full"
-              >
-                <option value="nl">Nederlands</option>
-                <option value="en">English</option>
-              </select>
-            </div>
           </div>
         </nav>
       </div>

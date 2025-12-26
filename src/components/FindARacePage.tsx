@@ -2,6 +2,7 @@ import { useState, useMemo } from 'preact/hooks'
 import backgroundImage from '../picture/pexels-victorfreitas-841130.jpg'
 import eventsData from '../data/events.json'
 import { EventMap } from './EventMap'
+import { navigate } from '../router'
 
 interface Event {
   id: string
@@ -96,7 +97,7 @@ export function FindARacePage() {
 
               {/* Right side - Text box */}
               <div className="w-1/2 bg-black flex items-center justify-end pl-12">
-                <div className="bg-[#D94800] w-full max-w-[28.8rem] flex items-center justify-center" style={{ aspectRatio: '1.6', padding: 'clamp(1.5rem, 4vw, 3.6rem) clamp(2rem, 5vw, 4rem)' }}>
+                <div className="bg-[#D94800] w-full max-w-[28.8rem] flex items-center justify-center" style={{ aspectRatio: '1.6', padding: 'clamp(1.5rem, 3vw, 3rem) clamp(1rem, 2.5vw, 2.5rem)' }}>
                   <h2 className="text-black font-semibold uppercase tracking-wide" style={{ fontSize: 'clamp(2rem, 3.5vw, 3.125rem)', lineHeight: '1.15' }}>
                     FIND YOUR
                     <br />
@@ -114,8 +115,8 @@ export function FindARacePage() {
       {/* Content Section - Events List */}
       <div className="relative z-10 bg-black text-white pt-24 md:pt-12 pb-12 min-h-screen">
         <div className="mx-auto max-w-7xl px-6">
-        {/* Mobile Filter Toggle and View Mode - Only visible on mobile and not in map view */}
-        <div className="md:hidden sticky top-[64px] z-30 mb-4 flex gap-2">
+        {/* Mobile Filter Toggle and View Mode - Fixed at bottom on mobile */}
+        <div className="md:hidden fixed bottom-0 left-0 right-0 z-30 bg-transparent px-6 py-4 flex gap-2">
           <button
             onClick={() => setMobileFiltersOpen(!mobileFiltersOpen)}
             className="flex-1 bg-gray-900 border border-white/20 rounded px-4 py-3 text-white flex items-center justify-between"
@@ -130,13 +131,17 @@ export function FindARacePage() {
           >
             {viewMode === 'list' ? (
               <>
-                <span>🗺️</span>
-                <span className="font-medium uppercase tracking-wide text-sm">Map</span>
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                </svg>
+                <span className="font-medium uppercase tracking-wide text-sm">MAP</span>
               </>
             ) : (
               <>
-                <span>📋</span>
-                <span className="font-medium uppercase tracking-wide text-sm">List</span>
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                </svg>
+                <span className="font-medium uppercase tracking-wide text-sm">LIST</span>
               </>
             )}
           </button>
@@ -247,13 +252,17 @@ export function FindARacePage() {
                 >
                   {viewMode === 'list' ? (
                     <>
-                      <span>🗺️</span>
-                      <span>Map</span>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                      </svg>
+                      <span>MAP</span>
                     </>
                   ) : (
                     <>
-                      <span>📋</span>
-                      <span>List</span>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                      </svg>
+                      <span>LIST</span>
                     </>
                   )}
                 </button>
@@ -337,7 +346,7 @@ export function FindARacePage() {
                     Showing {filteredAndSortedEvents.length} event{filteredAndSortedEvents.length !== 1 ? 's' : ''}
                   </p>
                   <p className="text-gray-400">
-                    Race not found? <a href="/hybridmethod/submit-event" className="text-[#D94800] hover:text-[#E85D00] underline transition-colors duration-200">Submit a race</a>
+                    <span className="hidden sm:inline">Race not found? </span><a href="/hybridmethod/submit-event" className="text-[#D94800] hover:text-[#E85D00] underline transition-colors duration-200">Submit a race</a>
                   </p>
                 </div>
 
@@ -356,7 +365,7 @@ export function FindARacePage() {
                     Showing {filteredAndSortedEvents.length} event{filteredAndSortedEvents.length !== 1 ? 's' : ''}
                   </p>
                   <p className="text-gray-400">
-                    Race not found? <a href="/hybridmethod/submit-event" className="text-[#D94800] hover:text-[#E85D00] underline transition-colors duration-200">Submit a race</a>
+                    <span className="hidden sm:inline">Race not found? </span><a href="/hybridmethod/submit-event" className="text-[#D94800] hover:text-[#E85D00] underline transition-colors duration-200">Submit a race</a>
                   </p>
                 </div>
 
@@ -365,7 +374,8 @@ export function FindARacePage() {
           {filteredAndSortedEvents.map((event) => (
             <div
               key={event.id}
-              className="relative aspect-square bg-gray-900 border border-gray-800 rounded-lg overflow-hidden hover:border-[#D94800] transition-colors duration-200 group"
+              onClick={() => navigate('event-detail', event.id)}
+              className="relative aspect-square bg-gray-900 border border-gray-800 rounded-lg overflow-hidden hover:border-[#D94800] active:border-[#D94800] focus-within:border-[#D94800] transition-colors duration-200 group cursor-pointer"
             >
               {/* Background Image */}
               <div
@@ -378,34 +388,29 @@ export function FindARacePage() {
               {/* Content */}
               <div className="relative h-full flex flex-col justify-between p-6">
                 <div>
-                  <h3 className="text-2xl font-bold text-white uppercase tracking-wide mb-3">
+                  <h3 className="text-3xl md:text-2xl font-bold text-white uppercase tracking-wide mb-3">
                     {event.name}
                   </h3>
 
                   <div className="space-y-2 text-white mb-3">
-                    <p className="flex items-center gap-2 text-sm">
+                    <p className="flex items-center gap-2 text-base md:text-sm">
                       <span>📅</span>
                       <span>{formatDate(event.date)}</span>
                     </p>
-                    <p className="flex items-center gap-2 text-sm">
+                    <p className="flex items-center gap-2 text-base md:text-sm">
                       <span>📍</span>
                       <span>{event.location}</span>
                     </p>
-                    <p className="flex items-center gap-2 text-sm">
+                    <p className="flex items-center gap-2 text-base md:text-sm">
                       <span>⚡</span>
                       <span className="capitalize">{event.difficulty}</span>
                     </p>
                   </div>
                 </div>
 
-                <a
-                  href={event.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block bg-[#D94800] text-black font-medium px-6 py-2 rounded uppercase tracking-wide text-sm hover:bg-[#E85D00] transition-colors duration-200 text-center"
-                >
-                  View Event
-                </a>
+                <div className="inline-block bg-[#D94800] text-black font-semibold px-6 py-2 rounded tracking-[0.25em] text-lg md:text-base text-center">
+                  hybridraces.fit
+                </div>
               </div>
             </div>
           ))}

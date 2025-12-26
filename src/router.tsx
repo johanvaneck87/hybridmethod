@@ -1,32 +1,50 @@
 import { useState, useEffect } from 'preact/hooks'
 
-export type Route = 'home' | 'hybrid-races' | 'events' | 'blog' | 'hybrid-method' | 'submit-event' | 'find-a-race'
+export type Route = 'home' | 'hybrid-races' | 'events' | 'blog' | 'hybrid-method' | 'submit-event' | 'find-a-race' | 'event-detail'
 
 let currentRoute: Route = 'home'
-const listeners: Set<(route: Route) => void> = new Set()
+let currentEventId: string | null = null
+const listeners: Set<(route: Route, eventId?: string | null) => void> = new Set()
 
-export function navigate(route: Route) {
+export function navigate(route: Route, eventId?: string) {
   currentRoute = route
+  currentEventId = eventId || null
   const basePath = '/hybridmethod'
-  window.history.pushState({}, '', route === 'home' ? basePath : `${basePath}/${route}`)
-  listeners.forEach(listener => listener(route))
+
+  let url = basePath
+  if (route === 'event-detail' && eventId) {
+    url = `${basePath}/event/${eventId}`
+  } else if (route !== 'home') {
+    url = `${basePath}/${route}`
+  }
+
+  window.history.pushState({}, '', url)
+  listeners.forEach(listener => listener(route, currentEventId))
 }
 
-export function useRouter(): [Route, (route: Route) => void] {
+export function useRouter(): [Route, string | null, (route: Route, eventId?: string) => void] {
   const [route, setRoute] = useState<Route>(currentRoute)
+  const [eventId, setEventId] = useState<string | null>(currentEventId)
 
   useEffect(() => {
-    listeners.add(setRoute)
+    const listener = (newRoute: Route, newEventId?: string | null) => {
+      setRoute(newRoute)
+      setEventId(newEventId || null)
+    }
+    listeners.add(listener)
     return () => {
-      listeners.delete(setRoute)
+      listeners.delete(listener)
     }
   }, [])
 
-  return [route, navigate]
+  return [route, eventId, navigate]
 }
 
 // Initialize route from URL
 const path = window.location.pathname.replace('/hybridmethod', '').replace(/^\//, '')
 if (path === 'hybrid-races' || path === 'events' || path === 'blog' || path === 'hybrid-method' || path === 'submit-event' || path === 'find-a-race') {
   currentRoute = path as Route
+} else if (path.startsWith('event/')) {
+  currentRoute = 'event-detail'
+  currentEventId = path.replace('event/', '')
 }

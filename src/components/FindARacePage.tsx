@@ -25,14 +25,37 @@ type FilterType = 'all' | 'solo' | 'duo'
 type FilterDifficulty = 'all' | 'beginner' | 'intermediate' | 'advanced'
 
 export function FindARacePage() {
+  // Temporary filter states (not yet applied)
+  const [tempSortBy, setTempSortBy] = useState<SortField>('date')
+  const [tempFilterType, setTempFilterType] = useState<FilterType>('all')
+  const [tempFilterDifficulty, setTempFilterDifficulty] = useState<FilterDifficulty>('all')
+  const [tempShowUpcomingOnly, setTempShowUpcomingOnly] = useState(true)
+
+  // Applied filter states (actually used for filtering)
   const [sortBy, setSortBy] = useState<SortField>('date')
   const [filterType, setFilterType] = useState<FilterType>('all')
   const [filterDifficulty, setFilterDifficulty] = useState<FilterDifficulty>('all')
   const [showUpcomingOnly, setShowUpcomingOnly] = useState(true)
+
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
   const [viewMode, setViewMode] = useState<'list' | 'map'>('list')
 
   const events = eventsData as Event[]
+
+  const applyFilters = () => {
+    setSortBy(tempSortBy)
+    setFilterType(tempFilterType)
+    setFilterDifficulty(tempFilterDifficulty)
+    setShowUpcomingOnly(tempShowUpcomingOnly)
+    setMobileFiltersOpen(false)
+  }
+
+  const resetFilters = () => {
+    setTempSortBy('date')
+    setTempFilterType('all')
+    setTempFilterDifficulty('all')
+    setTempShowUpcomingOnly(true)
+  }
 
   const filteredAndSortedEvents = useMemo(() => {
     let filtered = [...events]
@@ -161,16 +184,23 @@ export function FindARacePage() {
               </button>
             </div>
 
-            <div className="p-6 space-y-6">
+            <div className="p-4 space-y-3">
+              {/* Reset Filters button */}
+              <button
+                onClick={resetFilters}
+                className="text-[#D94800] font-medium uppercase tracking-wide text-xs hover:text-[#E85D00] transition-colors duration-200"
+              >
+                Reset Filters
+              </button>
               {/* Sort by */}
               <div>
-                <label className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
+                <label className="block text-xs font-medium mb-1.5 uppercase tracking-wide text-gray-400">
                   Sort by
                 </label>
                 <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.currentTarget.value as SortField)}
-                  className="w-full bg-gray-900 border border-white/20 rounded px-4 py-2 text-white focus:outline-none focus:border-[#D94800]"
+                  value={tempSortBy}
+                  onChange={(e) => setTempSortBy(e.currentTarget.value as SortField)}
+                  className="w-full bg-gray-900 border border-white/20 rounded px-3 py-1.5 text-sm text-white focus:outline-none focus:border-[#D94800]"
                 >
                   <option value="date">Date</option>
                   <option value="location">Location</option>
@@ -180,13 +210,13 @@ export function FindARacePage() {
 
               {/* Filter by type */}
               <div>
-                <label className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
+                <label className="block text-xs font-medium mb-1.5 uppercase tracking-wide text-gray-400">
                   Race Type
                 </label>
                 <select
-                  value={filterType}
-                  onChange={(e) => setFilterType(e.currentTarget.value as FilterType)}
-                  className="w-full bg-gray-900 border border-white/20 rounded px-4 py-2 text-white focus:outline-none focus:border-[#D94800]"
+                  value={tempFilterType}
+                  onChange={(e) => setTempFilterType(e.currentTarget.value as FilterType)}
+                  className="w-full bg-gray-900 border border-white/20 rounded px-3 py-1.5 text-sm text-white focus:outline-none focus:border-[#D94800]"
                 >
                   <option value="all">All</option>
                   <option value="solo">Solo</option>
@@ -196,13 +226,13 @@ export function FindARacePage() {
 
               {/* Filter by difficulty */}
               <div>
-                <label className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
+                <label className="block text-xs font-medium mb-1.5 uppercase tracking-wide text-gray-400">
                   Difficulty
                 </label>
                 <select
-                  value={filterDifficulty}
-                  onChange={(e) => setFilterDifficulty(e.currentTarget.value as FilterDifficulty)}
-                  className="w-full bg-gray-900 border border-white/20 rounded px-4 py-2 text-white focus:outline-none focus:border-[#D94800]"
+                  value={tempFilterDifficulty}
+                  onChange={(e) => setTempFilterDifficulty(e.currentTarget.value as FilterDifficulty)}
+                  className="w-full bg-gray-900 border border-white/20 rounded px-3 py-1.5 text-sm text-white focus:outline-none focus:border-[#D94800]"
                 >
                   <option value="all">All</option>
                   <option value="beginner">Beginner</option>
@@ -213,24 +243,24 @@ export function FindARacePage() {
 
               {/* Show upcoming only checkbox */}
               <div>
-                <label className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
+                <label className="block text-xs font-medium mb-1.5 uppercase tracking-wide text-gray-400">
                   Show
                 </label>
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input
                     type="checkbox"
-                    checked={showUpcomingOnly}
-                    onChange={(e) => setShowUpcomingOnly(e.currentTarget.checked)}
-                    className="w-5 h-5 cursor-pointer accent-[#D94800]"
+                    checked={tempShowUpcomingOnly}
+                    onChange={(e) => setTempShowUpcomingOnly(e.currentTarget.checked)}
+                    className="w-4 h-4 cursor-pointer accent-[#D94800]"
                   />
-                  <span className="text-white">Upcoming only</span>
+                  <span className="text-sm text-white">Upcoming only</span>
                 </label>
               </div>
 
               {/* Apply button to close filters */}
               <button
-                onClick={() => setMobileFiltersOpen(false)}
-                className="w-full bg-[#D94800] text-black font-medium px-6 py-3 rounded uppercase tracking-wide hover:bg-[#E85D00] transition-colors duration-200"
+                onClick={applyFilters}
+                className="w-full bg-[#D94800] text-black font-medium px-6 py-2 rounded uppercase tracking-wide hover:bg-[#E85D00] transition-colors duration-200"
               >
                 Apply Filters
               </button>
@@ -242,24 +272,24 @@ export function FindARacePage() {
         <div className="flex gap-6 items-start">
           {/* Filters Sidebar - Left on desktop, hidden on mobile */}
           <div className="hidden md:block md:sticky md:top-[80px] md:w-[calc((100%-3*1.5rem)/4)] flex-shrink-0">
-            <div className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-6 space-y-6">
+            <div className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-4 space-y-3">
               {/* Header with FILTERS and MAP/LIST toggle */}
-              <div className="flex items-center justify-between pb-4 border-b border-white/20">
-                <h3 className="text-lg font-semibold uppercase tracking-wide text-white">Filters</h3>
+              <div className="flex items-center justify-between pb-3 border-b border-white/20">
+                <h3 className="text-base font-semibold uppercase tracking-wide text-white">Filters</h3>
                 <button
                   onClick={() => setViewMode(viewMode === 'list' ? 'map' : 'list')}
-                  className="flex items-center gap-2 text-sm font-medium uppercase tracking-wide text-white hover:text-[#D94800] transition-colors duration-200"
+                  className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-white hover:text-[#D94800] transition-colors duration-200"
                 >
                   {viewMode === 'list' ? (
                     <>
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
                       </svg>
                       <span>MAP</span>
                     </>
                   ) : (
                     <>
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
                       </svg>
                       <span>LIST</span>
@@ -268,15 +298,23 @@ export function FindARacePage() {
                 </button>
               </div>
 
+          {/* Reset Filters button */}
+          <button
+            onClick={resetFilters}
+            className="text-[#D94800] font-medium uppercase tracking-wide text-xs hover:text-[#E85D00] transition-colors duration-200"
+          >
+            Reset Filters
+          </button>
+
           {/* Sort by */}
           <div>
-            <label className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
+            <label className="block text-xs font-medium mb-1.5 uppercase tracking-wide text-gray-400">
               Sort by
             </label>
             <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.currentTarget.value as SortField)}
-              className="bg-gray-900 border border-white/20 rounded px-4 py-2 text-white focus:outline-none focus:border-[#D94800]"
+              value={tempSortBy}
+              onChange={(e) => setTempSortBy(e.currentTarget.value as SortField)}
+              className="bg-gray-900 border border-white/20 rounded px-3 py-1.5 text-sm text-white focus:outline-none focus:border-[#D94800]"
             >
               <option value="date">Date</option>
               <option value="location">Location</option>
@@ -286,13 +324,13 @@ export function FindARacePage() {
 
           {/* Filter by type */}
           <div>
-            <label className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
+            <label className="block text-xs font-medium mb-1.5 uppercase tracking-wide text-gray-400">
               Race Type
             </label>
             <select
-              value={filterType}
-              onChange={(e) => setFilterType(e.currentTarget.value as FilterType)}
-              className="bg-gray-900 border border-white/20 rounded px-4 py-2 text-white focus:outline-none focus:border-[#D94800]"
+              value={tempFilterType}
+              onChange={(e) => setTempFilterType(e.currentTarget.value as FilterType)}
+              className="bg-gray-900 border border-white/20 rounded px-3 py-1.5 text-sm text-white focus:outline-none focus:border-[#D94800]"
             >
               <option value="all">All</option>
               <option value="solo">Solo</option>
@@ -302,13 +340,13 @@ export function FindARacePage() {
 
           {/* Filter by difficulty */}
           <div>
-            <label className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
+            <label className="block text-xs font-medium mb-1.5 uppercase tracking-wide text-gray-400">
               Difficulty
             </label>
             <select
-              value={filterDifficulty}
-              onChange={(e) => setFilterDifficulty(e.currentTarget.value as FilterDifficulty)}
-              className="bg-gray-900 border border-white/20 rounded px-4 py-2 text-white focus:outline-none focus:border-[#D94800]"
+              value={tempFilterDifficulty}
+              onChange={(e) => setTempFilterDifficulty(e.currentTarget.value as FilterDifficulty)}
+              className="bg-gray-900 border border-white/20 rounded px-3 py-1.5 text-sm text-white focus:outline-none focus:border-[#D94800]"
             >
               <option value="all">All</option>
               <option value="beginner">Beginner</option>
@@ -319,19 +357,27 @@ export function FindARacePage() {
 
           {/* Show upcoming only checkbox */}
           <div>
-            <label className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
+            <label className="block text-xs font-medium mb-1.5 uppercase tracking-wide text-gray-400">
               Show
             </label>
             <label className="flex items-center gap-2 cursor-pointer">
               <input
                 type="checkbox"
-                checked={showUpcomingOnly}
-                onChange={(e) => setShowUpcomingOnly(e.currentTarget.checked)}
-                className="w-5 h-5 cursor-pointer accent-[#D94800]"
+                checked={tempShowUpcomingOnly}
+                onChange={(e) => setTempShowUpcomingOnly(e.currentTarget.checked)}
+                className="w-4 h-4 cursor-pointer accent-[#D94800]"
               />
-              <span className="text-white">Upcoming only</span>
+              <span className="text-sm text-white">Upcoming only</span>
             </label>
           </div>
+
+          {/* Apply Filters button */}
+          <button
+            onClick={applyFilters}
+            className="w-full bg-[#D94800] text-black font-medium px-6 py-2 rounded uppercase tracking-wide hover:bg-[#E85D00] transition-colors duration-200"
+          >
+            Apply Filters
+          </button>
             </div>
           </div>
 
@@ -351,8 +397,8 @@ export function FindARacePage() {
                 </div>
 
                 <div className="relative z-10 mb-6 md:mb-12">
-                  <div className="h-[calc(100vh-320px)] md:h-[calc(100vh-200px)]">
-                    <EventMap events={events} />
+                  <div className="h-[calc(100vh-240px)] md:h-[calc(100vh-200px)]">
+                    <EventMap events={filteredAndSortedEvents} />
                   </div>
                 </div>
               </>

@@ -19,6 +19,7 @@ export function navigate(route: Route, eventId?: string) {
   }
 
   window.history.pushState({}, '', url)
+  window.scrollTo(0, 0)
   listeners.forEach(listener => listener(route, currentEventId))
 }
 

@@ -1,6 +1,7 @@
-import { useEffect, useRef } from 'preact/hooks'
+import { useEffect, useRef, useState } from 'preact/hooks'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
+import { navigate } from '../router'
 
 interface Event {
   id: string
@@ -13,6 +14,8 @@ interface Event {
   }
   type: 'solo' | 'duo'
   difficulty: string
+  image: string
+  url: string
 }
 
 interface EventMapProps {
@@ -26,6 +29,16 @@ export function EventMap({ events, highlightedEventId, selectedEventId, onEventC
   const mapRef = useRef<HTMLDivElement>(null)
   const mapInstanceRef = useRef<L.Map | null>(null)
   const markersRef = useRef<Map<string, L.Marker>>(new Map())
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null)
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString)
+    return date.toLocaleDateString('nl-NL', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    })
+  }
 
   useEffect(() => {
     if (!mapRef.current || mapInstanceRef.current) return
@@ -93,21 +106,9 @@ export function EventMap({ events, highlightedEventId, selectedEventId, onEventC
         icon: createCustomIcon(map.getZoom(), event.id, false)
       }).addTo(map)
 
-      // Add popup with event info
-      marker.bindPopup(`
-        <div style="font-family: sans-serif;">
-          <h3 style="margin: 0 0 8px 0; font-size: 16px; font-weight: bold; color: #D94800;">${event.name}</h3>
-          <p style="margin: 4px 0; font-size: 14px;">${new Date(event.date).toLocaleDateString('nl-NL', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
-          })}</p>
-          <p style="margin: 4px 0; font-size: 14px;">📍 ${event.location}</p>
-        </div>
-      `)
-
-      // Add click handler to filter events
+      // Add click handler to show event popup
       marker.on('click', () => {
+        setSelectedEvent(event)
         if (onEventClick) {
           onEventClick(event.id)
         }
@@ -173,5 +174,78 @@ export function EventMap({ events, highlightedEventId, selectedEventId, onEventC
     })
   }, [highlightedEventId, selectedEventId])
 
-  return <div ref={mapRef} className="w-full rounded-lg" style={{ height: '100%', minHeight: '300px' }} />
+  return (
+    <div className="relative w-full h-full">
+      <div ref={mapRef} className="w-full rounded-lg" style={{ height: '100%', minHeight: '300px' }} />
+
+      {/* Event Popup Overlay */}
+      {selectedEvent && (
+        <div
+          className="fixed inset-0 z-[1001] flex items-center justify-center bg-black/70 p-4"
+          onClick={() => setSelectedEvent(null)}
+        >
+          <div
+            className="relative w-full max-w-[280px] sm:max-w-[320px] md:max-w-[280px] lg:max-w-[300px] aspect-square"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Event Tile */}
+            <div
+              onClick={() => navigate('event-detail', selectedEvent.id)}
+              className="relative w-full h-full bg-gray-900 border border-gray-800 rounded-lg overflow-hidden hover:border-[#D94800] transition-colors duration-200 cursor-pointer"
+            >
+              {/* Close button */}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setSelectedEvent(null)
+                }}
+                className="absolute top-3 right-3 z-10 text-white hover:text-[#D94800] transition-colors duration-200"
+                aria-label="Close"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+
+              {/* Background Image */}
+              <div
+                className="absolute inset-0 bg-cover bg-center"
+                style={{ backgroundImage: `url(${selectedEvent.image})` }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/70 to-black/90"></div>
+              </div>
+
+              {/* Content */}
+              <div className="relative h-full flex flex-col justify-between p-6">
+                <div>
+                  <h3 className="text-xl sm:text-2xl md:text-2xl font-bold text-white uppercase tracking-wide mb-3">
+                    {selectedEvent.name}
+                  </h3>
+
+                  <div className="space-y-2 text-white mb-3">
+                    <p className="flex items-center gap-2 text-sm">
+                      <span>📅</span>
+                      <span>{formatDate(selectedEvent.date)}</span>
+                    </p>
+                    <p className="flex items-center gap-2 text-sm">
+                      <span>📍</span>
+                      <span>{selectedEvent.location}</span>
+                    </p>
+                    <p className="flex items-center gap-2 text-sm">
+                      <span>⚡</span>
+                      <span className="capitalize">{selectedEvent.difficulty}</span>
+                    </p>
+                  </div>
+                </div>
+
+                <div className="inline-block bg-[#D94800] text-black font-semibold px-6 py-2 rounded tracking-[0.25em] text-base text-center">
+                  hybridraces.fit
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  )
 }

@@ -6,13 +6,16 @@ import { navigate } from '../router'
 interface Event {
   id: string
   name: string
+  organization?: string
   date: string
+  endDate?: string
   location: string
   coordinates: {
     lat: number
     lng: number
   }
   type: 'solo' | 'duo'
+  raceTypes?: string[]
   difficulty: string
   image: string
   url: string
@@ -39,6 +42,19 @@ export function EventMap({ events, highlightedEventId, selectedEventId, onEventC
       month: 'long',
       year: 'numeric'
     })
+  }
+
+  const formatDateRange = (startDateString: string, endDateString: string) => {
+    const startDate = new Date(startDateString)
+    const endDate = new Date(endDateString)
+
+    const startDay = startDate.toLocaleDateString('nl-NL', { day: 'numeric' })
+    const startMonth = startDate.toLocaleDateString('nl-NL', { month: 'long' })
+    const endDay = endDate.toLocaleDateString('nl-NL', { day: 'numeric' })
+    const endMonth = endDate.toLocaleDateString('nl-NL', { month: 'long' })
+    const year = endDate.toLocaleDateString('nl-NL', { year: 'numeric' })
+
+    return `${startDay} ${startMonth} - ${endDay} ${endMonth} ${year}`
   }
 
   useEffect(() => {
@@ -243,16 +259,22 @@ export function EventMap({ events, highlightedEventId, selectedEventId, onEventC
                   <div className="space-y-2 text-white mb-3">
                     <p className="flex items-center gap-2 text-sm">
                       <span>📅</span>
-                      <span>{formatDate(selectedEvent.date)}</span>
+                      <span>{selectedEvent.endDate ? formatDateRange(selectedEvent.date, selectedEvent.endDate) : formatDate(selectedEvent.date)}</span>
                     </p>
                     <p className="flex items-center gap-2 text-sm">
                       <span>📍</span>
                       <span>{selectedEvent.location}</span>
                     </p>
                     <p className="flex items-center gap-2 text-sm">
-                      <span>⚡</span>
-                      <span className="capitalize">{selectedEvent.difficulty}</span>
+                      <span>{selectedEvent.raceTypes ? '🏃‍♂️' : '⚡'}</span>
+                      <span className="capitalize">{selectedEvent.raceTypes ? selectedEvent.raceTypes.join(', ') : selectedEvent.difficulty}</span>
                     </p>
+                    {selectedEvent.organization && (
+                      <p className="flex items-center gap-2 text-sm">
+                        <span>🏢</span>
+                        <span>{selectedEvent.organization}</span>
+                      </p>
+                    )}
                   </div>
                 </div>
 

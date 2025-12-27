@@ -17,13 +17,16 @@
   {
     "id": "strong-viking-wijchen-spring-2026",
     "name": "Strong Viking Wijchen Spring",
-    "date": "2026-04-11",
-    "location": "Wijchen",
+    "organization": "Strong Viking",
+    "date": "2026-10-11",
+    "endDate": "2026-11-13",
+    "location": "Jaarbeurs, Utrecht",
     "coordinates": {
-      "lat": 51.8069,
-      "lng": 5.7236
+      "lat": 52.0907,
+      "lng": 5.1214
     },
     "type": "solo",
+    "raceTypes": ["Solo", "Duo", "Relay"],
     "difficulty": "advanced",
     "url": "https://strongviking.com/en/obstacle-run/wijchen-spring/",
     "description": "First mud run of the year - Obstacle course with multiple distance options (4-42km)",

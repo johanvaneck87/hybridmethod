@@ -3,8 +3,11 @@ import { useEffect, useRef } from 'preact/hooks'
 interface Event {
   id: string
   name: string
+  organization?: string
   date: string
+  endDate?: string
   location: string
+  raceTypes?: string[]
   difficulty: string
   image: string
 }
@@ -23,6 +26,19 @@ export function EventTileImage({ event }: EventTileImageProps) {
       month: 'long',
       year: 'numeric'
     })
+  }
+
+  const formatDateRange = (startDateString: string, endDateString: string) => {
+    const startDate = new Date(startDateString)
+    const endDate = new Date(endDateString)
+
+    const startDay = startDate.toLocaleDateString('nl-NL', { day: 'numeric' })
+    const startMonth = startDate.toLocaleDateString('nl-NL', { month: 'long' })
+    const endDay = endDate.toLocaleDateString('nl-NL', { day: 'numeric' })
+    const endMonth = endDate.toLocaleDateString('nl-NL', { month: 'long' })
+    const year = endDate.toLocaleDateString('nl-NL', { year: 'numeric' })
+
+    return `${startDay} ${startMonth} - ${endDay} ${endMonth} ${year}`
   }
 
   useEffect(() => {
@@ -91,12 +107,26 @@ export function EventTileImage({ event }: EventTileImageProps) {
 
       // Draw event details - positioned lower if multiple lines of text
       const totalExtraSpacing = lines.length > 1 ? extraLineSpacing * (lines.length - 1) : 0
-      const detailsStartY = yPos + ((lines.length - 1) * lineHeight) + totalExtraSpacing + 80 // Increased from 70
-      ctx.font = '36px Arial'
-      const formattedDate = formatDate(event.date)
+      let detailsStartY = yPos + ((lines.length - 1) * lineHeight) + totalExtraSpacing + 80 // Increased from 70
+      ctx.font = '42px Arial' // Increased from 36px for larger text
+
+      const formattedDate = event.endDate
+        ? formatDateRange(event.date, event.endDate)
+        : formatDate(event.date)
       ctx.fillText(`📅 ${formattedDate}`, 50, detailsStartY)
-      ctx.fillText(`📍 ${event.location}`, 50, detailsStartY + 70) // Increased from 60
-      ctx.fillText(`⚡ ${event.difficulty}`, 50, detailsStartY + 140) // Increased from 120
+      ctx.fillText(`📍 ${event.location}`, 50, detailsStartY + 80) // Increased from 70 for more spacing
+
+      // Draw race types or difficulty
+      if (event.raceTypes) {
+        ctx.fillText(`🏃‍♂️ ${event.raceTypes.join(', ')}`, 50, detailsStartY + 160) // Increased from 140
+      } else {
+        ctx.fillText(`⚡ ${event.difficulty}`, 50, detailsStartY + 160) // Increased from 140
+      }
+
+      // Draw organization if present (as last item)
+      if (event.organization) {
+        ctx.fillText(`🏢 ${event.organization}`, 50, detailsStartY + 240) // After race types/difficulty
+      }
 
       // Draw orange bar at bottom with rounded corners
       ctx.fillStyle = '#D94800'

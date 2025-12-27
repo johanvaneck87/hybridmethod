@@ -3,13 +3,16 @@ import eventsData from '../data/events.json'
 interface Event {
   id: string
   name: string
+  organization?: string
   date: string
+  endDate?: string
   location: string
   coordinates: {
     lat: number
     lng: number
   }
   type: 'solo' | 'duo'
+  raceTypes?: string[]
   difficulty: 'beginner' | 'intermediate' | 'advanced'
   url: string
   description: string
@@ -44,6 +47,19 @@ export function EventDetailPage({ eventId }: EventDetailPageProps) {
     })
   }
 
+  const formatDateRange = (startDateString: string, endDateString: string) => {
+    const startDate = new Date(startDateString)
+    const endDate = new Date(endDateString)
+
+    const startDay = startDate.toLocaleDateString('nl-NL', { day: 'numeric' })
+    const startMonth = startDate.toLocaleDateString('nl-NL', { month: 'long' })
+    const endDay = endDate.toLocaleDateString('nl-NL', { day: 'numeric' })
+    const endMonth = endDate.toLocaleDateString('nl-NL', { month: 'long' })
+    const year = endDate.toLocaleDateString('nl-NL', { year: 'numeric' })
+
+    return `${startDay} ${startMonth} - ${endDay} ${endMonth} ${year}`
+  }
+
   return (
     <div className="bg-black min-h-screen relative">
       {/* Sticky background image and gradient */}
@@ -66,17 +82,30 @@ export function EventDetailPage({ eventId }: EventDetailPageProps) {
             </h1>
             <div className="flex flex-wrap gap-4 text-xl text-white">
               <span className="flex items-center gap-2">
-                📅 {formatDate(event.date)}
+                📅 {event.endDate ? formatDateRange(event.date, event.endDate) : formatDate(event.date)}
               </span>
               <span className="flex items-center gap-2">
                 📍 {event.location}
               </span>
-              <span className="flex items-center gap-2">
-                ⚡ <span className="capitalize">{event.difficulty}</span>
-              </span>
-              <span className="flex items-center gap-2">
-                🏃 <span className="capitalize">{event.type}</span>
-              </span>
+              {event.raceTypes ? (
+                <span className="flex items-center gap-2">
+                  🏃‍♂️ <span className="capitalize">{event.raceTypes.join(', ')}</span>
+                </span>
+              ) : (
+                <span className="flex items-center gap-2">
+                  ⚡ <span className="capitalize">{event.difficulty}</span>
+                </span>
+              )}
+              {!event.raceTypes && (
+                <span className="flex items-center gap-2">
+                  🏃 <span className="capitalize">{event.type}</span>
+                </span>
+              )}
+              {event.organization && (
+                <span className="flex items-center gap-2">
+                  🏢 {event.organization}
+                </span>
+              )}
             </div>
           </div>
         </div>
@@ -90,23 +119,38 @@ export function EventDetailPage({ eventId }: EventDetailPageProps) {
           </p>
 
           {/* Event Details Grid */}
-          <div className="grid md:grid-cols-2 gap-6 mb-8">
-            <div className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-6">
-              <h3 className="text-xl font-semibold mb-2 text-[#D94800]">Event Type</h3>
-              <p className="text-gray-300 capitalize">{event.type} Race</p>
-            </div>
-            <div className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-6">
-              <h3 className="text-xl font-semibold mb-2 text-[#D94800]">Difficulty Level</h3>
-              <p className="text-gray-300 capitalize">{event.difficulty}</p>
-            </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
             <div className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-6">
               <h3 className="text-xl font-semibold mb-2 text-[#D94800]">Date</h3>
-              <p className="text-gray-300">{formatDate(event.date)}</p>
+              <p className="text-gray-300">{event.endDate ? formatDateRange(event.date, event.endDate) : formatDate(event.date)}</p>
             </div>
             <div className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-6">
               <h3 className="text-xl font-semibold mb-2 text-[#D94800]">Location</h3>
               <p className="text-gray-300">{event.location}</p>
             </div>
+            {event.raceTypes ? (
+              <div className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-6">
+                <h3 className="text-xl font-semibold mb-2 text-[#D94800]">Race Types</h3>
+                <p className="text-gray-300">{event.raceTypes.join(', ')}</p>
+              </div>
+            ) : (
+              <>
+                <div className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-6">
+                  <h3 className="text-xl font-semibold mb-2 text-[#D94800]">Event Type</h3>
+                  <p className="text-gray-300 capitalize">{event.type} Race</p>
+                </div>
+                <div className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-6">
+                  <h3 className="text-xl font-semibold mb-2 text-[#D94800]">Difficulty Level</h3>
+                  <p className="text-gray-300 capitalize">{event.difficulty}</p>
+                </div>
+              </>
+            )}
+            {event.organization && (
+              <div className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-6">
+                <h3 className="text-xl font-semibold mb-2 text-[#D94800]">Organization</h3>
+                <p className="text-gray-300">{event.organization}</p>
+              </div>
+            )}
           </div>
 
           {/* External Link Button */}

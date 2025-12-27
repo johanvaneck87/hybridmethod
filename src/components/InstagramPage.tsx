@@ -4,13 +4,16 @@ import { EventTileImage } from './EventTileImage'
 interface Event {
   id: string
   name: string
+  organization?: string
   date: string
+  endDate?: string
   location: string
   coordinates: {
     lat: number
     lng: number
   }
   type: 'solo' | 'duo'
+  raceTypes?: string[]
   difficulty: 'beginner' | 'intermediate' | 'advanced'
   url: string
   description: string

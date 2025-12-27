@@ -2,13 +2,16 @@
   {
     "id": "hyrox-amsterdam-2026-01",
     "name": "HYROX Amsterdam",
+    "organization": "HYROX",
     "date": "2026-01-21",
-    "location": "Amsterdam",
+    "endDate": "2026-01-25",
+    "location": "RAI Amsterdam",
     "coordinates": {
       "lat": 52.3676,
       "lng": 4.9041
     },
     "type": "solo",
+    "raceTypes": ["Solo", "Duo", "Relay"],
     "difficulty": "intermediate",
     "url": "https://hyrox.com/event/hyrox-amsterdam/",
     "description": "HYROX 5th Edition in RAI Amsterdam - 5-day event",
@@ -35,13 +38,16 @@
   {
     "id": "hyrox-rotterdam-2026-04",
     "name": "HYROX Rotterdam",
+    "organization": "HYROX",
     "date": "2026-04-16",
-    "location": "Rotterdam",
+    "endDate": "2026-04-19",
+    "location": "Rotterdam Ahoy",
     "coordinates": {
       "lat": 51.9225,
       "lng": 4.47917
     },
     "type": "solo",
+    "raceTypes": ["Solo", "Duo", "Relay"],
     "difficulty": "intermediate",
     "url": "https://hyrox.com/event/hyrox-rotterdam/",
     "description": "HYROX 3rd Edition in Rotterdam Ahoy - 4-day event",
@@ -50,13 +56,16 @@
   {
     "id": "mud-masters-haarlemmermeer-2026",
     "name": "Mud Masters Haarlemmermeer",
+    "organization": "Mud Masters",
     "date": "2026-06-12",
+    "endDate": "2026-06-13",
     "location": "Vijfhuizen",
     "coordinates": {
       "lat": 52.3394,
       "lng": 4.6897
     },
     "type": "solo",
+    "raceTypes": ["Solo", "Duo", "Relay"],
     "difficulty": "intermediate",
     "url": "https://mudmasters.com/event/haarlemmermeer",
     "description": "Obstacle run with various distances (3-42km) in Haarlemmermeer",
@@ -65,13 +74,16 @@
   {
     "id": "strong-viking-wijchen-summer-2026",
     "name": "Strong Viking Wijchen",
+    "organization": "Strong Viking",
     "date": "2026-06-12",
+    "endDate": "2026-06-14",
     "location": "Wijchen",
     "coordinates": {
       "lat": 51.8069,
       "lng": 5.7236
     },
     "type": "solo",
+    "raceTypes": ["Solo", "Duo", "Relay"],
     "difficulty": "advanced",
     "url": "https://strongviking.com/en/obstacle-run/wijchen/",
     "description": "Summer edition obstacle race near Nijmegen - Multiple distance options (4-42km)",
@@ -80,13 +92,16 @@
   {
     "id": "strong-viking-amsterdam-2026",
     "name": "Strong Viking Amsterdam",
+    "organization": "Strong Viking",
     "date": "2026-09-26",
-    "location": "Amsterdam",
+    "endDate": "2026-09-27",
+    "location": "Spaarnwoude, Amsterdam",
     "coordinates": {
       "lat": 52.4108,
       "lng": 4.6842
     },
     "type": "solo",
+    "raceTypes": ["Solo", "Duo", "Relay"],
     "difficulty": "advanced",
     "url": "https://strongviking.com/en/obstacle-run/amsterdam/",
     "description": "Obstacle race in Spaarnwoude nature area - Includes Ultra Viking 60km option",
@@ -95,13 +110,16 @@
   {
     "id": "mud-masters-biddinghuizen-2026",
     "name": "Mud Masters Biddinghuizen",
+    "organization": "Mud Masters",
     "date": "2026-09-25",
+    "endDate": "2026-09-26",
     "location": "Biddinghuizen",
     "coordinates": {
       "lat": 52.4556,
       "lng": 5.6944
     },
     "type": "solo",
+    "raceTypes": ["Solo", "Duo", "Relay"],
     "difficulty": "intermediate",
     "url": "https://mudmasters.com/event/biddinghuizen-2026",
     "description": "Obstacle run with various distances (3-42km) in Biddinghuizen",

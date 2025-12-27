@@ -105,27 +105,110 @@ export function EventTileImage({ event }: EventTileImageProps) {
         ctx.fillText(line, 50, yPos + (index * lineHeight) + additionalSpacing)
       })
 
-      // Draw event details - positioned lower if multiple lines of text
-      const totalExtraSpacing = lines.length > 1 ? extraLineSpacing * (lines.length - 1) : 0
-      let detailsStartY = yPos + ((lines.length - 1) * lineHeight) + totalExtraSpacing + 80 // Increased from 70
+      // Draw event details - ALWAYS at same position (reserve space for 2 lines of event name)
+      const reservedNameHeight = (lineHeight * 2) + extraLineSpacing // Space for 2 lines max
+      let detailsStartY = yPos + reservedNameHeight + 10 // Small spacing between name and details (similar to mb-1)
       ctx.font = '42px Arial' // Increased from 36px for larger text
+
+      // Helper function to wrap text with emoji centered on text height
+      const wrapText = (text: string, x: number, y: number, maxWidth: number, lineHeight: number): number => {
+        // Split text into emoji and rest
+        const emojiMatch = text.match(/^([\u{1F300}-\u{1F9FF}])\s*/u)
+        const emoji = emojiMatch ? emojiMatch[1] + ' ' : ''
+        const textWithoutEmoji = emoji ? text.slice(emojiMatch[0].length) : text
+
+        const words = textWithoutEmoji.split(' ')
+        const allLines: string[] = []
+        let line = ''
+
+        // Measure emoji width to account for it in first line
+        const emojiWidth = emoji ? ctx.measureText(emoji).width : 0
+
+        // First pass: collect all lines
+        for (let i = 0; i < words.length; i++) {
+          const testLine = line + words[i] + ' '
+          const lineWidth = ctx.measureText(testLine).width
+          const totalWidth = (allLines.length === 0 ? emojiWidth : 0) + lineWidth
+
+          if (totalWidth > maxWidth && i > 0) {
+            allLines.push(line.trim())
+            line = words[i] + ' '
+          } else {
+            line = testLine
+          }
+        }
+        allLines.push(line.trim())
+
+        // Calculate total text height and emoji vertical offset
+        const totalTextHeight = allLines.length * lineHeight
+        const emojiVerticalOffset = allLines.length > 1 ? (totalTextHeight - lineHeight) / 2 : 0
+
+        // Draw emoji vertically centered
+        if (emoji) {
+          ctx.fillText(emoji, x, y + emojiVerticalOffset)
+        }
+
+        // Draw all text lines aligned with emoji width offset
+        for (let i = 0; i < allLines.length; i++) {
+          ctx.fillText(allLines[i], x + emojiWidth, y + (i * lineHeight))
+        }
+
+        return totalTextHeight // Return total height used
+      }
+
+      const detailMaxWidth = size - 100 // Same max width as event name
+      const detailLineHeight = 50 // Line height for wrapped detail text
+      const itemSpacing = 30 // Spacing between items (similar to space-y-2)
 
       const formattedDate = event.endDate
         ? formatDateRange(event.date, event.endDate)
         : formatDate(event.date)
-      ctx.fillText(`📅 ${formattedDate}`, 50, detailsStartY)
-      ctx.fillText(`📍 ${event.location}`, 50, detailsStartY + 80) // Increased from 70 for more spacing
+
+      let currentY = detailsStartY
+      currentY += wrapText(`📅 ${formattedDate}`, 50, currentY, detailMaxWidth, detailLineHeight)
+      currentY += itemSpacing
+      currentY += wrapText(`📍 ${event.location}`, 50, currentY, detailMaxWidth, detailLineHeight)
+      currentY += itemSpacing
 
       // Draw race types or difficulty
       if (event.raceTypes) {
-        ctx.fillText(`🏃‍♂️ ${event.raceTypes.join(', ')}`, 50, detailsStartY + 160) // Increased from 140
+        // For race types, don't use wrapText to avoid extracting the runner emoji
+        const raceText = event.raceTypes.join(', ')
+        const words = raceText.split(' ')
+        const lines: string[] = []
+        let line = ''
+
+        for (let i = 0; i < words.length; i++) {
+          const testLine = line + words[i] + ' '
+          const lineWidth = ctx.measureText(testLine).width
+
+          if (lineWidth > detailMaxWidth && i > 0) {
+            lines.push(line.trim())
+            line = words[i] + ' '
+          } else {
+            line = testLine
+          }
+        }
+        lines.push(line.trim())
+
+        // Draw runner emoji at base position
+        ctx.fillText('🏃‍♂️', 50, currentY)
+        const emojiWidth = ctx.measureText('🏃‍♂️ ').width
+
+        // Draw text lines offset by emoji width
+        for (let i = 0; i < lines.length; i++) {
+          ctx.fillText(lines[i], 50 + emojiWidth, currentY + (i * detailLineHeight))
+        }
+
+        currentY += lines.length * detailLineHeight
       } else {
-        ctx.fillText(`⚡ ${event.difficulty}`, 50, detailsStartY + 160) // Increased from 140
+        currentY += wrapText(`⚡ ${event.difficulty}`, 50, currentY, detailMaxWidth, detailLineHeight)
       }
 
       // Draw organization if present (as last item)
       if (event.organization) {
-        ctx.fillText(`🏢 ${event.organization}`, 50, detailsStartY + 240) // After race types/difficulty
+        currentY += itemSpacing
+        wrapText(`🏢 ${event.organization}`, 50, currentY, detailMaxWidth, detailLineHeight)
       }
 
       // Draw orange bar at bottom with rounded corners

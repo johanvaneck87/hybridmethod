@@ -63,7 +63,7 @@ export function EventDetailPage({ eventId }: EventDetailPageProps) {
   return (
     <div className="bg-black min-h-screen relative">
       {/* Sticky background image and gradient */}
-      <div className="sticky top-0 z-0 h-[60vh] min-h-[400px]">
+      <div className="sticky top-0 z-0 h-[50vh] md:h-[60vh] min-h-[300px] md:min-h-[400px]">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${event.image})` }}
@@ -75,35 +75,41 @@ export function EventDetailPage({ eventId }: EventDetailPageProps) {
       {/* Content that scrolls over sticky background */}
       <div className="relative z-10">
         {/* Event Title Overlay - Scrolls with content */}
-        <div className="-mt-[60vh] h-[60vh] min-h-[400px] flex items-end">
-          <div className="max-w-7xl mx-auto px-6 pb-12 w-full">
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white uppercase tracking-wide mb-4">
+        <div className="-mt-[50vh] md:-mt-[60vh] h-[50vh] md:h-[60vh] min-h-[300px] md:min-h-[400px] flex items-end">
+          <div className="max-w-7xl mx-auto px-6 pb-8 md:pb-12 w-full">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white uppercase tracking-wide mb-3 md:mb-4">
               {event.name}
             </h1>
-            <div className="flex flex-wrap gap-4 text-xl text-white">
-              <span className="flex items-center gap-2">
-                📅 {event.endDate ? formatDateRange(event.date, event.endDate) : formatDate(event.date)}
+            <div className="flex flex-col md:flex-row md:flex-wrap gap-2 md:gap-4 text-base md:text-xl text-white">
+              <span className="flex items-center gap-1.5 md:gap-2">
+                <span className="flex-shrink-0">📅</span>
+                <span>{event.endDate ? formatDateRange(event.date, event.endDate) : formatDate(event.date)}</span>
               </span>
-              <span className="flex items-center gap-2">
-                📍 {event.location}
+              <span className="flex items-center gap-1.5 md:gap-2">
+                <span className="flex-shrink-0">📍</span>
+                <span>{event.location}</span>
               </span>
               {event.raceTypes ? (
-                <span className="flex items-center gap-2">
-                  🏃‍♂️ <span className="capitalize">{event.raceTypes.join(', ')}</span>
+                <span className="flex items-center gap-1.5 md:gap-2">
+                  <span className="flex-shrink-0">🏃‍♂️</span>
+                  <span className="capitalize">{event.raceTypes.join(', ')}</span>
                 </span>
               ) : (
-                <span className="flex items-center gap-2">
-                  ⚡ <span className="capitalize">{event.difficulty}</span>
+                <span className="flex items-center gap-1.5 md:gap-2">
+                  <span className="flex-shrink-0">⚡</span>
+                  <span className="capitalize">{event.difficulty}</span>
                 </span>
               )}
               {!event.raceTypes && (
-                <span className="flex items-center gap-2">
-                  🏃 <span className="capitalize">{event.type}</span>
+                <span className="flex items-center gap-1.5 md:gap-2">
+                  <span className="flex-shrink-0">🏃</span>
+                  <span className="capitalize">{event.type}</span>
                 </span>
               )}
               {event.organization && (
-                <span className="flex items-center gap-2">
-                  🏢 {event.organization}
+                <span className="flex items-center gap-1.5 md:gap-2">
+                  <span className="flex-shrink-0">🏢</span>
+                  <span>{event.organization}</span>
                 </span>
               )}
             </div>
@@ -111,59 +117,171 @@ export function EventDetailPage({ eventId }: EventDetailPageProps) {
         </div>
 
       {/* Event Content */}
-      <div className="relative z-10 text-white py-12">
+      <div className="relative z-10 text-white py-8 md:py-12">
         <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-3xl font-bold mb-6 uppercase tracking-wide">About this event</h2>
-          <p className="text-lg text-gray-300 leading-relaxed mb-8">
-            {event.description}
-          </p>
+          <div className="max-w-4xl">
+            <h2 className="text-3xl font-bold mb-3 md:mb-6 uppercase tracking-wide">About this event</h2>
+            <p className="text-base md:text-lg text-gray-300 leading-relaxed mb-6 md:mb-12">
+              {event.id === 'strong-viking-wijchen-spring-2026' ? (
+                <>
+                  Join us for the ultimate obstacle race challenge at Strong Viking Wijchen Spring 2026! This multi-day event brings together athletes from across Europe to tackle one of the most demanding obstacle courses of the year. Whether you're competing solo, with a partner in duo format, or as part of a relay team, you'll experience an unforgettable weekend of fitness, competition, and community. Our outdoor course features over 25 challenging obstacles including rope climbs, wall jumps, monkey bars, and water obstacles. With distances ranging from 4km to 42km, there's a challenge suitable for every fitness level. The event takes place at the renowned Jaarbeurs venue in Utrecht, offering world-class facilities and spectator areas. All participants receive a finisher medal, event t-shirt, and access to our post-race recovery zone with professional massage services.
+                </>
+              ) : (
+                event.description
+              )}
+            </p>
 
-          {/* Event Details Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
-            <div className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-6">
-              <h3 className="text-xl font-semibold mb-2 text-[#D94800]">Date</h3>
-              <p className="text-gray-300">{event.endDate ? formatDateRange(event.date, event.endDate) : formatDate(event.date)}</p>
-            </div>
-            <div className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-6">
-              <h3 className="text-xl font-semibold mb-2 text-[#D94800]">Location</h3>
-              <p className="text-gray-300">{event.location}</p>
-            </div>
-            {event.raceTypes ? (
-              <div className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-6">
-                <h3 className="text-xl font-semibold mb-2 text-[#D94800]">Race Types</h3>
-                <p className="text-gray-300">{event.raceTypes.join(', ')}</p>
-              </div>
-            ) : (
-              <>
-                <div className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-6">
-                  <h3 className="text-xl font-semibold mb-2 text-[#D94800]">Event Type</h3>
-                  <p className="text-gray-300 capitalize">{event.type} Race</p>
+            {/* Event Information Sections */}
+            <div className="space-y-8">
+              {/* Event Details Section */}
+              <div>
+                <h3 className="text-2xl font-bold mb-4 uppercase tracking-wide text-[#D94800]">Event Details</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                  <div className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-3">
+                    <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">Date</p>
+                    <p className="text-base text-white font-medium">
+                      {event.endDate ? formatDateRange(event.date, event.endDate) : formatDate(event.date)}
+                    </p>
+                  </div>
+                  <div className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-3">
+                    <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">Location</p>
+                    <p className="text-base text-white font-medium">{event.location}</p>
+                  </div>
+                  <div className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-3">
+                    <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">Venue Type</p>
+                    <p className="text-base text-white font-medium">
+                      {event.id === 'strong-viking-wijchen-spring-2026' ? 'Outdoor' : 'Outdoor'}
+                    </p>
+                  </div>
+                  {event.raceTypes && (
+                    <div className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-3">
+                      <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">Race Types</p>
+                      <p className="text-base text-white font-medium">{event.raceTypes.join(', ')}</p>
+                    </div>
+                  )}
+                  <div className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-3">
+                    <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">Division</p>
+                    <p className="text-base text-white font-medium">
+                      {event.id === 'strong-viking-wijchen-spring-2026' ? 'Open, Pro' : 'Open'}
+                    </p>
+                  </div>
+                  <div className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-3">
+                    <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">Ticket Price Range</p>
+                    <p className="text-base text-white font-medium">
+                      {event.id === 'strong-viking-wijchen-spring-2026' ? '€45 - €120' : '€50 - €100'}
+                    </p>
+                  </div>
+                  {event.organization && (
+                    <div className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-3">
+                      <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">Organization</p>
+                      <p className="text-base text-white font-medium">{event.organization}</p>
+                    </div>
+                  )}
+                  <div className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-3">
+                    <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">HYROX Workout</p>
+                    <p className="text-base text-white font-medium">
+                      {event.id === 'strong-viking-wijchen-spring-2026' ? 'No' : event.name.toLowerCase().includes('hyrox') ? 'Yes' : 'No'}
+                    </p>
+                  </div>
                 </div>
-                <div className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-6">
-                  <h3 className="text-xl font-semibold mb-2 text-[#D94800]">Difficulty Level</h3>
-                  <p className="text-gray-300 capitalize">{event.difficulty}</p>
-                </div>
-              </>
-            )}
-            {event.organization && (
-              <div className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-6">
-                <h3 className="text-xl font-semibold mb-2 text-[#D94800]">Organization</h3>
-                <p className="text-gray-300">{event.organization}</p>
               </div>
-            )}
+
+            {/* Contact & Links Section */}
+            <div>
+              <h3 className="text-2xl font-bold mb-4 uppercase tracking-wide text-[#D94800]">Contact</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {event.url && (
+                  <a
+                    href={event.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-3 hover:border-[#D94800] transition-colors duration-200 group"
+                  >
+                    <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">Official Website</p>
+                    <p className="text-sm text-white font-medium group-hover:text-[#D94800] transition-colors flex items-center gap-2">
+                      Visit Website
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      </svg>
+                    </p>
+                  </a>
+                )}
+                {event.id === 'strong-viking-wijchen-spring-2026' && (
+                  <>
+                    <a
+                      href="https://strongviking.com/tickets"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-3 hover:border-[#D94800] transition-colors duration-200 group"
+                    >
+                      <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">Buy Tickets</p>
+                      <p className="text-sm text-white font-medium group-hover:text-[#D94800] transition-colors flex items-center gap-2">
+                        Get Your Tickets
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
+                        </svg>
+                      </p>
+                    </a>
+                    <a
+                      href="https://instagram.com/strongviking"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-3 hover:border-[#D94800] transition-colors duration-200 group"
+                    >
+                      <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">Instagram</p>
+                      <p className="text-sm text-white font-medium group-hover:text-[#D94800] transition-colors flex items-center gap-2">
+                        @strongviking
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                      </p>
+                    </a>
+                    <a
+                      href="https://strongviking.com/training/workouts"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-3 hover:border-[#D94800] transition-colors duration-200 group"
+                    >
+                      <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">Training Workouts</p>
+                      <p className="text-sm text-white font-medium group-hover:text-[#D94800] transition-colors flex items-center gap-2">
+                        View Workouts
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                      </p>
+                    </a>
+                    <a
+                      href="https://strongviking.com/training/weights"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-3 hover:border-[#D94800] transition-colors duration-200 group"
+                    >
+                      <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">Weights Guide</p>
+                      <p className="text-sm text-white font-medium group-hover:text-[#D94800] transition-colors flex items-center gap-2">
+                        Training Weights
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                        </svg>
+                      </p>
+                    </a>
+                    <a
+                      href="mailto:info@strongviking.com"
+                      className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-3 hover:border-[#D94800] transition-colors duration-200 group"
+                    >
+                      <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">Contact</p>
+                      <p className="text-sm text-white font-medium group-hover:text-[#D94800] transition-colors flex items-center gap-2">
+                        info@strongviking.com
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                      </p>
+                    </a>
+                  </>
+                )}
+              </div>
+            </div>
           </div>
-
-          {/* External Link Button */}
-          {event.url && (
-            <a
-              href={event.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block bg-[#D94800] text-black font-semibold px-8 py-3 rounded tracking-[0.25em] text-lg hover:bg-[#E85D00] transition-colors duration-200"
-            >
-              VIEW EVENT DETAILS
-            </a>
-          )}
+        </div>
         </div>
       </div>
       </div>

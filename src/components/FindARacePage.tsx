@@ -946,12 +946,16 @@ export function FindARacePage() {
               </div>
 
               {/* Content */}
-              <div className="relative h-full flex flex-col justify-between p-6">
+              <div className="relative h-full flex flex-col p-6">
+                {/* Event name - fixed height for 2 lines */}
                 <div>
-                  <h3 className="text-3xl md:text-2xl font-bold text-white uppercase tracking-wide mb-3">
-                    {event.name}
+                  <h3 className="text-3xl md:text-2xl font-bold text-white uppercase tracking-wide line-clamp-2 h-[5.25rem] md:h-[4.5rem] flex items-start">
+                    <span>{event.name}</span>
                   </h3>
+                </div>
 
+                {/* Event details - always starts at same position */}
+                <div className="flex-1 flex flex-col justify-between">
                   <div className="space-y-2 text-white mb-3">
                     <p className="flex items-center gap-2 text-base md:text-sm">
                       <span>📅</span>
@@ -972,10 +976,10 @@ export function FindARacePage() {
                       </p>
                     )}
                   </div>
-                </div>
 
-                <div className="inline-block bg-[#D94800] text-black font-semibold px-6 py-2 rounded tracking-[0.15em] text-lg md:text-base text-center">
-                  Event information
+                  <div className="inline-block bg-[#D94800] text-black font-semibold px-6 py-2 rounded tracking-[0.15em] text-lg md:text-base text-center">
+                    Event information
+                  </div>
                 </div>
               </div>
             </div>

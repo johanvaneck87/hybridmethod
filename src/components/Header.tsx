@@ -62,7 +62,7 @@ export function Header({ currentRoute }: HeaderProps) {
             <button
               onClick={(e) => handleNavClick(e, 'find-a-race')}
               className={`text-sm lg:text-base font-medium uppercase tracking-wide transition-colors duration-200 whitespace-nowrap ${
-                currentRoute === 'find-a-race' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
+                currentRoute === 'find-a-race' || currentRoute === 'home' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
               }`}
             >
               FIND A RACE
@@ -131,7 +131,7 @@ export function Header({ currentRoute }: HeaderProps) {
             <button
               onClick={(e) => handleNavClick(e, 'find-a-race')}
               className={`text-lg font-medium uppercase tracking-wide transition-colors duration-200 text-left ${
-                currentRoute === 'find-a-race' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
+                currentRoute === 'find-a-race' || currentRoute === 'home' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
               }`}
             >
               FIND A RACE

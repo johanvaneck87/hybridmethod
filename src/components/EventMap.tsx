@@ -30,6 +30,7 @@ export function EventMap({ events, highlightedEventId, selectedEventId, onEventC
   const mapInstanceRef = useRef<L.Map | null>(null)
   const markersRef = useRef<Map<string, L.Marker>>(new Map())
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null)
+  const [hoveredMarkerId, setHoveredMarkerId] = useState<string | null>(null)
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
@@ -142,37 +143,54 @@ export function EventMap({ events, highlightedEventId, selectedEventId, onEventC
     if (!mapInstanceRef.current) return
 
     const zoom = mapInstanceRef.current.getZoom()
-    markersRef.current.forEach((marker, eventId) => {
-      const isHighlighted = eventId === highlightedEventId
-      const createCustomIcon = (zoom: number, eventId: string, isHighlighted: boolean = false) => {
-        const baseSize = isHighlighted ? 18 : 14
-        const baseZoom = 7
-        const scaleFactor = Math.pow(1.25, zoom - baseZoom)
-        const size = Math.max(isHighlighted ? 12 : 8, Math.min(isHighlighted ? 40 : 30, baseSize * scaleFactor))
-        const borderWidth = Math.max(isHighlighted ? 2 : 1, Math.min(isHighlighted ? 4 : 2.5, (isHighlighted ? 2.5 : 1.5) * scaleFactor))
 
-        // Determine color based on selection state
-        let backgroundColor: string
-        if (selectedEventId) {
-          // If an event is selected, only that event gets orange color, others are gray
-          backgroundColor = eventId === selectedEventId ? '#D94800' : '#808080'
-        } else {
-          // Normal state: highlighted events get brighter orange
-          backgroundColor = isHighlighted ? '#E85D00' : '#D94800'
-        }
+    const createCustomIcon = (zoom: number, eventId: string, isHighlighted: boolean = false) => {
+      const baseSize = isHighlighted ? 18 : 14
+      const baseZoom = 7
+      const scaleFactor = Math.pow(1.25, zoom - baseZoom)
+      const size = Math.max(isHighlighted ? 12 : 8, Math.min(isHighlighted ? 40 : 30, baseSize * scaleFactor))
+      const borderWidth = Math.max(isHighlighted ? 2 : 1, Math.min(isHighlighted ? 4 : 2.5, (isHighlighted ? 2.5 : 1.5) * scaleFactor))
 
-        const boxShadow = isHighlighted ? '0 4px 8px rgba(232, 93, 0, 0.5)' : '0 2px 4px rgba(0,0,0,0.3)'
-
-        return L.divIcon({
-          className: 'custom-marker',
-          html: `<div style="background-color: ${backgroundColor}; width: ${size}px; height: ${size}px; border-radius: 50%; border: ${borderWidth}px solid white; box-shadow: ${boxShadow}; transition: all 0.2s ease;"></div>`,
-          iconSize: [size, size],
-          iconAnchor: [size / 2, size / 2]
-        })
+      // Determine color based on selection state
+      let backgroundColor: string
+      if (selectedEventId) {
+        // If an event is selected, only that event gets orange color, others are gray
+        backgroundColor = eventId === selectedEventId ? '#D94800' : '#808080'
+      } else {
+        // Normal state: highlighted events get brighter orange
+        backgroundColor = isHighlighted ? '#E85D00' : '#D94800'
       }
+
+      const boxShadow = isHighlighted ? '0 4px 8px rgba(232, 93, 0, 0.5)' : '0 2px 4px rgba(0,0,0,0.3)'
+
+      return L.divIcon({
+        className: 'custom-marker',
+        html: `<div style="background-color: ${backgroundColor}; width: ${size}px; height: ${size}px; border-radius: 50%; border: ${borderWidth}px solid white; box-shadow: ${boxShadow}; transition: all 0.2s ease; cursor: pointer;"></div>`,
+        iconSize: [size, size],
+        iconAnchor: [size / 2, size / 2]
+      })
+    }
+
+    // Remove all old event handlers and add new ones
+    markersRef.current.forEach((marker, eventId) => {
+      // Remove old handlers
+      marker.off('mouseover')
+      marker.off('mouseout')
+
+      // Add new hover handlers
+      marker.on('mouseover', () => {
+        setHoveredMarkerId(eventId)
+      })
+
+      marker.on('mouseout', () => {
+        setHoveredMarkerId(null)
+      })
+
+      // Update icon for current state
+      const isHighlighted = eventId === highlightedEventId || eventId === hoveredMarkerId
       marker.setIcon(createCustomIcon(zoom, eventId, isHighlighted))
     })
-  }, [highlightedEventId, selectedEventId])
+  }, [highlightedEventId, selectedEventId, events, hoveredMarkerId])
 
   return (
     <div className="relative w-full h-full">
@@ -238,8 +256,8 @@ export function EventMap({ events, highlightedEventId, selectedEventId, onEventC
                   </div>
                 </div>
 
-                <div className="inline-block bg-[#D94800] text-black font-semibold px-6 py-2 rounded tracking-[0.25em] text-base text-center">
-                  hybridraces.fit
+                <div className="inline-block bg-[#D94800] text-black font-semibold px-6 py-2 rounded tracking-[0.15em] text-base text-center">
+                  Event information
                 </div>
               </div>
             </div>

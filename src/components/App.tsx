@@ -8,6 +8,7 @@ import { BlogPage } from './BlogPage'
 import { SubmitEventPage } from './SubmitEventPage'
 import { FindARacePage } from './FindARacePage'
 import { EventDetailPage } from './EventDetailPage'
+import { InstagramPage } from './InstagramPage'
 
 export function App() {
   const [currentRoute, eventId] = useRouter()
@@ -15,7 +16,7 @@ export function App() {
   return (
     <div className="min-h-screen">
       <Header currentRoute={currentRoute} />
-      {currentRoute === 'home' && <HybridRacesPage />}
+      {currentRoute === 'home' && <FindARacePage />}
       {currentRoute === 'hybrid-races' && <HybridRacesLandingPage />}
       {currentRoute === 'events' && <EventsPage />}
       {currentRoute === 'blog' && <BlogPage />}
@@ -23,6 +24,7 @@ export function App() {
       {currentRoute === 'submit-event' && <SubmitEventPage />}
       {currentRoute === 'find-a-race' && <FindARacePage />}
       {currentRoute === 'event-detail' && eventId && <EventDetailPage eventId={eventId} />}
+      {currentRoute === 'instagram' && <InstagramPage />}
     </div>
   )
 }

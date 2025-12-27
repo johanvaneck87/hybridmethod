@@ -5,7 +5,9 @@
       "Bash(npm install)",
       "Bash(npm install:*)",
       "Bash(netstat:*)",
-      "Bash(findstr:*)"
+      "Bash(findstr:*)",
+      "Bash(dir:*)",
+      "Bash(copy \"C:\\\\Users\\\\CLAUDI~1.MAA\\\\AppData\\\\Local\\\\Temp\\\\claude-vscode\\\\upload_3f23e4b5d6b74addb8bf98e9e4af20e3\" \"c:\\\\Users\\\\Claudine.Maas\\\\OneDrive - Mendix Technology B.V\\\\Documents\\\\johan website\\\\hybridmethod\\\\src\\\\picture\\\\hyrox-gym.jpg\")"
     ],
     "deny": [],
     "ask": []

@@ -45,18 +45,21 @@ export function EventDetailPage({ eventId }: EventDetailPageProps) {
   }
 
   return (
-    <div className="bg-black min-h-screen">
-      {/* Hero Section with Event Image */}
-      <div className="relative h-[60vh] min-h-[400px]">
+    <div className="bg-black min-h-screen relative">
+      {/* Sticky background image and gradient */}
+      <div className="sticky top-0 z-0 h-[60vh] min-h-[400px]">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${event.image})` }}
         >
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/70 to-black"></div>
         </div>
+      </div>
 
-        {/* Event Title Overlay */}
-        <div className="relative h-full flex items-end">
+      {/* Content that scrolls over sticky background */}
+      <div className="relative z-10">
+        {/* Event Title Overlay - Scrolls with content */}
+        <div className="-mt-[60vh] h-[60vh] min-h-[400px] flex items-end">
           <div className="max-w-7xl mx-auto px-6 pb-12 w-full">
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white uppercase tracking-wide mb-4">
               {event.name}
@@ -77,50 +80,48 @@ export function EventDetailPage({ eventId }: EventDetailPageProps) {
             </div>
           </div>
         </div>
-      </div>
 
       {/* Event Content */}
-      <div className="relative z-10 bg-black text-white py-12">
+      <div className="relative z-10 text-white py-12">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="max-w-3xl">
-            <h2 className="text-3xl font-bold mb-6 uppercase tracking-wide">About this event</h2>
-            <p className="text-lg text-gray-300 leading-relaxed mb-8">
-              {event.description}
-            </p>
+          <h2 className="text-3xl font-bold mb-6 uppercase tracking-wide">About this event</h2>
+          <p className="text-lg text-gray-300 leading-relaxed mb-8">
+            {event.description}
+          </p>
 
-            {/* Event Details Grid */}
-            <div className="grid md:grid-cols-2 gap-6 mb-8">
-              <div className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-6">
-                <h3 className="text-xl font-semibold mb-2 text-[#D94800]">Event Type</h3>
-                <p className="text-gray-300 capitalize">{event.type} Race</p>
-              </div>
-              <div className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-6">
-                <h3 className="text-xl font-semibold mb-2 text-[#D94800]">Difficulty Level</h3>
-                <p className="text-gray-300 capitalize">{event.difficulty}</p>
-              </div>
-              <div className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-6">
-                <h3 className="text-xl font-semibold mb-2 text-[#D94800]">Date</h3>
-                <p className="text-gray-300">{formatDate(event.date)}</p>
-              </div>
-              <div className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-6">
-                <h3 className="text-xl font-semibold mb-2 text-[#D94800]">Location</h3>
-                <p className="text-gray-300">{event.location}</p>
-              </div>
+          {/* Event Details Grid */}
+          <div className="grid md:grid-cols-2 gap-6 mb-8">
+            <div className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-6">
+              <h3 className="text-xl font-semibold mb-2 text-[#D94800]">Event Type</h3>
+              <p className="text-gray-300 capitalize">{event.type} Race</p>
             </div>
-
-            {/* External Link Button */}
-            {event.url && (
-              <a
-                href={event.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block bg-[#D94800] text-black font-semibold px-8 py-3 rounded tracking-[0.25em] text-lg hover:bg-[#E85D00] transition-colors duration-200"
-              >
-                VIEW EVENT DETAILS
-              </a>
-            )}
+            <div className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-6">
+              <h3 className="text-xl font-semibold mb-2 text-[#D94800]">Difficulty Level</h3>
+              <p className="text-gray-300 capitalize">{event.difficulty}</p>
+            </div>
+            <div className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-6">
+              <h3 className="text-xl font-semibold mb-2 text-[#D94800]">Date</h3>
+              <p className="text-gray-300">{formatDate(event.date)}</p>
+            </div>
+            <div className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-6">
+              <h3 className="text-xl font-semibold mb-2 text-[#D94800]">Location</h3>
+              <p className="text-gray-300">{event.location}</p>
+            </div>
           </div>
+
+          {/* External Link Button */}
+          {event.url && (
+            <a
+              href={event.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-[#D94800] text-black font-semibold px-8 py-3 rounded tracking-[0.25em] text-lg hover:bg-[#E85D00] transition-colors duration-200"
+            >
+              VIEW EVENT DETAILS
+            </a>
+          )}
         </div>
+      </div>
       </div>
     </div>
   )

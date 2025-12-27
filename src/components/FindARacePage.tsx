@@ -72,6 +72,40 @@ export function FindARacePage() {
     setShowUpcomingOnly(true)
   }
 
+  // Calculate number of active filters
+  const activeFiltersCount = useMemo(() => {
+    let count = 0
+    if (sortBy !== 'date') count++
+    if (filterType !== 'all') count++
+    if (filterDifficulty !== 'all') count++
+    if (!showUpcomingOnly) count++
+    return count
+  }, [sortBy, filterType, filterDifficulty, showUpcomingOnly])
+
+  // Calculate preview count based on temporary filters (for "Show X Events" button)
+  const tempFilteredEventsCount = useMemo(() => {
+    let filtered = [...events]
+
+    // Filter by upcoming events only
+    if (tempShowUpcomingOnly) {
+      const today = new Date()
+      today.setHours(0, 0, 0, 0)
+      filtered = filtered.filter(event => new Date(event.date) >= today)
+    }
+
+    // Filter by type
+    if (tempFilterType !== 'all') {
+      filtered = filtered.filter(event => event.type === tempFilterType)
+    }
+
+    // Filter by difficulty
+    if (tempFilterDifficulty !== 'all') {
+      filtered = filtered.filter(event => event.difficulty === tempFilterDifficulty)
+    }
+
+    return filtered.length
+  }, [tempFilterType, tempFilterDifficulty, tempShowUpcomingOnly, events])
+
   const filteredAndSortedEvents = useMemo(() => {
     let filtered = [...events]
 
@@ -163,7 +197,14 @@ export function FindARacePage() {
               onClick={() => setMobileFiltersOpen(!mobileFiltersOpen)}
               className="flex-1 bg-gray-900 border border-white/20 rounded px-4 py-3 text-white flex items-center justify-between"
             >
-              <span className="font-medium uppercase tracking-wide">Filters</span>
+              <div className="flex items-center gap-2">
+                <span className="font-medium uppercase tracking-wide">Filters</span>
+                {activeFiltersCount > 0 && (
+                  <span className="bg-[#D94800] text-white text-xs font-semibold px-2 py-1 rounded-full">
+                    {activeFiltersCount}
+                  </span>
+                )}
+              </div>
               <span className={`transform transition-transform duration-200 ${mobileFiltersOpen ? 'rotate-180' : ''}`}>▼</span>
             </button>
 
@@ -176,14 +217,14 @@ export function FindARacePage() {
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
                   </svg>
-                  <span className="font-medium uppercase tracking-wide text-sm">MAP</span>
+                  <span className="font-medium uppercase tracking-wide">MAP</span>
                 </>
               ) : (
                 <>
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
                   </svg>
-                  <span className="font-medium uppercase tracking-wide text-sm">LIST</span>
+                  <span className="font-medium uppercase tracking-wide">LIST</span>
                 </>
               )}
             </button>
@@ -202,7 +243,14 @@ export function FindARacePage() {
                 onClick={() => setMobileFiltersOpen(false)}
                 className="w-full bg-gray-900 border border-white/20 rounded px-4 py-3 text-white flex items-center justify-between"
               >
-                <span className="font-medium uppercase tracking-wide">Filters</span>
+                <div className="flex items-center gap-2">
+                  <span className="font-medium uppercase tracking-wide">Filters</span>
+                  {activeFiltersCount > 0 && (
+                    <span className="bg-[#D94800] text-white text-xs font-semibold px-2 py-1 rounded-full">
+                      {activeFiltersCount}
+                    </span>
+                  )}
+                </div>
                 <span className="transform rotate-180">▼</span>
               </button>
             </div>
@@ -283,9 +331,9 @@ export function FindARacePage() {
               {/* Apply button to close filters */}
               <button
                 onClick={applyFilters}
-                className="w-full bg-[#D94800] text-black font-medium px-6 py-2 rounded uppercase tracking-wide hover:bg-[#E85D00] transition-colors duration-200"
+                className="w-full bg-[#D94800] text-black font-bold px-6 py-2 rounded uppercase tracking-wide hover:bg-[#E85D00] transition-colors duration-200"
               >
-                Apply Filters
+                Show {tempFilteredEventsCount} Event{tempFilteredEventsCount !== 1 ? 's' : ''}
               </button>
             </div>
           </div>
@@ -298,21 +346,28 @@ export function FindARacePage() {
             <div className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-4 space-y-3">
               {/* Header with FILTERS and MAP/LIST toggle */}
               <div className="flex items-center justify-between pb-3 border-b border-white/20">
-                <h3 className="text-base font-semibold uppercase tracking-wide text-white">Filters</h3>
+                <div className="flex items-center gap-2">
+                  <h3 className="text-base font-semibold uppercase tracking-wide text-white">Filters</h3>
+                  {activeFiltersCount > 0 && (
+                    <span className="bg-[#D94800] text-white text-xs font-semibold px-2 py-1 rounded-full">
+                      {activeFiltersCount}
+                    </span>
+                  )}
+                </div>
                 <button
                   onClick={() => setViewMode(viewMode === 'list' ? 'map' : 'list')}
-                  className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-white hover:text-[#D94800] transition-colors duration-200"
+                  className="flex items-center gap-2 text-base font-semibold uppercase tracking-wide text-white hover:text-[#D94800] transition-colors duration-200"
                 >
                   {viewMode === 'list' ? (
                     <>
-                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
                       </svg>
                       <span>MAP</span>
                     </>
                   ) : (
                     <>
-                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
                       </svg>
                       <span>LIST</span>
@@ -397,9 +452,9 @@ export function FindARacePage() {
           {/* Apply Filters button */}
           <button
             onClick={applyFilters}
-            className="w-full bg-[#D94800] text-black font-medium px-6 py-2 rounded uppercase tracking-wide hover:bg-[#E85D00] transition-colors duration-200"
+            className="w-full bg-[#D94800] text-black font-bold px-3 py-1.5 rounded uppercase tracking-wide text-sm hover:bg-[#E85D00] transition-colors duration-200"
           >
-            Apply Filters
+            Show {tempFilteredEventsCount} Event{tempFilteredEventsCount !== 1 ? 's' : ''}
           </button>
             </div>
           </div>
@@ -477,8 +532,8 @@ export function FindARacePage() {
                   </div>
                 </div>
 
-                <div className="inline-block bg-[#D94800] text-black font-semibold px-6 py-2 rounded tracking-[0.25em] text-lg md:text-base text-center">
-                  hybridraces.fit
+                <div className="inline-block bg-[#D94800] text-black font-semibold px-6 py-2 rounded tracking-[0.15em] text-lg md:text-base text-center">
+                  Event information
                 </div>
               </div>
             </div>

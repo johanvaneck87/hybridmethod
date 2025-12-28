@@ -17,6 +17,7 @@ interface Event {
   url: string
   description: string
   image: string
+  country?: string
 }
 
 interface EventDetailPageProps {
@@ -77,8 +78,28 @@ export function EventDetailPage({ eventId }: EventDetailPageProps) {
         {/* Event Title Overlay - Scrolls with content */}
         <div className="-mt-[50vh] md:-mt-[60vh] h-[50vh] md:h-[60vh] min-h-[300px] md:min-h-[400px] flex items-end">
           <div className="max-w-7xl mx-auto px-6 pb-8 md:pb-12 w-full">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white uppercase tracking-wide mb-3 md:mb-4">
-              {event.name}
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white uppercase tracking-wide mb-3 md:mb-4 leading-tight">
+              <span className="inline-flex flex-wrap items-baseline gap-x-[0.25em]">
+                <span>{event.name}</span>
+                {/* Country Flag - Same height as text, wraps to new line if needed */}
+                <span className="inline-block align-baseline">
+                  <span className="border border-white/40 rounded-sm p-[0.05em] inline-block">
+                    {event.country === 'BE' ? (
+                      <svg className="h-[0.6em] w-auto" viewBox="0 0 9 6" xmlns="http://www.w3.org/2000/svg">
+                        <rect fill="#000" width="3" height="6"/>
+                        <rect fill="#FDDA24" x="3" width="3" height="6"/>
+                        <rect fill="#EF3340" x="6" width="3" height="6"/>
+                      </svg>
+                    ) : (
+                      <svg className="h-[0.6em] w-auto" viewBox="0 0 9 6" xmlns="http://www.w3.org/2000/svg">
+                        <rect fill="#AE1C28" width="9" height="2"/>
+                        <rect fill="#FFF" y="2" width="9" height="2"/>
+                        <rect fill="#21468B" y="4" width="9" height="2"/>
+                      </svg>
+                    )}
+                  </span>
+                </span>
+              </span>
             </h1>
             <div className="flex flex-col md:flex-row md:flex-wrap gap-2 md:gap-4 text-base md:text-xl text-white">
               <span className="flex items-center gap-1.5 md:gap-2">

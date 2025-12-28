@@ -59,17 +59,18 @@
     "organization": "Mud Masters",
     "date": "2026-06-12",
     "endDate": "2026-06-13",
-    "location": "Vijfhuizen",
+    "location": "Brussels, Belgium",
     "coordinates": {
-      "lat": 52.3394,
-      "lng": 4.6897
+      "lat": 50.8503,
+      "lng": 4.3517
     },
     "type": "solo",
     "raceTypes": ["Solo", "Duo", "Relay"],
     "difficulty": "intermediate",
     "url": "https://mudmasters.com/event/haarlemmermeer",
-    "description": "Obstacle run with various distances (3-42km) in Haarlemmermeer",
-    "image": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&h=800&fit=crop"
+    "description": "Obstacle run with various distances (3-42km) in Brussels",
+    "image": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&h=800&fit=crop",
+    "country": "BE"
   },
   {
     "id": "strong-viking-wijchen-summer-2026",
@@ -113,16 +114,17 @@
     "organization": "Mud Masters",
     "date": "2026-09-25",
     "endDate": "2026-09-26",
-    "location": "Biddinghuizen",
+    "location": "Antwerp, Belgium",
     "coordinates": {
-      "lat": 52.4556,
-      "lng": 5.6944
+      "lat": 51.2194,
+      "lng": 4.4025
     },
     "type": "solo",
     "raceTypes": ["Solo", "Duo", "Relay"],
     "difficulty": "intermediate",
     "url": "https://mudmasters.com/event/biddinghuizen-2026",
-    "description": "Obstacle run with various distances (3-42km) in Biddinghuizen",
-    "image": "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&h=800&fit=crop"
+    "description": "Obstacle run with various distances (3-42km) in Antwerp",
+    "image": "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&h=800&fit=crop",
+    "country": "BE"
   }
 ]

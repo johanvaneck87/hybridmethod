@@ -10,6 +10,7 @@ interface Event {
   raceTypes?: string[]
   difficulty: string
   image: string
+  country?: string
 }
 
 interface EventTileImageProps {
@@ -69,6 +70,47 @@ export function EventTileImage({ event }: EventTileImageProps) {
       gradient.addColorStop(1, 'rgba(0, 0, 0, 0.9)')
       ctx.fillStyle = gradient
       ctx.fillRect(0, 0, size, size)
+
+      // Draw flag in top right corner
+      const flagWidth = 64
+      const flagHeight = 43
+      const flagX = size - flagWidth - 24
+      const flagY = 24
+
+      // Draw subtle border around flag (similar to filter bar)
+      const borderPadding = 4
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)'
+      ctx.lineWidth = 2
+      ctx.strokeRect(flagX - borderPadding, flagY - borderPadding, flagWidth + (borderPadding * 2), flagHeight + (borderPadding * 2))
+
+      // Draw flag based on country
+      if (event.country === 'BE') {
+        // Belgian flag (vertical stripes: black, yellow, red)
+        // Black stripe
+        ctx.fillStyle = '#000000'
+        ctx.fillRect(flagX, flagY, flagWidth / 3, flagHeight)
+
+        // Yellow stripe
+        ctx.fillStyle = '#FDDA24'
+        ctx.fillRect(flagX + flagWidth / 3, flagY, flagWidth / 3, flagHeight)
+
+        // Red stripe
+        ctx.fillStyle = '#EF3340'
+        ctx.fillRect(flagX + (2 * flagWidth / 3), flagY, flagWidth / 3, flagHeight)
+      } else {
+        // Dutch flag (horizontal stripes: red, white, blue)
+        // Red stripe
+        ctx.fillStyle = '#AE1C28'
+        ctx.fillRect(flagX, flagY, flagWidth, flagHeight / 3)
+
+        // White stripe
+        ctx.fillStyle = '#FFFFFF'
+        ctx.fillRect(flagX, flagY + flagHeight / 3, flagWidth, flagHeight / 3)
+
+        // Blue stripe
+        ctx.fillStyle = '#21468B'
+        ctx.fillRect(flagX, flagY + (2 * flagHeight / 3), flagWidth, flagHeight / 3)
+      }
 
       // Draw event name - with word wrapping if needed (matching desktop event tile size)
       ctx.fillStyle = '#FFFFFF'

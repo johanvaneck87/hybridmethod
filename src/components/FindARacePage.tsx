@@ -21,6 +21,7 @@ interface Event {
   url: string
   description: string
   image: string
+  country?: string
 }
 
 type SortField = 'date' | 'location' | 'name'
@@ -937,6 +938,25 @@ export function FindARacePage() {
               onClick={() => navigate('event-detail', event.id)}
               className="relative aspect-square bg-gray-900 border border-gray-800 rounded-lg overflow-hidden hover:border-[#D94800] active:border-[#D94800] focus-within:border-[#D94800] transition-colors duration-200 group cursor-pointer"
             >
+              {/* Country Flag - Top Right */}
+              <div className="absolute top-2 right-2 z-10">
+                <div className="border border-white/40 rounded-sm p-0.5">
+                  {event.country === 'BE' ? (
+                    <svg className="w-6 h-4" viewBox="0 0 9 6" xmlns="http://www.w3.org/2000/svg">
+                      <rect fill="#000" width="3" height="6"/>
+                      <rect fill="#FDDA24" x="3" width="3" height="6"/>
+                      <rect fill="#EF3340" x="6" width="3" height="6"/>
+                    </svg>
+                  ) : (
+                    <svg className="w-6 h-4" viewBox="0 0 9 6" xmlns="http://www.w3.org/2000/svg">
+                      <rect fill="#AE1C28" width="9" height="2"/>
+                      <rect fill="#FFF" y="2" width="9" height="2"/>
+                      <rect fill="#21468B" y="4" width="9" height="2"/>
+                    </svg>
+                  )}
+                </div>
+              </div>
+
               {/* Background Image */}
               <div
                 className="absolute inset-0 bg-cover bg-center"
@@ -956,7 +976,7 @@ export function FindARacePage() {
 
                 {/* Event details - always starts at same position */}
                 <div className="flex-1 flex flex-col justify-between">
-                  <div className="space-y-2 text-white mb-3">
+                  <div className="space-y-1 text-white mb-3">
                     <p className="flex items-center gap-2 text-base md:text-sm">
                       <span>📅</span>
                       <span>{event.endDate ? formatDateRange(event.date, event.endDate) : formatDate(event.date)}</span>

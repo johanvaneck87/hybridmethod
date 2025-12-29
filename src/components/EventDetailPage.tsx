@@ -41,7 +41,7 @@ export function EventDetailPage({ eventId }: EventDetailPageProps) {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
-    return date.toLocaleDateString('nl-NL', {
+    return date.toLocaleDateString('en-US', {
       day: 'numeric',
       month: 'long',
       year: 'numeric'
@@ -52,11 +52,11 @@ export function EventDetailPage({ eventId }: EventDetailPageProps) {
     const startDate = new Date(startDateString)
     const endDate = new Date(endDateString)
 
-    const startDay = startDate.toLocaleDateString('nl-NL', { day: 'numeric' })
-    const startMonth = startDate.toLocaleDateString('nl-NL', { month: 'long' })
-    const endDay = endDate.toLocaleDateString('nl-NL', { day: 'numeric' })
-    const endMonth = endDate.toLocaleDateString('nl-NL', { month: 'long' })
-    const year = endDate.toLocaleDateString('nl-NL', { year: 'numeric' })
+    const startDay = startDate.toLocaleDateString('en-US', { day: 'numeric' })
+    const startMonth = startDate.toLocaleDateString('en-US', { month: 'long' })
+    const endDay = endDate.toLocaleDateString('en-US', { day: 'numeric' })
+    const endMonth = endDate.toLocaleDateString('en-US', { month: 'long' })
+    const year = endDate.toLocaleDateString('en-US', { year: 'numeric' })
 
     return `${startDay} ${startMonth} - ${endDay} ${endMonth} ${year}`
   }

@@ -26,7 +26,7 @@ export function EventsPage() {
   const [sortBy, setSortBy] = useState<SortField>('date')
   const [filterType, setFilterType] = useState<FilterType>('all')
   const [filterDifficulty, setFilterDifficulty] = useState<FilterDifficulty>('all')
-  const [showUpcomingOnly, setShowUpcomingOnly] = useState(true)
+  const [showPastEvents, setShowPastEvents] = useState(false)
   const [showMap, setShowMap] = useState(true)
 
   const events = eventsData as Event[]
@@ -34,12 +34,14 @@ export function EventsPage() {
   const filteredAndSortedEvents = useMemo(() => {
     let filtered = [...events]
 
-    // Filter by upcoming events only
-    if (showUpcomingOnly) {
+    // Filter by past/upcoming events
+    if (!showPastEvents) {
+      // By default, show only upcoming events
       const today = new Date()
       today.setHours(0, 0, 0, 0)
       filtered = filtered.filter(event => new Date(event.date) >= today)
     }
+    // When showPastEvents is true, show ALL events (no date filter)
 
     // Filter by type
     if (filterType !== 'all') {
@@ -63,11 +65,11 @@ export function EventsPage() {
     })
 
     return filtered
-  }, [events, sortBy, filterType, filterDifficulty, showUpcomingOnly])
+  }, [events, sortBy, filterType, filterDifficulty, showPastEvents])
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
-    return date.toLocaleDateString('nl-NL', {
+    return date.toLocaleDateString('en-US', {
       day: 'numeric',
       month: 'long',
       year: 'numeric'
@@ -136,19 +138,19 @@ export function EventsPage() {
             </select>
           </div>
 
-          {/* Show upcoming only checkbox */}
+          {/* Show past events checkbox */}
           <div>
             <label className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
-              Show
+              Time Period
             </label>
             <label className="flex items-center gap-2 cursor-pointer">
               <input
                 type="checkbox"
-                checked={showUpcomingOnly}
-                onChange={(e) => setShowUpcomingOnly(e.currentTarget.checked)}
+                checked={showPastEvents}
+                onChange={(e) => setShowPastEvents(e.currentTarget.checked)}
                 className="w-5 h-5 cursor-pointer accent-[#D94800]"
               />
-              <span className="text-white">Upcoming only</span>
+              <span className="text-white">Show past events</span>
             </label>
           </div>
 
@@ -172,7 +174,7 @@ export function EventsPage() {
         {/* Interactive Map with event markers */}
         {showMap && (
           <div className="mb-8 -mx-6 md:mx-0 px-6 md:px-0 relative z-10">
-            <EventMap events={events} />
+            <EventMap events={filteredAndSortedEvents} />
           </div>
         )}
 

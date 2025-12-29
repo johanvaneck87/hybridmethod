@@ -22,7 +22,7 @@ export function EventTileImage({ event }: EventTileImageProps) {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
-    return date.toLocaleDateString('nl-NL', {
+    return date.toLocaleDateString('en-US', {
       day: 'numeric',
       month: 'long',
       year: 'numeric'
@@ -33,11 +33,11 @@ export function EventTileImage({ event }: EventTileImageProps) {
     const startDate = new Date(startDateString)
     const endDate = new Date(endDateString)
 
-    const startDay = startDate.toLocaleDateString('nl-NL', { day: 'numeric' })
-    const startMonth = startDate.toLocaleDateString('nl-NL', { month: 'long' })
-    const endDay = endDate.toLocaleDateString('nl-NL', { day: 'numeric' })
-    const endMonth = endDate.toLocaleDateString('nl-NL', { month: 'long' })
-    const year = endDate.toLocaleDateString('nl-NL', { year: 'numeric' })
+    const startDay = startDate.toLocaleDateString('en-US', { day: 'numeric' })
+    const startMonth = startDate.toLocaleDateString('en-US', { month: 'long' })
+    const endDay = endDate.toLocaleDateString('en-US', { day: 'numeric' })
+    const endMonth = endDate.toLocaleDateString('en-US', { month: 'long' })
+    const year = endDate.toLocaleDateString('en-US', { year: 'numeric' })
 
     return `${startDay} ${startMonth} - ${endDay} ${endMonth} ${year}`
   }
@@ -60,8 +60,23 @@ export function EventTileImage({ event }: EventTileImageProps) {
     img.src = event.image
 
     img.onload = () => {
-      // Draw background image
-      ctx.drawImage(img, 0, 0, size, size)
+      // Draw background image with cover/crop (like CSS background-size: cover)
+      const imgAspect = img.width / img.height
+      const canvasAspect = size / size // 1:1 square
+
+      let sx = 0, sy = 0, sWidth = img.width, sHeight = img.height
+
+      if (imgAspect > canvasAspect) {
+        // Image is wider than canvas - crop width
+        sWidth = img.height * canvasAspect
+        sx = (img.width - sWidth) / 2
+      } else {
+        // Image is taller than canvas - crop height
+        sHeight = img.width / canvasAspect
+        sy = (img.height - sHeight) / 2
+      }
+
+      ctx.drawImage(img, sx, sy, sWidth, sHeight, 0, 0, size, size)
 
       // Draw gradient overlay
       const gradient = ctx.createLinearGradient(0, 0, 0, size)

@@ -1,4 +1,53 @@
+import { useState } from 'preact/hooks'
+
 export function SubmitEventPage() {
+  const [isLocalGym, setIsLocalGym] = useState<boolean | null>(null)
+  const [isMultipleDays, setIsMultipleDays] = useState<boolean | null>(null)
+  const [selectedRaceTypes, setSelectedRaceTypes] = useState<string[]>([])
+  const [selectedDivisions, setSelectedDivisions] = useState<string[]>([])
+  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const toggleRaceType = (type: string) => {
+    setSelectedRaceTypes(prev =>
+      prev.includes(type) ? prev.filter(t => t !== type) : [...prev, type]
+    )
+  }
+
+  const toggleDivision = (division: string) => {
+    setSelectedDivisions(prev =>
+      prev.includes(division) ? prev.filter(d => d !== division) : [...prev, division]
+    )
+  }
+
+  const handleSubmit = async (e: Event) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+
+    const form = e.target as HTMLFormElement
+    const formData = new FormData(form)
+
+    try {
+      await fetch('https://formsubmit.co/johanvaneck87@gmail.com', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      setIsSubmitted(true)
+      form.reset()
+      setIsLocalGym(null)
+      setIsMultipleDays(null)
+      setSelectedRaceTypes([])
+      setSelectedDivisions([])
+    } catch (error) {
+      console.error('Error submitting form:', error)
+      alert('There was an error submitting the form. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   return (
     <div className="min-h-screen bg-black text-white pt-24 pb-12">
@@ -7,49 +56,133 @@ export function SubmitEventPage() {
           Submit A Race
         </h1>
         <p className="text-lg mb-8 text-gray-300 text-center">
-          Ken je een hybrid race event dat nog niet op onze lijst staat? Laat het ons weten!
+          Know of a hybrid race event that's not on our list? Let us know!
         </p>
 
-        <form action="https://formsubmit.co/johanvaneck87@gmail.com" method="POST" className="bg-gray-900 border border-white/20 rounded-lg p-6 md:p-8">
-          {/* FormSubmit configuration */}
-          <input type="hidden" name="_subject" value="New Race Submission" />
-          <input type="hidden" name="_captcha" value="false" />
-          <input type="hidden" name="_template" value="table" />
+        {isSubmitted ? (
+          <div className="bg-gray-900 border border-white/20 rounded-lg p-8 md:p-12 text-center">
+            <div className="mb-6">
+              <svg className="w-20 h-20 mx-auto text-[#D94800]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h2 className="text-3xl font-bold mb-4 text-white">Thank You!</h2>
+            <p className="text-lg text-gray-300 mb-6">
+              Your race submission has been received. We'll review it and add it to our list soon.
+            </p>
+            <button
+              onClick={() => setIsSubmitted(false)}
+              className="bg-[#D94800] text-black font-medium px-6 py-3 rounded uppercase tracking-wide text-sm hover:bg-[#E85D00] transition-colors duration-200"
+            >
+              Submit Another Race
+            </button>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="bg-gray-900 border border-white/20 rounded-lg p-6 md:p-8">
+            {/* FormSubmit configuration */}
+            <input type="hidden" name="_subject" value="New Race Submission" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_template" value="table" />
 
           <div className="space-y-6">
             {/* Event Name */}
             <div>
               <label htmlFor="name" className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
-                Event Naam *
+                Event Name *
               </label>
               <input
                 type="text"
                 id="name"
                 name="name"
                 required
+                autoComplete="off"
+                data-lpignore="true"
+                data-form-type="other"
                 className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
-                placeholder="Bijv. Amsterdam Hybrid Challenge"
+                placeholder="e.g. Amsterdam Hybrid Challenge"
               />
             </div>
 
-            {/* Date */}
+            {/* Multiple Days */}
             <div>
-              <label htmlFor="date" className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
-                Datum *
+              <label className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
+                Multiple Days *
               </label>
-              <input
-                type="date"
-                id="date"
-                name="date"
-                required
-                className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
-              />
+              <div className="flex gap-4">
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="multipleDays"
+                    value="yes"
+                    required
+                    onChange={() => setIsMultipleDays(true)}
+                    className="w-4 h-4 cursor-pointer accent-[#D94800]"
+                  />
+                  <span className="text-white">Yes</span>
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="multipleDays"
+                    value="no"
+                    required
+                    onChange={() => setIsMultipleDays(false)}
+                    className="w-4 h-4 cursor-pointer accent-[#D94800]"
+                  />
+                  <span className="text-white">No</span>
+                </label>
+              </div>
             </div>
+
+            {/* Start Date & End Date - Conditional */}
+            {isMultipleDays !== null && (
+              isMultipleDays ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="startDate" className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
+                      Start Date *
+                    </label>
+                    <input
+                      type="date"
+                      id="startDate"
+                      name="startDate"
+                      required
+                      className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="endDate" className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
+                      End Date *
+                    </label>
+                    <input
+                      type="date"
+                      id="endDate"
+                      name="endDate"
+                      required
+                      className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
+                    />
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <label htmlFor="eventDate" className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
+                    Event Date *
+                  </label>
+                  <input
+                    type="date"
+                    id="eventDate"
+                    name="eventDate"
+                    required
+                    className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
+                  />
+                </div>
+              )
+            )}
 
             {/* Location */}
             <div>
               <label htmlFor="location" className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
-                Locatie *
+                Location *
               </label>
               <input
                 type="text"
@@ -57,80 +190,198 @@ export function SubmitEventPage() {
                 name="location"
                 required
                 className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
-                placeholder="Bijv. Amsterdam, Nederland"
+                placeholder="e.g. RAI, Amsterdam, Netherlands"
               />
             </div>
 
-            {/* Type */}
+            {/* Local Gym */}
             <div>
-              <label htmlFor="type" className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
-                Type *
+              <label className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
+                Local Gym *
               </label>
-              <select
-                id="type"
-                name="type"
-                required
-                className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
-              >
-                <option value="solo">Solo</option>
-                <option value="duo">Duo</option>
-              </select>
+              <div className="flex gap-4">
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="localGym"
+                    value="yes"
+                    required
+                    onChange={() => setIsLocalGym(true)}
+                    className="w-4 h-4 cursor-pointer accent-[#D94800]"
+                  />
+                  <span className="text-white">Yes</span>
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="localGym"
+                    value="no"
+                    required
+                    onChange={() => setIsLocalGym(false)}
+                    className="w-4 h-4 cursor-pointer accent-[#D94800]"
+                  />
+                  <span className="text-white">No</span>
+                </label>
+              </div>
             </div>
 
-            {/* Difficulty */}
+            {/* Organization / Gym - Conditional */}
+            {isLocalGym !== null && (
+              <div>
+                <label htmlFor="organizationGym" className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
+                  {isLocalGym ? 'Gym *' : 'Organization *'}
+                </label>
+                <input
+                  type="text"
+                  id="organizationGym"
+                  name={isLocalGym ? 'gym' : 'organization'}
+                  required
+                  className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
+                  placeholder={isLocalGym ? 'e.g. CrossFit Amsterdam' : 'e.g. HYROX'}
+                />
+              </div>
+            )}
+
+            {/* Race Types */}
             <div>
-              <label htmlFor="difficulty" className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
-                Moeilijkheidsgraad *
+              <label className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
+                Race Types * (select all that apply)
               </label>
-              <select
-                id="difficulty"
-                name="difficulty"
-                required
-                className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
-              >
-                <option value="beginner">Beginner</option>
-                <option value="intermediate">Intermediate</option>
-                <option value="advanced">Advanced</option>
-              </select>
+              <input type="hidden" name="raceTypes" value={selectedRaceTypes.join(', ')} required={selectedRaceTypes.length === 0} />
+              <div className="space-y-2">
+                {['Solo', 'Duo / Buddy', 'Relay', 'Team', 'Other'].map(type => (
+                  <label key={type} className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={selectedRaceTypes.includes(type)}
+                      onChange={() => toggleRaceType(type)}
+                      className="w-4 h-4 cursor-pointer accent-[#D94800]"
+                    />
+                    <span className="text-white">{type}</span>
+                  </label>
+                ))}
+              </div>
             </div>
 
-            {/* URL */}
+            {/* Division */}
             <div>
-              <label htmlFor="url" className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
-                Website URL *
+              <label className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
+                Division * (select all that apply)
               </label>
-              <input
-                type="url"
-                id="url"
-                name="url"
-                required
-                className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
-                placeholder="https://example.com"
-              />
+              <input type="hidden" name="division" value={selectedDivisions.join(', ')} required={selectedDivisions.length === 0} />
+              <div className="space-y-2">
+                {['Open / Normal', 'Pro / Heavy', 'Other'].map(division => (
+                  <label key={division} className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={selectedDivisions.includes(division)}
+                      onChange={() => toggleDivision(division)}
+                      className="w-4 h-4 cursor-pointer accent-[#D94800]"
+                    />
+                    <span className="text-white">{division}</span>
+                  </label>
+                ))}
+              </div>
             </div>
 
-            {/* Event Image URL */}
+            {/* Ticket Price Range */}
             <div>
-              <label htmlFor="imageUrl" className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
-                Event Foto URL (Instagram Formaat - 1:1) *
+              <label className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
+                Ticket Price Range *
               </label>
-              <input
-                type="url"
-                id="imageUrl"
-                name="imageUrl"
-                required
-                className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
-                placeholder="https://example.com/image.jpg"
-              />
-              <p className="text-sm text-gray-500 mt-1">
-                Geef een URL naar een vierkante foto (1:1 ratio, bijv. 1080x1080px) geschikt voor Instagram posts
-              </p>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <input
+                    type="number"
+                    id="priceMin"
+                    name="priceMin"
+                    required
+                    min="0"
+                    className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
+                    placeholder="Min (€)"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="number"
+                    id="priceMax"
+                    name="priceMax"
+                    required
+                    min="0"
+                    className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
+                    placeholder="Max (€)"
+                  />
+                </div>
+              </div>
             </div>
 
-            {/* Description */}
+            {/* Indoor / Outdoor */}
+            <div>
+              <label className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
+                Indoor / Outdoor *
+              </label>
+              <div className="space-y-2">
+                {['Indoor', 'Outdoor', 'Indoor & Outdoor'].map(venue => (
+                  <label key={venue} className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="venue"
+                      value={venue}
+                      required
+                      className="w-4 h-4 cursor-pointer accent-[#D94800]"
+                    />
+                    <span className="text-white">{venue}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            {/* Hyrox Workout */}
+            <div>
+              <label className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
+                Hyrox Workout *
+              </label>
+              <div className="space-y-2">
+                {['Yes', 'No'].map(hyrox => (
+                  <label key={hyrox} className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="hyroxWorkout"
+                      value={hyrox}
+                      required
+                      className="w-4 h-4 cursor-pointer accent-[#D94800]"
+                    />
+                    <span className="text-white">{hyrox}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            {/* Fitness / Obstacle */}
+            <div>
+              <label className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
+                Fitness / Obstacle *
+              </label>
+              <div className="space-y-2">
+                {['Fitness', 'Obstacle'].map(eventType => (
+                  <label key={eventType} className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="eventType"
+                      value={eventType}
+                      required
+                      className="w-4 h-4 cursor-pointer accent-[#D94800]"
+                    />
+                    <span className="text-white">{eventType}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            {/* About this event */}
             <div>
               <label htmlFor="description" className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
-                Beschrijving *
+                About this event *
               </label>
               <textarea
                 id="description"
@@ -138,39 +389,110 @@ export function SubmitEventPage() {
                 required
                 rows={4}
                 className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
-                placeholder="Geef een korte beschrijving van het event..."
+                placeholder="Provide a brief description of the event..."
               />
             </div>
 
-            {/* Contact Email */}
-            <div>
-              <label htmlFor="contactEmail" className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
-                Je Email *
-              </label>
-              <input
-                type="email"
-                id="contactEmail"
-                name="contactEmail"
-                required
-                className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
-                placeholder="je@email.com"
-              />
-              <p className="text-sm text-gray-500 mt-1">
-                We gebruiken je email alleen om contact met je op te nemen over dit event.
-              </p>
+            {/* Links Section */}
+            <div className="pt-4 border-t border-white/20">
+              <h3 className="text-lg font-semibold mb-4 uppercase tracking-wide text-gray-400">
+                Links & Contact
+              </h3>
+              <div className="space-y-4">
+                <div>
+                  <label htmlFor="instagram" className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
+                    Instagram
+                  </label>
+                  <input
+                    type="url"
+                    id="instagram"
+                    name="instagram"
+                    className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
+                    placeholder="https://instagram.com/..."
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="website" className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
+                    Website *
+                  </label>
+                  <input
+                    type="url"
+                    id="website"
+                    name="website"
+                    required
+                    className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
+                    placeholder="https://..."
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="tickets" className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
+                    Tickets
+                  </label>
+                  <input
+                    type="url"
+                    id="tickets"
+                    name="tickets"
+                    className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
+                    placeholder="https://..."
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="workout" className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
+                    Workout
+                  </label>
+                  <input
+                    type="url"
+                    id="workout"
+                    name="workout"
+                    className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
+                    placeholder="https://..."
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="weights" className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
+                    Weights
+                  </label>
+                  <input
+                    type="url"
+                    id="weights"
+                    name="weights"
+                    className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
+                    placeholder="https://..."
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="contactEmail" className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
+                    Contact / Email
+                  </label>
+                  <input
+                    type="email"
+                    id="contactEmail"
+                    name="contactEmail"
+                    className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
+                    placeholder="contact@example.com"
+                  />
+                </div>
+              </div>
             </div>
 
             {/* Submit Button */}
             <div className="pt-4">
               <button
                 type="submit"
-                className="w-full bg-[#D94800] text-black font-medium px-6 py-3 rounded uppercase tracking-wide text-sm hover:bg-[#E85D00] transition-colors duration-200"
+                disabled={isSubmitting}
+                className="w-full bg-[#D94800] text-black font-medium px-6 py-3 rounded uppercase tracking-wide text-sm hover:bg-[#E85D00] transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Event Indienen
+                {isSubmitting ? 'Submitting...' : 'Submit Event'}
               </button>
             </div>
           </div>
         </form>
+        )}
       </div>
     </div>
   )

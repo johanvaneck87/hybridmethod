@@ -1,130 +1,366 @@
 [
   {
-    "id": "hyrox-amsterdam-2026-01",
-    "name": "HYROX Amsterdam",
-    "organization": "HYROX",
-    "date": "2026-01-21",
-    "endDate": "2026-01-25",
-    "location": "RAI Amsterdam",
+    "id": "challenge-accepted-2026",
+    "name": "Challenge Accepted",
+    "organization": "Challenge Accepted",
+    "date": "2026-06-06",
+    "endDate": "2026-06-07",
+    "location": "Olympisch Stadion, Amsterdam",
     "coordinates": {
-      "lat": 52.3676,
-      "lng": 4.9041
+      "lat": 52.3444,
+      "lng": 4.8516
     },
-    "type": "solo",
-    "raceTypes": ["Solo", "Duo", "Relay"],
+    "type": "duo",
+    "raceTypes": ["Duo"],
     "difficulty": "intermediate",
-    "url": "https://hyrox.com/event/hyrox-amsterdam/",
-    "description": "HYROX 5th Edition in RAI Amsterdam - 5-day event",
-    "image": "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&h=800&fit=crop"
+    "url": "https://www.challengeaccepted.nl/en",
+    "description": "Challenge Accepted (CA) is het nieuwe sportevenement dat plaatsvindt op een historische locatie in Amsterdam, namelijk in het Olympisch Stadion. Een plek waar geschiedenis is geschreven, sportprestaties zijn geleverd en waar deelnemers keer op keer nieuwe uitdagingen aangaan. Hybrid fitness race (8 stations + 7 km running). Festival setting met muziek/foodtrucks; duo‑format; waves per dag",
+    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop"
   },
   {
-    "id": "strong-viking-wijchen-spring-2026",
-    "name": "Strong Viking Wijchen Spring",
-    "organization": "Strong Viking",
-    "date": "2026-10-11",
-    "endDate": "2026-11-13",
+    "id": "hyrox-simulation-leiden-2026",
+    "name": "HYROX Simulation Leiden",
+    "organization": "CrossFit Leiden",
+    "date": "2026-01-04",
+    "location": "CrossFit Leiden, Leiden",
+    "coordinates": {
+      "lat": 52.1601,
+      "lng": 4.4970
+    },
+    "type": "solo",
+    "raceTypes": ["Solo", "Duo"],
+    "difficulty": "advanced",
+    "url": "https://hyrox.crossfitleiden.com/",
+    "description": "Complete HYROX simulatie met Roxzone‑overgangen; vrijwilligers krijgen gratis deelname",
+    "image": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&h=800&fit=crop"
+  },
+  {
+    "id": "grit-game-2025",
+    "name": "GRIT Game",
+    "organization": "CrossFit Zeewolde",
+    "date": "2025-09-07",
+    "location": "Atletiekbaan, Zeewolde",
+    "coordinates": {
+      "lat": 52.3307,
+      "lng": 5.5406
+    },
+    "type": "solo",
+    "raceTypes": ["Solo", "Duo", "Team"],
+    "difficulty": "intermediate",
+    "url": "https://gritgame.nl/",
+    "description": "In een wereld waar fitnessraces steeds extremer, duurder en complexer worden, gaan wij juist terug naar de kern. Geen lasers, rookmachines of overdreven fancy obstakels. Geen eindeloze afstanden of een overkill aan gewicht. Geen show. Geen dure tickets. Alleen GRIT. Outdoor hybrid fitnessrace (7 stations / 8 km)",
+    "image": "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&h=800&fit=crop"
+  },
+  {
+    "id": "breakline-2026",
+    "name": "Breakline",
+    "organization": "CrossFit Zeewolde",
+    "date": "2026-01-30",
+    "location": "RCN Vakantiepark, Zeewolde",
+    "coordinates": {
+      "lat": 52.3307,
+      "lng": 5.5406
+    },
+    "type": "solo",
+    "raceTypes": ["Solo"],
+    "difficulty": "advanced",
+    "url": "https://breakline.nl/",
+    "description": "Het fundament van BREAKLINE. Endurance. Discipline. Herhaling. Elk uur opnieuw, tot er niemand meer over is.",
+    "image": "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=800&h=800&fit=crop"
+  },
+  {
+    "id": "hyrox-simulation-zwolle-2026",
+    "name": "HYROX Simulation Zwolle",
+    "organization": "FIT ELITE / Hyrox Zwolle",
+    "date": "2026-01-15",
+    "location": "Ossenkamp 2T, Zwolle",
+    "coordinates": {
+      "lat": 52.5168,
+      "lng": 6.0830
+    },
+    "type": "solo",
+    "raceTypes": ["Solo", "Duo"],
+    "difficulty": "advanced",
+    "url": "https://zwollehyrox.nl/evenement/hyrox-sim-bij-fit-elite-hyrox-simulatie/",
+    "description": "Medio januari 2026 organiseert FIT ELITE, de enige echte HYROX GYM van Zwolle, weer een HYROX SIM. Dat wil zeggen, nu ga je voor een echte HYROX race simulatie; 8x 1000meter hardlopen gecombineerd met alle 8 onderdelen van de HYROX race.",
+    "image": "https://images.unsplash.com/photo-1584466977773-e625c37cdd50?w=800&h=800&fit=crop"
+  },
+  {
+    "id": "hyrox-simulation-groningen-2025",
+    "name": "HYROX Simulation Groningen",
+    "organization": "Gustafit",
+    "date": "2025-06-01",
+    "location": "Suikerterrein, Groningen",
+    "coordinates": {
+      "lat": 53.2194,
+      "lng": 6.5665
+    },
+    "type": "solo",
+    "raceTypes": ["Solo", "Duo"],
+    "difficulty": "intermediate",
+    "url": "https://insidegroningen.com/event/hyrox-event/",
+    "description": "Grootste outdoor HYROX simulatie van NL; opbrengst naar Jeugdfonds Sport & Cultuur",
+    "image": "https://images.unsplash.com/photo-1549576490-b0b4831ef60a?w=800&h=800&fit=crop"
+  },
+  {
+    "id": "gymrace-airport-weeze-2026",
+    "name": "Gymrace Airport Weeze",
+    "organization": "Gymrace",
+    "date": "2026-05-30",
+    "location": "Airport Weeze, Duitsland",
+    "coordinates": {
+      "lat": 51.6024,
+      "lng": 6.1421
+    },
+    "type": "solo",
+    "raceTypes": ["Solo", "Duo"],
+    "difficulty": "intermediate",
+    "url": "https://www.gymrace.com/",
+    "description": "Bij GYMRACE gaat het erom dat jij jezelf uitdaagt om jouw fitheid te testen, én een toffe dag beleeft. De gemiddelde finishtijd is 1 uur 20 minuten. Je kan solo racen of met je buddy. Met je buddy ren je samen van start tot finish, en verdeel je het werk bij de stations. Er zijn verschillende gewichten voor vrouwen, mannen en… er is de heavy categorie. Bij de heavy categorie zijn de krachtstations zwaarder. Kies een categorie die bij jou past én jou uitdaagt. Je kan meer dan je denkt.",
+    "image": "https://images.unsplash.com/photo-1623874228601-f4193c7b1818?w=800&h=800&fit=crop"
+  },
+  {
+    "id": "gymrace-amsterdam-2026",
+    "name": "Gymrace Amsterdam",
+    "organization": "Gymrace",
+    "date": "2026-02-27",
+    "endDate": "2026-03-01",
+    "location": "RAI, Amsterdam",
+    "coordinates": {
+      "lat": 52.3376,
+      "lng": 4.8907
+    },
+    "type": "solo",
+    "raceTypes": ["Solo", "Duo"],
+    "difficulty": "intermediate",
+    "url": "https://www.gymrace.com/",
+    "description": "Bij GYMRACE gaat het erom dat jij jezelf uitdaagt om jouw fitheid te testen, én een toffe dag beleeft. De gemiddelde finishtijd is 1 uur 20 minuten. Je kan solo racen of met je buddy. Met je buddy ren je samen van start tot finish, en verdeel je het werk bij de stations. Er zijn verschillende gewichten voor vrouwen, mannen en… er is de heavy categorie. Bij de heavy categorie zijn de krachtstations zwaarder. Kies een categorie die bij jou past én jou uitdaagt. Je kan meer dan je denkt.",
+    "image": "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=800&h=800&fit=crop"
+  },
+  {
+    "id": "gymrace-utrecht-2025",
+    "name": "Gymrace Utrecht",
+    "organization": "Gymrace",
+    "date": "2025-05-02",
+    "endDate": "2025-05-03",
     "location": "Jaarbeurs, Utrecht",
     "coordinates": {
       "lat": 52.0907,
       "lng": 5.1214
     },
     "type": "solo",
-    "raceTypes": ["Solo", "Duo", "Relay"],
-    "difficulty": "advanced",
-    "url": "https://strongviking.com/en/obstacle-run/wijchen-spring/",
-    "description": "First mud run of the year - Obstacle course with multiple distance options (4-42km)",
-    "image": "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=800&h=800&fit=crop"
-  },
-  {
-    "id": "hyrox-rotterdam-2026-04",
-    "name": "HYROX Rotterdam",
-    "organization": "HYROX",
-    "date": "2026-04-16",
-    "endDate": "2026-04-19",
-    "location": "Rotterdam Ahoy",
-    "coordinates": {
-      "lat": 51.9225,
-      "lng": 4.47917
-    },
-    "type": "solo",
-    "raceTypes": ["Solo", "Duo", "Relay"],
+    "raceTypes": ["Solo", "Duo"],
     "difficulty": "intermediate",
-    "url": "https://hyrox.com/event/hyrox-rotterdam/",
-    "description": "HYROX 3rd Edition in Rotterdam Ahoy - 4-day event",
-    "image": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=800&fit=crop"
+    "url": "https://www.gymrace.com/",
+    "description": "Bij GYMRACE gaat het erom dat jij jezelf uitdaagt om jouw fitheid te testen, én een toffe dag beleeft. De gemiddelde finishtijd is 1 uur 20 minuten. Je kan solo racen of met je buddy. Met je buddy ren je samen van start tot finish, en verdeel je het werk bij de stations. Er zijn verschillende gewichten voor vrouwen, mannen en… er is de heavy categorie. Bij de heavy categorie zijn de krachtstations zwaarder. Kies een categorie die bij jou past én jou uitdaagt. Je kan meer dan je denkt.",
+    "image": "https://images.unsplash.com/photo-1599058917212-d750089bc07e?w=800&h=800&fit=crop"
   },
   {
-    "id": "mud-masters-haarlemmermeer-2026",
-    "name": "Mud Masters Haarlemmermeer",
-    "organization": "Mud Masters",
-    "date": "2026-06-12",
-    "endDate": "2026-06-13",
-    "location": "Brussels, Belgium",
+    "id": "gymrace-london-2025",
+    "name": "Gymrace London",
+    "organization": "Gymrace",
+    "date": "2025-03-21",
+    "endDate": "2025-03-22",
+    "location": "Excel London, London",
     "coordinates": {
-      "lat": 50.8503,
-      "lng": 4.3517
+      "lat": 51.5085,
+      "lng": 0.0291
     },
     "type": "solo",
-    "raceTypes": ["Solo", "Duo", "Relay"],
+    "raceTypes": ["Solo", "Duo"],
     "difficulty": "intermediate",
-    "url": "https://mudmasters.com/event/haarlemmermeer",
-    "description": "Obstacle run with various distances (3-42km) in Brussels",
-    "image": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&h=800&fit=crop",
-    "country": "BE"
+    "url": "https://www.gymrace.com/",
+    "description": "Bij GYMRACE gaat het erom dat jij jezelf uitdaagt om jouw fitheid te testen, én een toffe dag beleeft. De gemiddelde finishtijd is 1 uur 20 minuten. Je kan solo racen of met je buddy. Met je buddy ren je samen van start tot finish, en verdeel je het werk bij de stations. Er zijn verschillende gewichten voor vrouwen, mannen en… er is de heavy categorie. Bij de heavy categorie zijn de krachtstations zwaarder. Kies een categorie die bij jou past én jou uitdaagt. Je kan meer dan je denkt.",
+    "image": "https://images.unsplash.com/photo-1590556409324-aa1d726e5c3c?w=800&h=800&fit=crop"
   },
   {
-    "id": "strong-viking-wijchen-summer-2026",
-    "name": "Strong Viking Wijchen",
-    "organization": "Strong Viking",
-    "date": "2026-06-12",
-    "endDate": "2026-06-14",
-    "location": "Wijchen",
+    "id": "harbour-run-2026",
+    "name": "Harbour Run",
+    "organization": "Harbour Run",
+    "date": "2026-10-04",
+    "location": "RDM Onderzeebootloods, Rotterdam",
     "coordinates": {
-      "lat": 51.8069,
-      "lng": 5.7236
+      "lat": 51.9025,
+      "lng": 4.3481
     },
     "type": "solo",
-    "raceTypes": ["Solo", "Duo", "Relay"],
-    "difficulty": "advanced",
-    "url": "https://strongviking.com/en/obstacle-run/wijchen/",
-    "description": "Summer edition obstacle race near Nijmegen - Multiple distance options (4-42km)",
-    "image": "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=800&h=800&fit=crop"
-  },
-  {
-    "id": "strong-viking-amsterdam-2026",
-    "name": "Strong Viking Amsterdam",
-    "organization": "Strong Viking",
-    "date": "2026-09-26",
-    "endDate": "2026-09-27",
-    "location": "Spaarnwoude, Amsterdam",
-    "coordinates": {
-      "lat": 52.4108,
-      "lng": 4.6842
-    },
-    "type": "solo",
-    "raceTypes": ["Solo", "Duo", "Relay"],
-    "difficulty": "advanced",
-    "url": "https://strongviking.com/en/obstacle-run/amsterdam/",
-    "description": "Obstacle race in Spaarnwoude nature area - Includes Ultra Viking 60km option",
+    "raceTypes": ["Solo", "Team"],
+    "difficulty": "intermediate",
+    "url": "https://harbourrun.nl/",
+    "description": "Rotterdam Havenstad! Ontdek het op 4 oktober 2026 tijdens de 13e editie van de Harbour Run Rotterdam. Ren tussen en klim over de grote containers als een echte havenarbeider. Haal je klauwen maar uit de mouwen, want het parcours heeft verschillende obstakels die je moet overwinnen. Gaan jullie samen de uitdaging aan?",
     "image": "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&h=800&fit=crop"
   },
   {
-    "id": "mud-masters-biddinghuizen-2026",
-    "name": "Mud Masters Biddinghuizen",
-    "organization": "Mud Masters",
-    "date": "2026-09-25",
-    "endDate": "2026-09-26",
-    "location": "Antwerp, Belgium",
+    "id": "healthrox-2026-05",
+    "name": "HealthROX",
+    "organization": "Health Platform",
+    "date": "2026-05-29",
+    "endDate": "2026-05-31",
+    "location": "Atletiekbaan Olympus '70, Naaldwijk",
     "coordinates": {
-      "lat": 51.2194,
-      "lng": 4.4025
+      "lat": 51.9942,
+      "lng": 4.2111
+    },
+    "type": "solo",
+    "raceTypes": ["Solo", "Duo"],
+    "difficulty": "advanced",
+    "url": "https://www.health-platform.nl/nl/HealthROX",
+    "description": "Nieuwe editie met extra heats en festival sfeer. Daag jezelf uit als atleet op 8 explosieve workouts, telkens gevolgd door een 1000 meter run op de atletiekbaan. Pure strijd. Geen excuses.",
+    "image": "https://images.unsplash.com/photo-1558611848-73f7eb4001a1?w=800&h=800&fit=crop"
+  },
+  {
+    "id": "healthrox-2025-09",
+    "name": "HealthROX",
+    "organization": "Health Platform",
+    "date": "2025-09-27",
+    "endDate": "2025-09-28",
+    "location": "Atletiekbaan Olympus '70, Naaldwijk",
+    "coordinates": {
+      "lat": 51.9942,
+      "lng": 4.2111
+    },
+    "type": "duo",
+    "raceTypes": ["Duo"],
+    "difficulty": "advanced",
+    "url": "https://www.health-platform.nl/nl/HealthROX",
+    "description": "Nieuwe editie met extra heats en festival sfeer. Daag jezelf uit als atleet op 8 explosieve workouts, telkens gevolgd door een 1000 meter run op de atletiekbaan. Pure strijd. Geen excuses.",
+    "image": "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&h=800&fit=crop"
+  },
+  {
+    "id": "hexafit-haarlem-2026",
+    "name": "Hexafit Fitness Race Haarlem",
+    "organization": "Hexafit",
+    "date": "2026-06-06",
+    "endDate": "2026-06-07",
+    "location": "Sporthal Kennemer Sportcenter, Haarlem",
+    "coordinates": {
+      "lat": 52.3874,
+      "lng": 4.6462
+    },
+    "type": "solo",
+    "raceTypes": ["Solo", "Duo"],
+    "difficulty": "advanced",
+    "url": "https://hexafit.nl/",
+    "description": "HexaFit is de ultieme test van kracht én conditie. Zes kracht en zes conditieonderdelen dagen je uit op elk vlak, geen ruimte om te leunen op één kwaliteit. Verleg je grenzen, ontdek hoe fit je écht bent. Dit is jouw moment. Dit is HexaFit.",
+    "image": "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=800&h=800&fit=crop"
+  },
+  {
+    "id": "hexafit-haarlem-2025",
+    "name": "Hexafit Fitness Race Haarlem",
+    "organization": "Hexafit",
+    "date": "2025-06-21",
+    "location": "Sporthal Kennemer Sportcenter, Haarlem",
+    "coordinates": {
+      "lat": 52.3874,
+      "lng": 4.6462
+    },
+    "type": "solo",
+    "raceTypes": ["Solo", "Duo"],
+    "difficulty": "advanced",
+    "url": "https://hexafit.nl/",
+    "description": "HexaFit is de ultieme test van kracht én conditie. Zes kracht en zes conditieonderdelen dagen je uit op elk vlak, geen ruimte om te leunen op één kwaliteit. Verleg je grenzen, ontdek hoe fit je écht bent. Dit is jouw moment. Dit is HexaFit.",
+    "image": "https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=800&h=800&fit=crop"
+  },
+  {
+    "id": "hexafit-sprint-ijmuiden-2025",
+    "name": "HexaFit Sprint Series IJmuiden",
+    "organization": "HexaFit",
+    "date": "2025-01-11",
+    "location": "CrossFit IJmuiden, IJmuiden",
+    "coordinates": {
+      "lat": 52.4594,
+      "lng": 4.6197
+    },
+    "type": "duo",
+    "raceTypes": ["Duo"],
+    "difficulty": "intermediate",
+    "url": "https://hexafit.nl/",
+    "description": "HexaFit is de ultieme test van kracht én conditie. Zes kracht en zes conditieonderdelen dagen je uit op elk vlak, geen ruimte om te leunen op één kwaliteit. Verleg je grenzen, ontdek hoe fit je écht bent. Dit is jouw moment. Dit is HexaFit.",
+    "image": "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&h=800&fit=crop"
+  },
+  {
+    "id": "hexafit-sprint-meppel-2025",
+    "name": "HexaFit Sprint Series Meppel",
+    "organization": "HexaFit",
+    "date": "2025-12-20",
+    "location": "Fitbox Meppel, Meppel",
+    "coordinates": {
+      "lat": 52.6955,
+      "lng": 6.1944
+    },
+    "type": "duo",
+    "raceTypes": ["Duo"],
+    "difficulty": "intermediate",
+    "url": "https://hexafit.nl/",
+    "description": "HexaFit is de ultieme test van kracht én conditie. Zes kracht en zes conditieonderdelen dagen je uit op elk vlak, geen ruimte om te leunen op één kwaliteit. Verleg je grenzen, ontdek hoe fit je écht bent. Dit is jouw moment. Dit is HexaFit.",
+    "image": "https://images.unsplash.com/photo-1554284126-aa88f22d8b74?w=800&h=800&fit=crop"
+  },
+  {
+    "id": "hexafit-sprint-hoorn-2026",
+    "name": "HexaFit Sprint Series Hoorn",
+    "organization": "HexaFit",
+    "date": "2026-02-14",
+    "location": "Hoorn",
+    "coordinates": {
+      "lat": 52.6425,
+      "lng": 5.0597
+    },
+    "type": "duo",
+    "raceTypes": ["Duo"],
+    "difficulty": "intermediate",
+    "url": "https://hexafit.nl/",
+    "description": "HexaFit is de ultieme test van kracht én conditie. Zes kracht en zes conditieonderdelen dagen je uit op elk vlak, geen ruimte om te leunen op één kwaliteit. Verleg je grenzen, ontdek hoe fit je écht bent. Dit is jouw moment. Dit is HexaFit.",
+    "image": "https://images.unsplash.com/photo-1576678927484-cc907957088c?w=800&h=800&fit=crop"
+  },
+  {
+    "id": "hexafit-sprint-tilburg-2026",
+    "name": "HexaFit Sprint Series Tilburg",
+    "organization": "HexaFit",
+    "date": "2026-02-14",
+    "location": "Tilburg",
+    "coordinates": {
+      "lat": 51.5555,
+      "lng": 5.0913
+    },
+    "type": "duo",
+    "raceTypes": ["Duo"],
+    "difficulty": "intermediate",
+    "url": "https://hexafit.nl/",
+    "description": "HexaFit is de ultieme test van kracht én conditie. Zes kracht en zes conditieonderdelen dagen je uit op elk vlak, geen ruimte om te leunen op één kwaliteit. Verleg je grenzen, ontdek hoe fit je écht bent. Dit is jouw moment. Dit is HexaFit.",
+    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop"
+  },
+  {
+    "id": "hybride-extreme-2025",
+    "name": "Hybride Extreme",
+    "organization": "Hybride Sports Venlo",
+    "date": "2025-12-20",
+    "location": "Sportpark Maassenhof, Venlo",
+    "coordinates": {
+      "lat": 51.3704,
+      "lng": 6.1724
+    },
+    "type": "solo",
+    "raceTypes": ["Solo", "Duo"],
+    "difficulty": "advanced",
+    "url": "https://www.hybridesports.nl/evenementen/hybrid-extreme",
+    "description": "Deelnemers leggen meerdere HYROX/HYBRIDE BATTLE-rondes af, afgewisseld met functionele workouts. Of je nu solo gaat of in teamverband: deze editie vraagt het uiterste van je doorzettingsvermogen. Nieuw is dat we buiten de 12-uurs variant ook een 6-uurs variant aanbieden én daarnaast kun je kiezen tussen het uitvoeren van HYROX óf HYBRIDE BATTLE. Tevens introduceren we onze eigen Battle Fit test waar je aan kan deelnemen!",
+    "image": "https://images.unsplash.com/photo-1517963879433-6ad2b056d712?w=800&h=800&fit=crop"
+  },
+  {
+    "id": "hybride-battle-2026",
+    "name": "Hybride Battle",
+    "organization": "Hybride Sports Venlo",
+    "date": "2026-03-07",
+    "location": "Daily Trade Fair, Venlo",
+    "coordinates": {
+      "lat": 51.3704,
+      "lng": 6.1724
     },
     "type": "solo",
     "raceTypes": ["Solo", "Duo", "Relay"],
     "difficulty": "intermediate",
-    "url": "https://mudmasters.com/event/biddinghuizen-2026",
-    "description": "Obstacle run with various distances (3-42km) in Antwerp",
-    "image": "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&h=800&fit=crop",
-    "country": "BE"
+    "url": "https://www.hybridebattle.nl/",
+    "description": "De volgende editie van de Hybride Battle vindt plaats op zaterdag 7 maart 2026 bij Daily Trade Fair Venlo – de voormalige bloemenveiling. Deze unieke en karakteristieke locatie biedt volop ruimte voor een grootschalig indoor fitnessevent, met hardlooproutes buiten en de workouts binnen.",
+    "image": "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&h=800&fit=crop"
   }
 ]

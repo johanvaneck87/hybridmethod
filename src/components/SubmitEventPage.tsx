@@ -173,19 +173,19 @@ export function SubmitEventPage() {
       jsonInput.value = formattedJSON
       form.appendChild(jsonInput)
 
-      // Let the form submit naturally to FormSubmit
-      form.submit()
+      // Show success message first
+      setIsSubmitted(true)
+      setIsLocalGym(null)
+      setIsMultipleDays(null)
+      setSelectedRaceTypes([])
+      setSelectedDivisions([])
+      setSelectedImage(null)
+      setImagePreview(null)
 
-      // Show success message after a short delay
+      // Then submit the form after a short delay
       setTimeout(() => {
-        setIsSubmitted(true)
-        setIsLocalGym(null)
-        setIsMultipleDays(null)
-        setSelectedRaceTypes([])
-        setSelectedDivisions([])
-        setSelectedImage(null)
-        setImagePreview(null)
-      }, 1000)
+        form.submit()
+      }, 2000)
     } catch (error) {
       console.error('Error submitting form:', error)
       alert('There was an error submitting the form. Please try again.')

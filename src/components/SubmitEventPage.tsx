@@ -225,6 +225,7 @@ export function SubmitEventPage() {
           <form
             action="https://formsubmit.co/hybridraces@gmail.com"
             method="POST"
+            encType="multipart/form-data"
             onSubmit={handleSubmit}
             className="bg-gray-900 border border-white/20 rounded-lg p-6 md:p-8"
           >

@@ -9,7 +9,6 @@ export function SubmitEventPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [selectedImage, setSelectedImage] = useState<File | null>(null)
   const [imagePreview, setImagePreview] = useState<string | null>(null)
-  const [uploadingImage, setUploadingImage] = useState(false)
 
   const toggleRaceType = (type: string) => {
     setSelectedRaceTypes(prev =>
@@ -49,17 +48,6 @@ export function SubmitEventPage() {
       }
       reader.readAsDataURL(file)
     }
-  }
-
-  const convertImageToBase64 = (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader()
-      reader.onloadend = () => {
-        resolve(reader.result as string)
-      }
-      reader.onerror = reject
-      reader.readAsDataURL(file)
-    })
   }
 
   const getCoordinates = async (location: string, country: string): Promise<{ lat: number; lng: number }> => {
@@ -706,7 +694,7 @@ export function SubmitEventPage() {
                 disabled={isSubmitting}
                 className="w-full bg-[#D94800] text-black font-medium px-6 py-3 rounded uppercase tracking-wide text-sm hover:bg-[#E85D00] transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {uploadingImage ? 'Uploading Image...' : isSubmitting ? 'Submitting...' : 'Submit Event'}
+                {isSubmitting ? 'Submitting...' : 'Submit Event'}
               </button>
             </div>
           </div>

@@ -2,24 +2,7 @@ import { useEffect, useRef, useState } from 'preact/hooks'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { navigate } from '../router'
-
-interface Event {
-  id: string
-  name: string
-  organization?: string
-  date: string
-  endDate?: string
-  location: string
-  coordinates: {
-    lat: number
-    lng: number
-  }
-  type: 'solo' | 'duo'
-  raceTypes?: string[]
-  difficulty: string
-  image: string
-  url: string
-}
+import type { RaceEvent as Event } from '../types/Event'
 
 interface EventMapProps {
   events: Event[]
@@ -32,8 +15,12 @@ export function EventMap({ events, highlightedEventId, selectedEventId, onEventC
   const mapRef = useRef<HTMLDivElement>(null)
   const mapInstanceRef = useRef<L.Map | null>(null)
   const markersRef = useRef<Map<string, L.Marker>>(new Map())
-  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null)
+  const [selectedEvents, setSelectedEvents] = useState<Event[]>([])
+  const [currentEventIndex, setCurrentEventIndex] = useState(0)
   const [hoveredMarkerId, setHoveredMarkerId] = useState<string | null>(null)
+
+  // Helper to get selected event
+  const selectedEvent = selectedEvents.length > 0 ? selectedEvents[currentEventIndex] : null
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
@@ -117,21 +104,53 @@ export function EventMap({ events, highlightedEventId, selectedEventId, onEventC
       })
     }
 
-    // Add markers for each event
+    // Group events by location (same coordinates)
+    const eventsByLocation = new Map<string, Event[]>()
     events.forEach((event) => {
-      const marker = L.marker([event.coordinates.lat, event.coordinates.lng], {
-        icon: createCustomIcon(map.getZoom(), event.id, false)
+      const key = `${event.coordinates.lat},${event.coordinates.lng}`
+      if (!eventsByLocation.has(key)) {
+        eventsByLocation.set(key, [])
+      }
+      eventsByLocation.get(key)!.push(event)
+    })
+
+    // Sort events at each location by date (closest to future or most recent first)
+    const today = new Date()
+    eventsByLocation.forEach((locationEvents) => {
+      locationEvents.sort((a, b) => {
+        const dateA = new Date(a.startdate)
+        const dateB = new Date(b.startdate)
+
+        // Both in future: closest first
+        if (dateA >= today && dateB >= today) {
+          return dateA.getTime() - dateB.getTime()
+        }
+        // Both in past: most recent first
+        if (dateA < today && dateB < today) {
+          return dateB.getTime() - dateA.getTime()
+        }
+        // One future, one past: future first
+        return dateA >= today ? -1 : 1
+      })
+    })
+
+    // Add one marker per location (using first event's ID as marker ID)
+    eventsByLocation.forEach((locationEvents) => {
+      const firstEvent = locationEvents[0]
+      const marker = L.marker([firstEvent.coordinates.lat, firstEvent.coordinates.lng], {
+        icon: createCustomIcon(map.getZoom(), firstEvent.id, false)
       }).addTo(map)
 
-      // Add click handler to show event popup
+      // Add click handler to show event popup(s)
       marker.on('click', () => {
-        setSelectedEvent(event)
+        setSelectedEvents(locationEvents)
+        setCurrentEventIndex(0)
         if (onEventClick) {
-          onEventClick(event.id)
+          onEventClick(firstEvent.id)
         }
       })
 
-      markersRef.current.set(event.id, marker)
+      markersRef.current.set(firstEvent.id, marker)
     })
 
     // Update marker sizes on zoom
@@ -216,70 +235,121 @@ export function EventMap({ events, highlightedEventId, selectedEventId, onEventC
       {selectedEvent && (
         <div
           className="absolute inset-0 z-[1001] flex items-center justify-center bg-black/70 p-4"
-          onClick={() => setSelectedEvent(null)}
+          onClick={() => {
+            setSelectedEvents([])
+            setCurrentEventIndex(0)
+          }}
         >
           <div
-            className="relative w-full max-w-[280px] sm:max-w-[320px] md:max-w-[280px] lg:max-w-[300px] aspect-square"
+            className="relative w-full max-w-[280px] sm:max-w-[320px] md:max-w-[280px] lg:max-w-[300px]"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Event Tile */}
-            <div
-              onClick={() => navigate('event-detail', selectedEvent.id)}
-              className="relative w-full h-full bg-gray-900 border border-gray-800 rounded-lg overflow-hidden hover:border-[#D94800] transition-colors duration-200 cursor-pointer"
-            >
-              {/* Close button */}
+            {/* Controls above the tile */}
+            <div className="flex items-center justify-between mb-3">
+              {/* Navigation arrows and event counter - left side */}
+              <div className="flex items-center gap-2">
+                {selectedEvents.length > 1 && (
+                  <>
+                    {/* Previous button */}
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setCurrentEventIndex((prev) => (prev === 0 ? selectedEvents.length - 1 : prev - 1))
+                      }}
+                      className="bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 hover:text-[#D94800] transition-colors duration-200 p-2 rounded-full"
+                      aria-label="Previous event"
+                    >
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
+                      </svg>
+                    </button>
+
+                    {/* Event counter */}
+                    <div className="bg-black/60 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm font-medium">
+                      {currentEventIndex + 1} / {selectedEvents.length}
+                    </div>
+
+                    {/* Next button */}
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setCurrentEventIndex((prev) => (prev === selectedEvents.length - 1 ? 0 : prev + 1))
+                      }}
+                      className="bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 hover:text-[#D94800] transition-colors duration-200 p-2 rounded-full"
+                      aria-label="Next event"
+                    >
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
+                  </>
+                )}
+              </div>
+
+              {/* Close button - right side */}
               <button
                 onClick={(e) => {
                   e.stopPropagation()
-                  setSelectedEvent(null)
+                  setSelectedEvents([])
+                  setCurrentEventIndex(0)
                 }}
-                className="absolute top-3 right-3 z-10 text-white hover:text-[#D94800] transition-colors duration-200"
+                className="bg-black/60 backdrop-blur-sm text-white hover:text-[#D94800] transition-colors duration-200 p-2 rounded-full"
                 aria-label="Close"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
+            </div>
 
-              {/* Background Image */}
+            {/* Event Tile */}
+            <div className="relative aspect-square">
+
+              {/* Event Tile */}
               <div
-                className="absolute inset-0 bg-cover bg-center"
-                style={{ backgroundImage: `url(${selectedEvent.image})` }}
+                onClick={() => navigate('event-detail', selectedEvent.id)}
+                className="relative w-full h-full bg-gray-900 border border-gray-800 rounded-lg overflow-hidden hover:border-[#D94800] transition-colors duration-200 cursor-pointer"
               >
-                <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/70 to-black/90"></div>
-              </div>
-
-              {/* Content */}
-              <div className="relative h-full flex flex-col justify-between p-6">
-                <div>
-                  <h3 className="text-xl sm:text-2xl md:text-2xl font-bold text-white uppercase tracking-wide mb-3">
-                    {selectedEvent.name}
-                  </h3>
-
-                  <div className="space-y-2 text-white mb-3">
-                    <p className="flex items-center gap-2 text-sm">
-                      <span>📅</span>
-                      <span>{selectedEvent.endDate ? formatDateRange(selectedEvent.date, selectedEvent.endDate) : formatDate(selectedEvent.date)}</span>
-                    </p>
-                    <p className="flex items-center gap-2 text-sm">
-                      <span>📍</span>
-                      <span>{selectedEvent.location}</span>
-                    </p>
-                    <p className="flex items-center gap-2 text-sm">
-                      <span>{selectedEvent.raceTypes ? '🏃‍♂️' : '⚡'}</span>
-                      <span className="capitalize">{selectedEvent.raceTypes ? selectedEvent.raceTypes.join(', ') : selectedEvent.difficulty}</span>
-                    </p>
-                    {selectedEvent.organization && (
-                      <p className="flex items-center gap-2 text-sm">
-                        <span>🏢</span>
-                        <span>{selectedEvent.organization}</span>
-                      </p>
-                    )}
-                  </div>
+                {/* Background Image */}
+                <div
+                  className="absolute inset-0 bg-cover bg-center z-0"
+                  style={{ backgroundImage: `url(${selectedEvent.image})` }}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/70 to-black/90 z-0"></div>
                 </div>
 
-                <div className="inline-block bg-[#D94800] text-black font-semibold px-6 py-2 rounded tracking-[0.15em] text-base text-center">
-                  Event information
+                {/* Content */}
+                <div className="relative z-20 h-full flex flex-col justify-between p-6">
+                  <div>
+                    <h3 className="text-xl sm:text-2xl md:text-2xl font-bold text-white uppercase tracking-wide mb-3">
+                      {selectedEvent.eventname}
+                    </h3>
+
+                    <div className="space-y-2 text-white mb-3">
+                      <p className="flex items-center gap-2 text-sm">
+                        <span>📅</span>
+                        <span>{selectedEvent.enddate ? formatDateRange(selectedEvent.startdate, selectedEvent.enddate) : formatDate(selectedEvent.startdate)}</span>
+                      </p>
+                      <p className="flex items-center gap-2 text-sm">
+                        <span>📍</span>
+                        <span>{selectedEvent.location}</span>
+                      </p>
+                      <p className="flex items-center gap-2 text-sm">
+                        <span>🏃‍♂️</span>
+                        <span className="capitalize">{selectedEvent.typerace.join(', ')}</span>
+                      </p>
+                      {selectedEvent.organizationgym && (
+                        <p className="flex items-center gap-2 text-sm">
+                          <span>🏢</span>
+                          <span>{selectedEvent.organizationgym}</span>
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="inline-block bg-[#D94800] text-black font-semibold px-6 py-2 rounded tracking-[0.15em] text-base text-center">
+                    Event information
+                  </div>
                 </div>
               </div>
             </div>

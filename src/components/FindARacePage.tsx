@@ -3,35 +3,7 @@ import backgroundImage from '../picture/pexels-victorfreitas-841130.jpg'
 import eventsData from '../data/events.json'
 import { EventMap } from './EventMap'
 import { navigate } from '../router'
-
-interface Event {
-  id: string
-  eventname: string
-  localgym: string
-  organizationgym: string
-  startdate: string
-  enddate: string
-  location: string
-  coordinates: {
-    lat: number
-    lng: number
-  }
-  typerace: string[]
-  divisions: string[]
-  ticketpricelow: string
-  ticketpricehigh: string
-  fitnessobstacle: string
-  indooroutdoor: string
-  hyroxworkout: string
-  description: string
-  image: string
-  instagram: string
-  website: string
-  ticketUrl: string
-  workout: string
-  weights: string
-  contactEmail: string
-}
+import type { RaceEvent as Event } from '../types/Event'
 
 type FilterType = 'all' | 'solo' | 'duo' | 'relay' | 'team' | 'other'
 type DivisionType = 'all' | 'open' | 'pro' | 'other'
@@ -69,7 +41,6 @@ export function FindARacePage() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const [searchCoordinates, setSearchCoordinates] = useState<{ lat: number; lng: number } | null>(null)
-  const [isGeocodingLoading, setIsGeocodingLoading] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -128,7 +99,6 @@ export function FindARacePage() {
     }
 
     const geocodeLocation = async () => {
-      setIsGeocodingLoading(true)
       try {
         const searchQuery = `${locationSearch}, Netherlands`
         const response = await fetch(
@@ -160,8 +130,6 @@ export function FindARacePage() {
       } catch (error) {
         console.error('Geocoding error:', error)
         setSearchCoordinates(null)
-      } finally {
-        setIsGeocodingLoading(false)
       }
     }
 

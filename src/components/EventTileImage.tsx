@@ -1,17 +1,7 @@
 import { useEffect, useRef } from 'preact/hooks'
+import type { RaceEvent as Event } from '../types/Event'
 
-interface Event {
-  id: string
-  name: string
-  organization?: string
-  date: string
-  endDate?: string
-  location: string
-  raceTypes?: string[]
-  difficulty: string
-  image: string
-  country?: string
-}
+
 
 interface EventTileImageProps {
   event: Event
@@ -129,7 +119,7 @@ export function EventTileImage({ event }: EventTileImageProps) {
 
       // Draw event name - with word wrapping if needed (matching desktop event tile size)
       ctx.fillStyle = '#FFFFFF'
-      const name = event.name.toUpperCase()
+      const name = event.eventname.toUpperCase()
       const maxWidth = size - 100 // Leave 50px padding on each side
 
       // Start with desktop tile font size
@@ -172,7 +162,7 @@ export function EventTileImage({ event }: EventTileImageProps) {
         // Split text into emoji and rest
         const emojiMatch = text.match(/^([\u{1F300}-\u{1F9FF}])\s*/u)
         const emoji = emojiMatch ? emojiMatch[1] + ' ' : ''
-        const textWithoutEmoji = emoji ? text.slice(emojiMatch[0].length) : text
+        const textWithoutEmoji = emoji && emojiMatch ? text.slice(emojiMatch[0].length) : text
 
         const words = textWithoutEmoji.split(' ')
         const allLines: string[] = []
@@ -217,9 +207,9 @@ export function EventTileImage({ event }: EventTileImageProps) {
       const detailLineHeight = 50 // Line height for wrapped detail text
       const itemSpacing = 30 // Spacing between items (similar to space-y-2)
 
-      const formattedDate = event.endDate
-        ? formatDateRange(event.date, event.endDate)
-        : formatDate(event.date)
+      const formattedDate = event.enddate
+        ? formatDateRange(event.startdate, event.enddate)
+        : formatDate(event.startdate)
 
       let currentY = detailsStartY
       currentY += wrapText(`📅 ${formattedDate}`, 50, currentY, detailMaxWidth, detailLineHeight)
@@ -228,9 +218,9 @@ export function EventTileImage({ event }: EventTileImageProps) {
       currentY += itemSpacing
 
       // Draw race types or difficulty
-      if (event.raceTypes) {
+      if (event.typerace) {
         // For race types, don't use wrapText to avoid extracting the runner emoji
-        const raceText = event.raceTypes.join(', ')
+        const raceText = event.typerace.join(', ')
         const words = raceText.split(' ')
         const lines: string[] = []
         let line = ''
@@ -258,14 +248,12 @@ export function EventTileImage({ event }: EventTileImageProps) {
         }
 
         currentY += lines.length * detailLineHeight
-      } else {
-        currentY += wrapText(`⚡ ${event.difficulty}`, 50, currentY, detailMaxWidth, detailLineHeight)
       }
 
       // Draw organization if present (as last item)
-      if (event.organization) {
+      if (event.organizationgym) {
         currentY += itemSpacing
-        wrapText(`🏢 ${event.organization}`, 50, currentY, detailMaxWidth, detailLineHeight)
+        wrapText(`🏢 ${event.organizationgym}`, 50, currentY, detailMaxWidth, detailLineHeight)
       }
 
       // Draw orange bar at bottom with rounded corners
@@ -316,16 +304,6 @@ export function EventTileImage({ event }: EventTileImageProps) {
       }
     }
   }, [event])
-
-  const downloadImage = () => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-
-    const link = document.createElement('a')
-    link.download = `${event.id}-tile.png`
-    link.href = canvas.toDataURL('image/png')
-    link.click()
-  }
 
   return (
     <canvas ref={canvasRef} className="w-full h-auto" />

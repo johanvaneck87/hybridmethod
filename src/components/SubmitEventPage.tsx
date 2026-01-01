@@ -92,33 +92,6 @@ export function SubmitEventPage() {
       // Get coordinates from location
       const coordinates = await getCoordinates(location, 'NL')
 
-      // Create hidden inputs for coordinates
-      const latInput = document.createElement('input')
-      latInput.type = 'hidden'
-      latInput.name = 'coordinates_lat'
-      latInput.value = coordinates.lat.toString()
-      form.appendChild(latInput)
-
-      const lngInput = document.createElement('input')
-      lngInput.type = 'hidden'
-      lngInput.name = 'coordinates_lng'
-      lngInput.value = coordinates.lng.toString()
-      form.appendChild(lngInput)
-
-      // Create hidden input for race types
-      const raceTypesInput = document.createElement('input')
-      raceTypesInput.type = 'hidden'
-      raceTypesInput.name = 'raceTypes_formatted'
-      raceTypesInput.value = selectedRaceTypes.join(', ')
-      form.appendChild(raceTypesInput)
-
-      // Create hidden input for divisions
-      const divisionsInput = document.createElement('input')
-      divisionsInput.type = 'hidden'
-      divisionsInput.name = 'divisions_formatted'
-      divisionsInput.value = selectedDivisions.join(', ')
-      form.appendChild(divisionsInput)
-
       // Generate ID from event name and year
       const eventName = (form.querySelector('[name="name"]') as HTMLInputElement).value
       const startDate = (form.querySelector('[name="startDate"]') as HTMLInputElement)?.value ||
@@ -166,26 +139,31 @@ export function SubmitEventPage() {
       // Create formatted JSON string
       const formattedJSON = JSON.stringify(eventData, null, 2)
 
-      // Create hidden input with complete JSON for copy-paste
-      const jsonInput = document.createElement('input')
-      jsonInput.type = 'hidden'
-      jsonInput.name = 'COPY_PASTE_JSON_FOR_EVENTS_FILE'
-      jsonInput.value = formattedJSON
-      form.appendChild(jsonInput)
+      // Create FormData with all form fields
+      const formData = new FormData(form)
 
-      // Show success message first
+      // Add computed fields to FormData
+      formData.append('coordinates_lat', coordinates.lat.toString())
+      formData.append('coordinates_lng', coordinates.lng.toString())
+      formData.append('raceTypes_formatted', selectedRaceTypes.join(', '))
+      formData.append('divisions_formatted', selectedDivisions.join(', '))
+      formData.append('COPY_PASTE_JSON_FOR_EVENTS_FILE', formattedJSON)
+
+      // Submit to FormSubmit.co using fetch
+      await fetch('https://formsubmit.co/hybridraces@gmail.com', {
+        method: 'POST',
+        body: formData
+      })
+
+      // Show success message
       setIsSubmitted(true)
+      setIsSubmitting(false)
       setIsLocalGym(null)
       setIsMultipleDays(null)
       setSelectedRaceTypes([])
       setSelectedDivisions([])
       setSelectedImage(null)
       setImagePreview(null)
-
-      // Then submit the form after a short delay
-      setTimeout(() => {
-        form.submit()
-      }, 2000)
     } catch (error) {
       console.error('Error submitting form:', error)
       alert('There was an error submitting the form. Please try again.')
@@ -223,16 +201,12 @@ export function SubmitEventPage() {
           </div>
         ) : (
           <form
-            action="https://formsubmit.co/hybridraces@gmail.com"
-            method="POST"
-            encType="multipart/form-data"
             onSubmit={handleSubmit}
             className="bg-gray-900 border border-white/20 rounded-lg p-6 md:p-8"
           >
-            {/* FormSubmit configuration */}
+            {/* FormSubmit configuration - these will be included in FormData */}
             <input type="hidden" name="_subject" value="New Race Submission - HybridRaces.com" />
             <input type="hidden" name="_captcha" value="false" />
-            <input type="hidden" name="_next" value={window.location.href} />
 
           <div className="space-y-6">
             {/* Event Name */}

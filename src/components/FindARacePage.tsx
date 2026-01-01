@@ -6,62 +6,70 @@ import { navigate } from '../router'
 
 interface Event {
   id: string
-  name: string
-  organization?: string
-  date: string
-  endDate?: string
+  eventname: string
+  localgym: string
+  organizationgym: string
+  startdate: string
+  enddate: string
   location: string
   coordinates: {
     lat: number
     lng: number
   }
-  type: 'solo' | 'duo'
-  raceTypes?: string[]
-  difficulty: 'beginner' | 'intermediate' | 'advanced'
-  url: string
+  typerace: string[]
+  divisions: string[]
+  ticketpricelow: string
+  ticketpricehigh: string
+  fitnessobstacle: string
+  indooroutdoor: string
+  hyroxworkout: string
   description: string
   image: string
-  country?: string
+  instagram: string
+  website: string
+  ticketUrl: string
+  workout: string
+  weights: string
+  contactEmail: string
 }
 
-type SortField = 'date' | 'location' | 'name'
-type FilterType = 'all' | 'solo' | 'duo'
+type FilterType = 'all' | 'solo' | 'duo' | 'relay' | 'team' | 'other'
 type DivisionType = 'all' | 'open' | 'pro' | 'other'
 type VenueType = 'all' | 'indoor' | 'outdoor' | 'indoor-outdoor'
 
 export function FindARacePage() {
   // Temporary filter states (not yet applied)
-  const [tempSortBy, setTempSortBy] = useState<SortField>('date')
   const [tempFilterType, setTempFilterType] = useState<FilterType>('all')
-  const [tempShowPastEvents, setTempShowPastEvents] = useState(false)
+  const [tempOnlyUpcomingEvents, setTempOnlyUpcomingEvents] = useState(false)
   const [tempLocationSearch, setTempLocationSearch] = useState('')
   const [tempDistanceKm, setTempDistanceKm] = useState('')
-  const [tempLocalGymOnly, setTempLocalGymOnly] = useState(false)
   const [tempHyroxOnly, setTempHyroxOnly] = useState(false)
   const [tempOrganisation, setTempOrganisation] = useState('')
   const [tempMonth, setTempMonth] = useState('')
   const [tempYear, setTempYear] = useState('')
   const [tempDivision, setTempDivision] = useState<DivisionType>('all')
   const [tempVenue, setTempVenue] = useState<VenueType>('all')
+  const [tempNewestFirst, setTempNewestFirst] = useState(false)
 
   // Applied filter states (actually used for filtering)
-  const [sortBy, setSortBy] = useState<SortField>('date')
   const [filterType, setFilterType] = useState<FilterType>('all')
-  const [showPastEvents, setShowPastEvents] = useState(false)
+  const [onlyUpcomingEvents, setOnlyUpcomingEvents] = useState(false)
   const [locationSearch, setLocationSearch] = useState('')
   const [distanceKm, setDistanceKm] = useState('')
-  const [localGymOnly, setLocalGymOnly] = useState(false)
   const [hyroxOnly, setHyroxOnly] = useState(false)
   const [organisation, setOrganisation] = useState('')
   const [month, setMonth] = useState('')
   const [year, setYear] = useState('')
   const [division, setDivision] = useState<DivisionType>('all')
   const [venue, setVenue] = useState<VenueType>('all')
+  const [newestFirst, setNewestFirst] = useState(false)
 
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
   const [viewMode, setViewMode] = useState<'list' | 'map'>('list')
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const [searchCoordinates, setSearchCoordinates] = useState<{ lat: number; lng: number } | null>(null)
+  const [isGeocodingLoading, setIsGeocodingLoading] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -83,22 +91,83 @@ export function FindARacePage() {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  // Auto-apply location and distance filters when both are filled (mobile only)
+  // Auto-apply filters on desktop (always) and on mobile (when both location and distance are filled)
   useEffect(() => {
-    if (!isMobile) return // Only apply auto-filtering on mobile
-
-    if (tempLocationSearch.trim() !== '' && tempDistanceKm.trim() !== '') {
-      // Both filled - apply filter
+    if (!isMobile) {
+      // Desktop: Apply all filters immediately
+      setFilterType(tempFilterType)
+      setOnlyUpcomingEvents(tempOnlyUpcomingEvents)
       setLocationSearch(tempLocationSearch)
       setDistanceKm(tempDistanceKm)
+      setHyroxOnly(tempHyroxOnly)
+      setOrganisation(tempOrganisation)
+      setMonth(tempMonth)
+      setYear(tempYear)
+      setDivision(tempDivision)
+      setVenue(tempVenue)
+      setNewestFirst(tempNewestFirst)
     } else {
-      // If either is empty, clear both filters
-      setLocationSearch('')
-      setDistanceKm('')
+      // Mobile: Only auto-apply location and distance when both are filled
+      if (tempLocationSearch.trim() !== '' && tempDistanceKm.trim() !== '') {
+        setLocationSearch(tempLocationSearch)
+        setDistanceKm(tempDistanceKm)
+      } else {
+        setLocationSearch('')
+        setDistanceKm('')
+      }
     }
-  }, [tempLocationSearch, tempDistanceKm, isMobile])
+  }, [tempFilterType, tempOnlyUpcomingEvents, tempLocationSearch, tempDistanceKm, tempHyroxOnly, tempOrganisation, tempMonth, tempYear, tempDivision, tempVenue, tempNewestFirst, isMobile])
 
   const events = eventsData as Event[]
+
+  // Geocode location to coordinates when locationSearch changes
+  useEffect(() => {
+    if (!locationSearch.trim()) {
+      setSearchCoordinates(null)
+      return
+    }
+
+    const geocodeLocation = async () => {
+      setIsGeocodingLoading(true)
+      try {
+        const searchQuery = `${locationSearch}, Netherlands`
+        const response = await fetch(
+          `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(searchQuery)}&countrycodes=nl&limit=5&addressdetails=1`,
+          {
+            headers: {
+              'User-Agent': 'HybridMethodWebsite/1.0'
+            }
+          }
+        )
+        const data = await response.json()
+
+        if (data && data.length > 0) {
+          const cityResult = data.find((item: any) =>
+            item.type === 'administrative' ||
+            item.type === 'city' ||
+            item.addresstype === 'city' ||
+            item.addresstype === 'town' ||
+            item.addresstype === 'municipality'
+          ) || data[0]
+
+          setSearchCoordinates({
+            lat: parseFloat(cityResult.lat),
+            lng: parseFloat(cityResult.lon)
+          })
+        } else {
+          setSearchCoordinates(null)
+        }
+      } catch (error) {
+        console.error('Geocoding error:', error)
+        setSearchCoordinates(null)
+      } finally {
+        setIsGeocodingLoading(false)
+      }
+    }
+
+    const timeoutId = setTimeout(geocodeLocation, 500)
+    return () => clearTimeout(timeoutId)
+  }, [locationSearch])
 
   // Helper function to calculate distance between two coordinates (Haversine formula)
   const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
@@ -142,191 +211,413 @@ export function FindARacePage() {
 
   const yearOptions = useMemo(() => generateYearOptions(), [])
 
-  // Helper function to get coordinates from location search (simplified geocoding)
-  const getCoordinatesFromLocation = (locationSearch: string): { lat: number, lng: number } | null => {
-    // Simple mapping of Dutch cities to coordinates (you can expand this)
-    const cityCoordinates: { [key: string]: { lat: number, lng: number } } = {
-      'amsterdam': { lat: 52.3676, lng: 4.9041 },
-      'rotterdam': { lat: 51.9225, lng: 4.47917 },
-      'delft': { lat: 52.0116, lng: 4.3571 },
-      'den haag': { lat: 52.0705, lng: 4.3007 },
-      'utrecht': { lat: 52.0907, lng: 5.1214 },
-      'eindhoven': { lat: 51.4416, lng: 5.4697 },
-      'groningen': { lat: 53.2194, lng: 6.5665 },
-      'nijmegen': { lat: 51.8426, lng: 5.8526 },
-      'wijchen': { lat: 51.8069, lng: 5.7236 },
-      'biddinghuizen': { lat: 52.4556, lng: 5.6944 },
-      'vijfhuizen': { lat: 52.3394, lng: 4.6897 }
-    }
-
-    const searchLower = locationSearch.toLowerCase().trim()
-    return cityCoordinates[searchLower] || null
-  }
+  // Extract unique organizations from events
+  const uniqueOrganizations = useMemo(() => {
+    const orgs = new Set<string>()
+    events.forEach(event => {
+      if (event.organizationgym) {
+        orgs.add(event.organizationgym)
+      }
+    })
+    return Array.from(orgs).sort()
+  }, [events])
 
   const applyFilters = () => {
-    setSortBy(tempSortBy)
     setFilterType(tempFilterType)
-    setShowPastEvents(tempShowPastEvents)
+    setOnlyUpcomingEvents(tempOnlyUpcomingEvents)
     setLocationSearch(tempLocationSearch)
     setDistanceKm(tempDistanceKm)
-    setLocalGymOnly(tempLocalGymOnly)
     setHyroxOnly(tempHyroxOnly)
     setOrganisation(tempOrganisation)
     setMonth(tempMonth)
     setYear(tempYear)
     setDivision(tempDivision)
     setVenue(tempVenue)
+    setNewestFirst(tempNewestFirst)
     setMobileFiltersOpen(false)
   }
 
   const resetFilters = () => {
-    setTempSortBy('date')
     setTempFilterType('all')
-    setTempShowPastEvents(false)
+    setTempOnlyUpcomingEvents(false)
     setTempLocationSearch('')
     setTempDistanceKm('')
-    setTempLocalGymOnly(false)
     setTempHyroxOnly(false)
     setTempOrganisation('')
     setTempMonth('')
     setTempYear('')
     setTempDivision('all')
     setTempVenue('all')
+    setTempNewestFirst(false)
     // Also apply the reset immediately
-    setSortBy('date')
     setFilterType('all')
-    setShowPastEvents(false)
+    setOnlyUpcomingEvents(false)
     setLocationSearch('')
     setDistanceKm('')
-    setLocalGymOnly(false)
     setHyroxOnly(false)
     setOrganisation('')
     setMonth('')
     setYear('')
     setDivision('all')
     setVenue('all')
+    setNewestFirst(false)
   }
+
+  // Helper function to remove individual filter
+  const removeFilter = (filterKey: string) => {
+    switch (filterKey) {
+      case 'filterType':
+        setTempFilterType('all')
+        if (!isMobile) setFilterType('all')
+        break
+      case 'onlyUpcomingEvents':
+        setTempOnlyUpcomingEvents(false)
+        if (!isMobile) setOnlyUpcomingEvents(false)
+        break
+      case 'location':
+        setTempLocationSearch('')
+        setTempDistanceKm('')
+        if (!isMobile) {
+          setLocationSearch('')
+          setDistanceKm('')
+        }
+        break
+      case 'hyroxOnly':
+        setTempHyroxOnly(false)
+        if (!isMobile) setHyroxOnly(false)
+        break
+      case 'organisation':
+        setTempOrganisation('')
+        if (!isMobile) setOrganisation('')
+        break
+      case 'month':
+        setTempMonth('')
+        setTempYear('')
+        if (!isMobile) {
+          setMonth('')
+          setYear('')
+        }
+        break
+      case 'division':
+        setTempDivision('all')
+        if (!isMobile) setDivision('all')
+        break
+      case 'venue':
+        setTempVenue('all')
+        if (!isMobile) setVenue('all')
+        break
+      case 'newestFirst':
+        setTempNewestFirst(false)
+        if (!isMobile) setNewestFirst(false)
+        break
+    }
+  }
+
+  // Get active filters for display as chips
+  const getActiveFilters = useMemo(() => {
+    const filters: { key: string; label: string }[] = []
+
+    if (tempFilterType !== 'all') {
+      const typeLabel = tempFilterType === 'duo' ? 'Duo / Buddy' : tempFilterType.charAt(0).toUpperCase() + tempFilterType.slice(1)
+      filters.push({ key: 'filterType', label: typeLabel })
+    }
+    if (tempOnlyUpcomingEvents) {
+      filters.push({ key: 'onlyUpcomingEvents', label: 'Upcoming only' })
+    }
+    if (tempLocationSearch.trim() !== '' && tempDistanceKm.trim() !== '') {
+      filters.push({ key: 'location', label: `${tempLocationSearch} (${tempDistanceKm} km)` })
+    }
+    if (tempHyroxOnly) {
+      filters.push({ key: 'hyroxOnly', label: 'HYROX only' })
+    }
+    if (tempOrganisation !== '') {
+      filters.push({ key: 'organisation', label: tempOrganisation })
+    }
+    if (tempMonth !== '' || tempYear !== '') {
+      const monthLabel = tempMonth !== '' ? monthOptions.find(m => m.value === tempMonth)?.label : ''
+      const yearLabel = tempYear !== '' ? tempYear : ''
+      filters.push({ key: 'month', label: `${monthLabel}${monthLabel && yearLabel ? ' ' : ''}${yearLabel}`.trim() })
+    }
+    if (tempDivision !== 'all') {
+      const divLabel = tempDivision === 'open' ? 'Open / Normal' : tempDivision === 'pro' ? 'Pro / Heavy' : 'Other'
+      filters.push({ key: 'division', label: divLabel })
+    }
+    if (tempVenue !== 'all') {
+      const venueLabel = tempVenue === 'indoor' ? 'Indoor' : tempVenue === 'outdoor' ? 'Outdoor' : 'Indoor & Outdoor'
+      filters.push({ key: 'venue', label: venueLabel })
+    }
+    if (tempNewestFirst) {
+      filters.push({ key: 'newestFirst', label: 'Newest to oldest' })
+    }
+
+    return filters
+  }, [tempFilterType, tempOnlyUpcomingEvents, tempLocationSearch, tempDistanceKm, tempHyroxOnly, tempOrganisation, tempMonth, tempYear, tempDivision, tempVenue, tempNewestFirst])
 
   // Calculate number of active filters
   const activeFiltersCount = useMemo(() => {
     let count = 0
-    if (sortBy !== 'date') count++
     if (filterType !== 'all') count++
-    if (showPastEvents) count++
+    if (onlyUpcomingEvents) count++ // Count when showing only upcoming events (when checked)
     // Location and distance count as one filter only when both are filled
     if (locationSearch !== '' && distanceKm !== '') count++
-    if (localGymOnly) count++
     if (hyroxOnly) count++
     if (organisation !== '') count++
     // Month and year count as one filter when either or both are filled
     if (month !== '' || year !== '') count++
     if (division !== 'all') count++
     if (venue !== 'all') count++
+    if (newestFirst) count++
     return count
-  }, [sortBy, filterType, showPastEvents, locationSearch, distanceKm, localGymOnly, hyroxOnly, organisation, month, year, division, venue])
+  }, [filterType, onlyUpcomingEvents, locationSearch, distanceKm, hyroxOnly, organisation, month, year, division, venue, newestFirst])
 
   // Calculate preview count based on temporary filters (for "Show X Events" button)
   const tempFilteredEventsCount = useMemo(() => {
     let filtered = [...events]
 
-    // Filter by upcoming events only (unless showPastEvents is checked)
-    if (!tempShowPastEvents) {
+    // Filter by upcoming events only (when onlyUpcomingEvents is true)
+    if (tempOnlyUpcomingEvents) {
       const today = new Date()
       today.setHours(0, 0, 0, 0)
-      filtered = filtered.filter(event => new Date(event.date) >= today)
+      filtered = filtered.filter(event => new Date(event.startdate) >= today)
     }
 
-    // Filter by type
+    // Filter by race type (using typerace array)
     if (tempFilterType !== 'all') {
-      filtered = filtered.filter(event => event.type === tempFilterType)
-    }
-
-    // Filter by location and distance - ONLY if BOTH are provided
-    if (tempLocationSearch.trim() !== '' && tempDistanceKm.trim() !== '') {
-      const searchCoords = getCoordinatesFromLocation(tempLocationSearch)
-      if (searchCoords) {
-        const maxDistance = parseFloat(tempDistanceKm)
-        if (!isNaN(maxDistance)) {
-          filtered = filtered.filter(event => {
-            const distance = calculateDistance(
-              searchCoords.lat,
-              searchCoords.lng,
-              event.coordinates.lat,
-              event.coordinates.lng
-            )
-            return distance <= maxDistance
+      filtered = filtered.filter(event => {
+        if (event.typerace && event.typerace.length > 0) {
+          // Check if any raceType matches the selected filter
+          return event.typerace.some((raceType: string) => {
+            const normalizedRaceType = raceType.toLowerCase().replace(/\s+/g, '-').replace('/', '-')
+            const normalizedFilter = tempFilterType.toLowerCase().replace(/\s+/g, '-')
+            return normalizedRaceType.includes(normalizedFilter) ||
+                   (tempFilterType === 'duo' && raceType.toLowerCase().includes('buddy'))
           })
         }
+        return false
+      })
+    }
+
+    // Filter by location and distance - use searchCoordinates if available
+    if (tempLocationSearch.trim() !== '' && tempDistanceKm.trim() !== '' && searchCoordinates) {
+      const maxDistance = parseFloat(tempDistanceKm)
+      if (!isNaN(maxDistance)) {
+        filtered = filtered.filter(event => {
+          const distance = calculateDistance(
+            searchCoordinates.lat,
+            searchCoordinates.lng,
+            event.coordinates.lat,
+            event.coordinates.lng
+          )
+          return distance <= maxDistance
+        })
       }
     }
 
-    // Filter by local gym only (placeholder - would need gym data in events)
-    if (tempLocalGymOnly) {
-      // For now, this would filter events that have "gym" in the name
+    // Filter by Hyrox only
+    if (tempHyroxOnly) {
       filtered = filtered.filter(event =>
-        event.name.toLowerCase().includes('hyrox') ||
-        event.name.toLowerCase().includes('gym')
+        event.hyroxworkout === 'Yes'
       )
     }
 
+    // Filter by organization
+    if (tempOrganisation !== '') {
+      filtered = filtered.filter(event =>
+        event.organizationgym === tempOrganisation
+      )
+    }
+
+    // Filter by month and/or year - checks if event spans the selected month
+    if (tempMonth !== '' || tempYear !== '') {
+      filtered = filtered.filter(event => {
+        const startDate = new Date(event.startdate)
+        const endDate = event.enddate ? new Date(event.enddate) : startDate
+
+        const startMonth = String(startDate.getMonth() + 1).padStart(2, '0')
+        const startYear = String(startDate.getFullYear())
+        const endMonth = String(endDate.getMonth() + 1).padStart(2, '0')
+        const endYear = String(endDate.getFullYear())
+
+        if (tempMonth !== '' && tempYear !== '') {
+          // Check if the event spans the selected month/year
+          const selectedDate = new Date(parseInt(tempYear), parseInt(tempMonth) - 1, 1)
+          const selectedEndDate = new Date(parseInt(tempYear), parseInt(tempMonth), 0) // Last day of month
+          return startDate <= selectedEndDate && endDate >= selectedDate
+        } else if (tempMonth !== '') {
+          // Check if event spans the selected month (any year)
+          return (startMonth === tempMonth || endMonth === tempMonth ||
+                  (parseInt(startMonth) < parseInt(tempMonth) && parseInt(endMonth) > parseInt(tempMonth)))
+        } else {
+          // Check if event is in the selected year
+          return startYear === tempYear || endYear === tempYear
+        }
+      })
+    }
+
+    // Filter by division (using divisions array)
+    if (tempDivision !== 'all') {
+      filtered = filtered.filter(event => {
+        if (event.divisions && event.divisions.length > 0) {
+          // Check if any division matches the selected filter
+          return event.divisions.some(division => {
+            const normalizedDivision = division.toLowerCase().replace(/\s+/g, '-').replace('/', '-')
+            const normalizedFilter = tempDivision.toLowerCase().replace(/\s+/g, '-')
+            return normalizedDivision.includes(normalizedFilter) ||
+                   (tempDivision === 'open' && (division.toLowerCase().includes('normal') || division.toLowerCase().includes('open'))) ||
+                   (tempDivision === 'pro' && (division.toLowerCase().includes('heavy') || division.toLowerCase().includes('pro')))
+          })
+        }
+        return false
+      })
+    }
+
+    // Filter by venue (Indoor/Outdoor)
+    if (tempVenue !== 'all') {
+      filtered = filtered.filter(event => {
+        if (!event.indooroutdoor) return false
+        const eventVenue = event.indooroutdoor.toLowerCase()
+
+        if (tempVenue === 'indoor') {
+          return eventVenue === 'indoor'
+        } else if (tempVenue === 'outdoor') {
+          return eventVenue === 'outdoor'
+        } else if (tempVenue === 'indoor-outdoor') {
+          return eventVenue.includes('indoor') && eventVenue.includes('outdoor')
+        }
+        return false
+      })
+    }
+
     return filtered.length
-  }, [tempFilterType, tempShowPastEvents, tempLocationSearch, tempDistanceKm, tempLocalGymOnly, events])
+  }, [tempFilterType, tempOnlyUpcomingEvents, tempLocationSearch, tempDistanceKm, searchCoordinates, tempHyroxOnly, tempOrganisation, tempMonth, tempYear, tempDivision, tempVenue, events])
 
   const filteredAndSortedEvents = useMemo(() => {
     let filtered = [...events]
 
-    // Filter by upcoming events only (unless showPastEvents is checked)
-    if (!showPastEvents) {
+    // Filter by upcoming events only (when onlyUpcomingEvents is true)
+    if (onlyUpcomingEvents) {
       const today = new Date()
       today.setHours(0, 0, 0, 0)
-      filtered = filtered.filter(event => new Date(event.date) >= today)
+      filtered = filtered.filter(event => new Date(event.startdate) >= today)
     }
 
-    // Filter by type
+    // Filter by race type (using typerace array)
     if (filterType !== 'all') {
-      filtered = filtered.filter(event => event.type === filterType)
-    }
-
-    // Filter by location and distance - ONLY if BOTH are provided
-    if (locationSearch.trim() !== '' && distanceKm.trim() !== '') {
-      const searchCoords = getCoordinatesFromLocation(locationSearch)
-      if (searchCoords) {
-        const maxDistance = parseFloat(distanceKm)
-        if (!isNaN(maxDistance)) {
-          filtered = filtered.filter(event => {
-            const distance = calculateDistance(
-              searchCoords.lat,
-              searchCoords.lng,
-              event.coordinates.lat,
-              event.coordinates.lng
-            )
-            return distance <= maxDistance
+      filtered = filtered.filter(event => {
+        if (event.typerace && event.typerace.length > 0) {
+          // Check if any raceType matches the selected filter
+          return event.typerace.some((raceType: string) => {
+            const normalizedRaceType = raceType.toLowerCase().replace(/\s+/g, '-').replace('/', '-')
+            const normalizedFilter = filterType.toLowerCase().replace(/\s+/g, '-')
+            return normalizedRaceType.includes(normalizedFilter) ||
+                   (filterType === 'duo' && raceType.toLowerCase().includes('buddy'))
           })
         }
+        return false
+      })
+    }
+
+    // Filter by location and distance - ONLY if BOTH are provided and geocoding succeeded
+    if (locationSearch.trim() !== '' && distanceKm.trim() !== '' && searchCoordinates) {
+      const maxDistance = parseFloat(distanceKm)
+      if (!isNaN(maxDistance)) {
+        filtered = filtered.filter(event => {
+          const distance = calculateDistance(
+            searchCoordinates.lat,
+            searchCoordinates.lng,
+            event.coordinates.lat,
+            event.coordinates.lng
+          )
+          return distance <= maxDistance
+        })
       }
     }
 
-    // Filter by local gym only
-    if (localGymOnly) {
+    // Filter by Hyrox only
+    if (hyroxOnly) {
       filtered = filtered.filter(event =>
-        event.name.toLowerCase().includes('hyrox') ||
-        event.name.toLowerCase().includes('gym')
+        event.hyroxworkout === 'Yes'
       )
     }
 
-    // Sort
+    // Filter by organization
+    if (organisation !== '') {
+      filtered = filtered.filter(event =>
+        event.organizationgym === organisation
+      )
+    }
+
+    // Filter by month and/or year - checks if event spans the selected month
+    if (month !== '' || year !== '') {
+      filtered = filtered.filter(event => {
+        const startDate = new Date(event.startdate)
+        const endDate = event.enddate ? new Date(event.enddate) : startDate
+
+        const startMonth = String(startDate.getMonth() + 1).padStart(2, '0')
+        const startYear = String(startDate.getFullYear())
+        const endMonth = String(endDate.getMonth() + 1).padStart(2, '0')
+        const endYear = String(endDate.getFullYear())
+
+        if (month !== '' && year !== '') {
+          // Check if the event spans the selected month/year
+          // Event matches if it starts in or before the selected month and ends in or after the selected month
+          const selectedDate = new Date(parseInt(year), parseInt(month) - 1, 1)
+          const selectedEndDate = new Date(parseInt(year), parseInt(month), 0) // Last day of month
+          return startDate <= selectedEndDate && endDate >= selectedDate
+        } else if (month !== '') {
+          // Check if event spans the selected month (any year)
+          return (startMonth === month || endMonth === month ||
+                  (parseInt(startMonth) < parseInt(month) && parseInt(endMonth) > parseInt(month)))
+        } else {
+          // Check if event is in the selected year
+          return startYear === year || endYear === year
+        }
+      })
+    }
+
+    // Filter by division (using divisions array)
+    if (division !== 'all') {
+      filtered = filtered.filter(event => {
+        if (event.divisions && event.divisions.length > 0) {
+          // Check if any division matches the selected filter
+          return event.divisions.some(div => {
+            const normalizedDivision = div.toLowerCase().replace(/\s+/g, '-').replace('/', '-')
+            const normalizedFilter = division.toLowerCase().replace(/\s+/g, '-')
+            return normalizedDivision.includes(normalizedFilter) ||
+                   (division === 'open' && (div.toLowerCase().includes('normal') || div.toLowerCase().includes('open'))) ||
+                   (division === 'pro' && (div.toLowerCase().includes('heavy') || div.toLowerCase().includes('pro')))
+          })
+        }
+        return false
+      })
+    }
+
+    // Filter by venue (Indoor/Outdoor)
+    if (venue !== 'all') {
+      filtered = filtered.filter(event => {
+        if (!event.indooroutdoor) return false
+        const eventVenue = event.indooroutdoor.toLowerCase()
+
+        if (venue === 'indoor') {
+          return eventVenue === 'indoor'
+        } else if (venue === 'outdoor') {
+          return eventVenue === 'outdoor'
+        } else if (venue === 'indoor-outdoor') {
+          return eventVenue.includes('indoor') && eventVenue.includes('outdoor')
+        }
+        return false
+      })
+    }
+
+    // Sort by date (newest first if newestFirst is true, otherwise oldest first)
     filtered.sort((a, b) => {
-      if (sortBy === 'date') {
-        return new Date(a.date).getTime() - new Date(b.date).getTime()
-      } else if (sortBy === 'location') {
-        return a.location.localeCompare(b.location)
-      } else {
-        return a.name.localeCompare(b.name)
-      }
+      const dateA = new Date(a.startdate).getTime()
+      const dateB = new Date(b.startdate).getTime()
+      return newestFirst ? dateB - dateA : dateA - dateB
     })
 
     return filtered
-  }, [events, sortBy, filterType, showPastEvents, locationSearch, localGymOnly])
+  }, [events, filterType, onlyUpcomingEvents, locationSearch, distanceKm, searchCoordinates, hyroxOnly, organisation, month, year, division, venue, newestFirst])
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
@@ -502,15 +793,35 @@ export function FindARacePage() {
             </div>
 
             <div className="px-6 py-4 space-y-3">
+              {/* Active Filter Chips */}
+              {getActiveFilters.length > 0 && (
+                <div className="pb-1">
+                  <div className="flex flex-wrap gap-2">
+                    {getActiveFilters.map(filter => (
+                      <button
+                        key={filter.key}
+                        onClick={() => removeFilter(filter.key)}
+                        className="inline-flex items-center gap-1.5 bg-[#D94800] text-white text-xs px-2.5 py-1 rounded-full hover:bg-[#E85D00] transition-colors duration-200"
+                      >
+                        <span>{filter.label}</span>
+                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* Reset All Filters */}
               <button
                 onClick={resetFilters}
-                className="block text-xs font-medium uppercase tracking-wide text-[#D94800] hover:text-[#E85D00] transition-colors duration-200"
+                className="block w-full text-left text-xs font-medium uppercase tracking-wide text-[#D94800] hover:text-[#E85D00] transition-colors duration-200 pb-2 border-b border-white/10"
               >
                 Reset All Filters
               </button>
 
-              {/* Show Past events, Local gym, and Only Hyrox workouts toggles */}
+              {/* Show toggles */}
               <div>
                 <label className="block text-xs font-medium mb-1.5 uppercase tracking-wide text-gray-400">
                   Show
@@ -519,20 +830,11 @@ export function FindARacePage() {
                   <label className="flex items-center gap-2 cursor-pointer w-fit">
                     <input
                       type="checkbox"
-                      checked={tempShowPastEvents}
-                      onChange={(e) => setTempShowPastEvents(e.currentTarget.checked)}
+                      checked={tempOnlyUpcomingEvents}
+                      onChange={(e) => setTempOnlyUpcomingEvents(e.currentTarget.checked)}
                       className="w-4 h-4 cursor-pointer accent-[#D94800]"
                     />
-                    <span className="text-sm text-white">Past events</span>
-                  </label>
-                  <label className="flex items-center gap-2 cursor-pointer w-fit">
-                    <input
-                      type="checkbox"
-                      checked={tempLocalGymOnly}
-                      onChange={(e) => setTempLocalGymOnly(e.currentTarget.checked)}
-                      className="w-4 h-4 cursor-pointer accent-[#D94800]"
-                    />
-                    <span className="text-sm text-white">Local gym</span>
+                    <span className="text-sm text-white">Only upcoming events</span>
                   </label>
                   <label className="flex items-center gap-2 cursor-pointer w-fit">
                     <input
@@ -541,25 +843,18 @@ export function FindARacePage() {
                       onChange={(e) => setTempHyroxOnly(e.currentTarget.checked)}
                       className="w-4 h-4 cursor-pointer accent-[#D94800]"
                     />
-                    <span className="text-sm text-white">Only Hyrox workouts</span>
+                    <span className="text-sm text-white">Only HYROX workouts</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer w-fit">
+                    <input
+                      type="checkbox"
+                      checked={tempNewestFirst}
+                      onChange={(e) => setTempNewestFirst(e.currentTarget.checked)}
+                      className="w-4 h-4 cursor-pointer accent-[#D94800]"
+                    />
+                    <span className="text-sm text-white">Newest to oldest event</span>
                   </label>
                 </div>
-              </div>
-
-              {/* Sort by */}
-              <div>
-                <label className="block text-xs font-medium mb-1.5 uppercase tracking-wide text-gray-400">
-                  Sort by
-                </label>
-                <select
-                  value={tempSortBy}
-                  onChange={(e) => setTempSortBy(e.currentTarget.value as SortField)}
-                  className="w-full bg-gray-900 border border-white/20 rounded px-3 py-1.5 text-sm text-white focus:outline-none focus:border-[#D94800]"
-                >
-                  <option value="date">Date</option>
-                  <option value="location">Location</option>
-                  <option value="name">Name</option>
-                </select>
               </div>
 
               {/* Organisation / Gym */}
@@ -567,13 +862,18 @@ export function FindARacePage() {
                 <label className="block text-xs font-medium mb-1.5 uppercase tracking-wide text-gray-400">
                   Organisation / Gym
                 </label>
-                <input
-                  type="text"
+                <select
                   value={tempOrganisation}
                   onChange={(e) => setTempOrganisation(e.currentTarget.value)}
-                  placeholder="Search organisation"
-                  className="w-full bg-gray-900 border border-white/20 rounded px-3 py-1.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#D94800]"
-                />
+                  className="w-full bg-gray-900 border border-white/20 rounded px-3 py-1.5 text-sm text-white focus:outline-none focus:border-[#D94800]"
+                >
+                  <option value="">All</option>
+                  {uniqueOrganizations.map(org => (
+                    <option key={org} value={org}>
+                      {org}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               {/* Month / Year */}
@@ -621,7 +921,10 @@ export function FindARacePage() {
                 >
                   <option value="all">All</option>
                   <option value="solo">Solo</option>
-                  <option value="duo">Duo</option>
+                  <option value="duo">Duo / Buddy</option>
+                  <option value="relay">Relay</option>
+                  <option value="team">Team</option>
+                  <option value="other">Other</option>
                 </select>
               </div>
 
@@ -636,16 +939,16 @@ export function FindARacePage() {
                   className="w-full bg-gray-900 border border-white/20 rounded px-3 py-1.5 text-sm text-white focus:outline-none focus:border-[#D94800]"
                 >
                   <option value="all">All</option>
-                  <option value="open">Open</option>
-                  <option value="pro">Pro</option>
+                  <option value="open">Open / Normal</option>
+                  <option value="pro">Pro / Heavy</option>
                   <option value="other">Other</option>
                 </select>
               </div>
 
-              {/* Indoor / Outdoor */}
+              {/* Venue Type */}
               <div>
                 <label className="block text-xs font-medium mb-1.5 uppercase tracking-wide text-gray-400">
-                  Indoor / Outdoor
+                  Venue Type
                 </label>
                 <select
                   value={tempVenue}
@@ -707,10 +1010,30 @@ export function FindARacePage() {
                 </button>
               </div>
 
+          {/* Active Filter Chips - Mobile */}
+          {getActiveFilters.length > 0 && (
+            <div className="pb-1">
+              <div className="flex flex-wrap gap-2">
+                {getActiveFilters.map(filter => (
+                  <button
+                    key={filter.key}
+                    onClick={() => removeFilter(filter.key)}
+                    className="inline-flex items-center gap-1.5 bg-[#D94800] text-white text-xs px-2.5 py-1 rounded-full hover:bg-[#E85D00] transition-colors duration-200"
+                  >
+                    <span>{filter.label}</span>
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Reset All Filters button */}
           <button
             onClick={resetFilters}
-            className="block text-xs font-medium uppercase tracking-wide text-[#D94800] hover:text-[#E85D00] transition-colors duration-200"
+            className="block w-full text-left text-xs font-medium uppercase tracking-wide text-[#D94800] hover:text-[#E85D00] transition-colors duration-200 pb-3 border-b border-white/10 mb-3"
           >
             Reset All Filters
           </button>
@@ -737,7 +1060,7 @@ export function FindARacePage() {
             </div>
           </div>
 
-          {/* Show Past events and Local gym toggles */}
+          {/* Show toggles */}
           <div>
             <label className="block text-xs font-medium mb-1.5 uppercase tracking-wide text-gray-400">
               Show
@@ -746,20 +1069,11 @@ export function FindARacePage() {
               <label className="flex items-center gap-2 cursor-pointer w-fit">
                 <input
                   type="checkbox"
-                  checked={tempShowPastEvents}
-                  onChange={(e) => setTempShowPastEvents(e.currentTarget.checked)}
+                  checked={tempOnlyUpcomingEvents}
+                  onChange={(e) => setTempOnlyUpcomingEvents(e.currentTarget.checked)}
                   className="w-4 h-4 cursor-pointer accent-[#D94800]"
                 />
-                <span className="text-sm text-white">Past events</span>
-              </label>
-              <label className="flex items-center gap-2 cursor-pointer w-fit">
-                <input
-                  type="checkbox"
-                  checked={tempLocalGymOnly}
-                  onChange={(e) => setTempLocalGymOnly(e.currentTarget.checked)}
-                  className="w-4 h-4 cursor-pointer accent-[#D94800]"
-                />
-                <span className="text-sm text-white">Local gym</span>
+                <span className="text-sm text-white">Only upcoming events</span>
               </label>
               <label className="flex items-center gap-2 cursor-pointer w-fit">
                 <input
@@ -768,25 +1082,18 @@ export function FindARacePage() {
                   onChange={(e) => setTempHyroxOnly(e.currentTarget.checked)}
                   className="w-4 h-4 cursor-pointer accent-[#D94800]"
                 />
-                <span className="text-sm text-white">Only Hyrox workouts</span>
+                <span className="text-sm text-white">Only HYROX workouts</span>
+              </label>
+              <label className="flex items-center gap-2 cursor-pointer w-fit">
+                <input
+                  type="checkbox"
+                  checked={tempNewestFirst}
+                  onChange={(e) => setTempNewestFirst(e.currentTarget.checked)}
+                  className="w-4 h-4 cursor-pointer accent-[#D94800]"
+                />
+                <span className="text-sm text-white">Newest to oldest event</span>
               </label>
             </div>
-          </div>
-
-          {/* Sort by */}
-          <div>
-            <label className="block text-xs font-medium mb-1.5 uppercase tracking-wide text-gray-400">
-              Sort by
-            </label>
-            <select
-              value={tempSortBy}
-              onChange={(e) => setTempSortBy(e.currentTarget.value as SortField)}
-              className="w-full bg-gray-900 border border-white/20 rounded px-3 py-1.5 text-sm text-white focus:outline-none focus:border-[#D94800]"
-            >
-              <option value="date">Date</option>
-              <option value="location">Location</option>
-              <option value="name">Name</option>
-            </select>
           </div>
 
           {/* Organisation / Gym */}
@@ -794,13 +1101,18 @@ export function FindARacePage() {
             <label className="block text-xs font-medium mb-1.5 uppercase tracking-wide text-gray-400">
               Organisation / Gym
             </label>
-            <input
-              type="text"
+            <select
               value={tempOrganisation}
               onChange={(e) => setTempOrganisation(e.currentTarget.value)}
-              placeholder="Search organisation"
-              className="w-full bg-gray-900 border border-white/20 rounded px-3 py-1.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#D94800]"
-            />
+              className="w-full bg-gray-900 border border-white/20 rounded px-3 py-1.5 text-sm text-white focus:outline-none focus:border-[#D94800]"
+            >
+              <option value="">All</option>
+              {uniqueOrganizations.map(org => (
+                <option key={org} value={org}>
+                  {org}
+                </option>
+              ))}
+            </select>
           </div>
 
           {/* Month / Year */}
@@ -848,7 +1160,10 @@ export function FindARacePage() {
             >
               <option value="all">All</option>
               <option value="solo">Solo</option>
-              <option value="duo">Duo</option>
+              <option value="duo">Duo / Buddy</option>
+              <option value="relay">Relay</option>
+              <option value="team">Team</option>
+              <option value="other">Other</option>
             </select>
           </div>
 
@@ -863,16 +1178,16 @@ export function FindARacePage() {
               className="w-full bg-gray-900 border border-white/20 rounded px-3 py-1.5 text-sm text-white focus:outline-none focus:border-[#D94800]"
             >
               <option value="all">All</option>
-              <option value="open">Open</option>
-              <option value="pro">Pro</option>
+              <option value="open">Open / Normal</option>
+              <option value="pro">Pro / Heavy</option>
               <option value="other">Other</option>
             </select>
           </div>
 
-          {/* Indoor / Outdoor */}
+          {/* Venue Type */}
           <div>
             <label className="block text-xs font-medium mb-1.5 uppercase tracking-wide text-gray-400">
-              Indoor / Outdoor
+              Venue Type
             </label>
             <select
               value={tempVenue}
@@ -885,14 +1200,6 @@ export function FindARacePage() {
               <option value="indoor-outdoor">Indoor & Outdoor</option>
             </select>
           </div>
-
-          {/* Apply Filters button */}
-          <button
-            onClick={applyFilters}
-            className="w-full bg-[#D94800] text-black font-bold px-3 py-1.5 rounded uppercase tracking-wide text-sm hover:bg-[#E85D00] transition-colors duration-200"
-          >
-            Show {tempFilteredEventsCount} Event{tempFilteredEventsCount !== 1 ? 's' : ''}
-          </button>
             </div>
           </div>
 
@@ -938,24 +1245,6 @@ export function FindARacePage() {
               onClick={() => navigate('event-detail', event.id)}
               className="relative aspect-square bg-gray-900 border border-gray-800 rounded-lg overflow-hidden hover:border-[#D94800] active:border-[#D94800] focus-within:border-[#D94800] transition-colors duration-200 group cursor-pointer"
             >
-              {/* Country Flag - Top Right */}
-              <div className="absolute top-2 right-2 z-10">
-                <div className="border border-white/40 rounded-sm p-0.5">
-                  {event.country === 'BE' ? (
-                    <svg className="w-6 h-4" viewBox="0 0 9 6" xmlns="http://www.w3.org/2000/svg">
-                      <rect fill="#000" width="3" height="6"/>
-                      <rect fill="#FDDA24" x="3" width="3" height="6"/>
-                      <rect fill="#EF3340" x="6" width="3" height="6"/>
-                    </svg>
-                  ) : (
-                    <svg className="w-6 h-4" viewBox="0 0 9 6" xmlns="http://www.w3.org/2000/svg">
-                      <rect fill="#AE1C28" width="9" height="2"/>
-                      <rect fill="#FFF" y="2" width="9" height="2"/>
-                      <rect fill="#21468B" y="4" width="9" height="2"/>
-                    </svg>
-                  )}
-                </div>
-              </div>
 
               {/* Background Image */}
               <div
@@ -969,8 +1258,8 @@ export function FindARacePage() {
               <div className="relative h-full flex flex-col p-6">
                 {/* Event name - fixed height for 2 lines */}
                 <div>
-                  <h3 className="text-3xl md:text-2xl font-bold text-white uppercase tracking-wide line-clamp-2 h-[5.25rem] md:h-[4.5rem] flex items-start">
-                    <span>{event.name}</span>
+                  <h3 className="text-[1.75rem] md:text-2xl font-bold text-white uppercase tracking-wide line-clamp-2 h-[4.75rem] md:h-[4.5rem] leading-tight flex items-start">
+                    <span>{event.eventname}</span>
                   </h3>
                 </div>
 
@@ -979,20 +1268,20 @@ export function FindARacePage() {
                   <div className="space-y-1 text-white mb-3">
                     <p className="flex items-center gap-2 text-base md:text-sm">
                       <span>📅</span>
-                      <span>{event.endDate ? formatDateRange(event.date, event.endDate) : formatDate(event.date)}</span>
+                      <span>{event.enddate ? formatDateRange(event.startdate, event.enddate) : formatDate(event.startdate)}</span>
                     </p>
                     <p className="flex items-center gap-2 text-base md:text-sm">
                       <span>📍</span>
                       <span>{event.location}</span>
                     </p>
                     <p className="flex items-center gap-2 text-base md:text-sm">
-                      <span>{event.raceTypes ? '🏃‍♂️' : '⚡'}</span>
-                      <span className="capitalize">{event.raceTypes ? event.raceTypes.join(', ') : event.difficulty}</span>
+                      <span>🏃‍♂️</span>
+                      <span className="capitalize">{event.typerace.join(', ')}</span>
                     </p>
-                    {event.organization && (
+                    {event.organizationgym && (
                       <p className="flex items-center gap-2 text-base md:text-sm">
                         <span>🏢</span>
-                        <span>{event.organization}</span>
+                        <span>{event.organizationgym}</span>
                       </p>
                     )}
                   </div>

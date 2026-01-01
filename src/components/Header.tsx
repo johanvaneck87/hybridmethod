@@ -67,45 +67,14 @@ export function Header({ currentRoute }: HeaderProps) {
             >
               FIND A RACE
             </button>
-            <div className="relative group">
-              <button
-                onClick={(e) => handleNavClick(e, 'submit-event')}
-                className={`text-sm lg:text-base font-medium uppercase tracking-wide transition-colors duration-200 whitespace-nowrap ${
-                  currentRoute === 'submit-event' || currentRoute === 'events' || currentRoute === 'hybrid-races' || currentRoute === 'hybrid-method' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
-                }`}
-              >
-                SUBMIT A RACE
-              </button>
-              {/* Dropdown submenu */}
-              <div className="absolute top-full left-0 mt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-in-out">
-                <div className="bg-gray-900 border border-white/20 rounded-lg shadow-lg py-2 px-4 min-w-[180px] flex flex-col gap-2">
-                  <button
-                    onClick={(e) => handleNavClick(e, 'events')}
-                    className={`text-sm font-normal tracking-wide transition-colors duration-200 whitespace-nowrap text-left ${
-                      currentRoute === 'events' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
-                    }`}
-                  >
-                    Events
-                  </button>
-                  <button
-                    onClick={(e) => handleNavClick(e, 'hybrid-races')}
-                    className={`text-sm font-normal tracking-wide transition-colors duration-200 whitespace-nowrap text-left ${
-                      currentRoute === 'hybrid-races' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
-                    }`}
-                  >
-                    Hybrid Races
-                  </button>
-                  <button
-                    onClick={(e) => handleNavClick(e, 'hybrid-method')}
-                    className={`text-sm font-normal tracking-wide transition-colors duration-200 whitespace-nowrap text-left ${
-                      currentRoute === 'hybrid-method' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
-                    }`}
-                  >
-                    Method
-                  </button>
-                </div>
-              </div>
-            </div>
+            <button
+              onClick={(e) => handleNavClick(e, 'submit-event')}
+              className={`text-sm lg:text-base font-medium uppercase tracking-wide transition-colors duration-200 whitespace-nowrap ${
+                currentRoute === 'submit-event' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
+              }`}
+            >
+              SUBMIT A RACE
+            </button>
             <a
               href="https://www.instagram.com/hybridraces/"
               target="_blank"
@@ -116,7 +85,7 @@ export function Header({ currentRoute }: HeaderProps) {
               INSTAGRAM
             </a>
             <a
-              href="mailto:contact@hybridmethod.com"
+              href="mailto:hybridraces@gmail.com"
               className="text-sm lg:text-base font-medium uppercase tracking-wide text-white hover:text-[#D94800] transition-colors duration-200 whitespace-nowrap"
               aria-label="Send email"
             >
@@ -136,40 +105,14 @@ export function Header({ currentRoute }: HeaderProps) {
             >
               FIND A RACE
             </button>
-            <div className="flex flex-col gap-1">
-              <button
-                onClick={(e) => handleNavClick(e, 'submit-event')}
-                className={`text-lg font-medium uppercase tracking-wide transition-colors duration-200 text-left ${
-                  currentRoute === 'submit-event' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
-                }`}
-              >
-                SUBMIT A RACE
-              </button>
-              <button
-                onClick={(e) => handleNavClick(e, 'events')}
-                className={`text-base font-normal tracking-wide transition-colors duration-200 text-left ${
-                  currentRoute === 'events' ? 'text-[#D94800]' : 'text-gray-400 hover:text-[#D94800]'
-                }`}
-              >
-                Events
-              </button>
-              <button
-                onClick={(e) => handleNavClick(e, 'hybrid-races')}
-                className={`text-base font-normal tracking-wide transition-colors duration-200 text-left ${
-                  currentRoute === 'hybrid-races' ? 'text-[#D94800]' : 'text-gray-400 hover:text-[#D94800]'
-                }`}
-              >
-                Hybrid Races
-              </button>
-              <button
-                onClick={(e) => handleNavClick(e, 'hybrid-method')}
-                className={`text-base font-normal tracking-wide transition-colors duration-200 text-left ${
-                  currentRoute === 'hybrid-method' ? 'text-[#D94800]' : 'text-gray-400 hover:text-[#D94800]'
-                }`}
-              >
-                Method
-              </button>
-            </div>
+            <button
+              onClick={(e) => handleNavClick(e, 'submit-event')}
+              className={`text-lg font-medium uppercase tracking-wide transition-colors duration-200 text-left ${
+                currentRoute === 'submit-event' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
+              }`}
+            >
+              SUBMIT A RACE
+            </button>
             <a
               href="https://www.instagram.com/hybridraces/"
               target="_blank"
@@ -181,7 +124,7 @@ export function Header({ currentRoute }: HeaderProps) {
               INSTAGRAM
             </a>
             <a
-              href="mailto:contact@hybridmethod.com"
+              href="mailto:hybridraces@gmail.com"
               className="text-lg font-medium uppercase tracking-wide text-white hover:text-[#D94800] transition-colors duration-200"
               aria-label="Send email"
               onClick={() => setMobileMenuOpen(false)}

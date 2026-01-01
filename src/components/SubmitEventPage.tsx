@@ -7,6 +7,9 @@ export function SubmitEventPage() {
   const [selectedDivisions, setSelectedDivisions] = useState<string[]>([])
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [selectedImage, setSelectedImage] = useState<File | null>(null)
+  const [imagePreview, setImagePreview] = useState<string | null>(null)
+  const [uploadingImage, setUploadingImage] = useState(false)
 
   const toggleRaceType = (type: string) => {
     setSelectedRaceTypes(prev =>
@@ -20,31 +23,184 @@ export function SubmitEventPage() {
     )
   }
 
+  const handleImageSelect = (e: Event) => {
+    const target = e.target as HTMLInputElement
+    const file = target.files?.[0]
+
+    if (file) {
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        alert('Please select a valid image file')
+        return
+      }
+
+      // Validate file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        alert('Image size must be less than 5MB')
+        return
+      }
+
+      setSelectedImage(file)
+
+      // Create preview
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string)
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+
+  const convertImageToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        resolve(reader.result as string)
+      }
+      reader.onerror = reject
+      reader.readAsDataURL(file)
+    })
+  }
+
+  const getCoordinates = async (location: string, country: string): Promise<{ lat: number; lng: number }> => {
+    try {
+      const searchQuery = country ? `${location}, ${country}` : location
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(searchQuery)}&limit=1`,
+        {
+          headers: {
+            'User-Agent': 'HybridMethod-EventMap/1.0'
+          }
+        }
+      )
+
+      const results = await response.json()
+
+      if (results && results.length > 0) {
+        return {
+          lat: parseFloat(results[0].lat),
+          lng: parseFloat(results[0].lon)
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching coordinates:', error)
+    }
+
+    // Default to Amsterdam if geocoding fails
+    return { lat: 52.3676, lng: 4.9041 }
+  }
+
   const handleSubmit = async (e: Event) => {
     e.preventDefault()
     setIsSubmitting(true)
 
     const form = e.target as HTMLFormElement
-    const formData = new FormData(form)
 
     try {
-      await fetch('https://formsubmit.co/johanvaneck87@gmail.com', {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'Accept': 'application/json'
-        }
-      })
-      setIsSubmitted(true)
-      form.reset()
-      setIsLocalGym(null)
-      setIsMultipleDays(null)
-      setSelectedRaceTypes([])
-      setSelectedDivisions([])
+      // Get location for coordinates
+      const locationInput = form.querySelector('[name="location"]') as HTMLInputElement
+      const location = locationInput.value
+
+      // Get coordinates from location
+      const coordinates = await getCoordinates(location, 'NL')
+
+      // Create hidden inputs for coordinates
+      const latInput = document.createElement('input')
+      latInput.type = 'hidden'
+      latInput.name = 'coordinates_lat'
+      latInput.value = coordinates.lat.toString()
+      form.appendChild(latInput)
+
+      const lngInput = document.createElement('input')
+      lngInput.type = 'hidden'
+      lngInput.name = 'coordinates_lng'
+      lngInput.value = coordinates.lng.toString()
+      form.appendChild(lngInput)
+
+      // Create hidden input for race types
+      const raceTypesInput = document.createElement('input')
+      raceTypesInput.type = 'hidden'
+      raceTypesInput.name = 'raceTypes_formatted'
+      raceTypesInput.value = selectedRaceTypes.join(', ')
+      form.appendChild(raceTypesInput)
+
+      // Create hidden input for divisions
+      const divisionsInput = document.createElement('input')
+      divisionsInput.type = 'hidden'
+      divisionsInput.name = 'divisions_formatted'
+      divisionsInput.value = selectedDivisions.join(', ')
+      form.appendChild(divisionsInput)
+
+      // Generate ID from event name and year
+      const eventName = (form.querySelector('[name="name"]') as HTMLInputElement).value
+      const startDate = (form.querySelector('[name="startDate"]') as HTMLInputElement)?.value ||
+                       (form.querySelector('[name="eventDate"]') as HTMLInputElement)?.value || ''
+      const year = startDate ? new Date(startDate).getFullYear() : new Date().getFullYear()
+      const eventId = eventName.toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-|-$/g, '') + '-' + year
+
+      // Determine image URL
+      const imageUrl = selectedImage
+        ? 'REPLACE_WITH_IMAGE_URL_AFTER_UPLOAD'
+        : 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop'
+
+      // Create complete JSON object for events.json
+      const eventData = {
+        id: eventId,
+        eventname: (form.querySelector('[name="name"]') as HTMLInputElement).value,
+        localgym: (form.querySelector('[name="localGym"]:checked') as HTMLInputElement)?.value || '',
+        organizationgym: (form.querySelector('[name="gym"]') as HTMLInputElement)?.value ||
+                        (form.querySelector('[name="organization"]') as HTMLInputElement)?.value || '',
+        startdate: (form.querySelector('[name="startDate"]') as HTMLInputElement)?.value ||
+                  (form.querySelector('[name="eventDate"]') as HTMLInputElement)?.value || '',
+        enddate: (form.querySelector('[name="endDate"]') as HTMLInputElement)?.value || '',
+        location: location,
+        coordinates: coordinates,
+        typerace: selectedRaceTypes,
+        divisions: selectedDivisions,
+        ticketpricelow: (form.querySelector('[name="priceMin"]') as HTMLInputElement)?.value || '',
+        ticketpricehigh: (form.querySelector('[name="priceMax"]') as HTMLInputElement)?.value || '',
+        fitnessobstacle: (form.querySelector('[name="eventType"]:checked') as HTMLInputElement)?.value || '',
+        indooroutdoor: (form.querySelector('[name="venue"]:checked') as HTMLInputElement)?.value || '',
+        hyroxworkout: (form.querySelector('[name="hyroxWorkout"]:checked') as HTMLInputElement)?.value || '',
+        description: (form.querySelector('[name="description"]') as HTMLTextAreaElement)?.value || '',
+        image: imageUrl,
+        instagram: (form.querySelector('[name="instagram"]') as HTMLInputElement)?.value || '',
+        website: (form.querySelector('[name="website"]') as HTMLInputElement)?.value || '',
+        ticketUrl: (form.querySelector('[name="tickets"]') as HTMLInputElement)?.value || '',
+        workout: (form.querySelector('[name="workout"]') as HTMLInputElement)?.value || '',
+        weights: (form.querySelector('[name="weights"]') as HTMLInputElement)?.value || '',
+        contactEmail: (form.querySelector('[name="contactEmail"]') as HTMLInputElement)?.value || '',
+        country: 'NL'
+      }
+
+      // Create formatted JSON string
+      const formattedJSON = JSON.stringify(eventData, null, 2)
+
+      // Create hidden input with complete JSON for copy-paste
+      const jsonInput = document.createElement('input')
+      jsonInput.type = 'hidden'
+      jsonInput.name = 'COPY_PASTE_JSON_FOR_EVENTS_FILE'
+      jsonInput.value = formattedJSON
+      form.appendChild(jsonInput)
+
+      // Let the form submit naturally to FormSubmit
+      form.submit()
+
+      // Show success message after a short delay
+      setTimeout(() => {
+        setIsSubmitted(true)
+        setIsLocalGym(null)
+        setIsMultipleDays(null)
+        setSelectedRaceTypes([])
+        setSelectedDivisions([])
+        setSelectedImage(null)
+        setImagePreview(null)
+      }, 1000)
     } catch (error) {
       console.error('Error submitting form:', error)
       alert('There was an error submitting the form. Please try again.')
-    } finally {
       setIsSubmitting(false)
     }
   }
@@ -78,11 +234,16 @@ export function SubmitEventPage() {
             </button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="bg-gray-900 border border-white/20 rounded-lg p-6 md:p-8">
+          <form
+            action="https://formsubmit.co/hybridraces@gmail.com"
+            method="POST"
+            onSubmit={handleSubmit}
+            className="bg-gray-900 border border-white/20 rounded-lg p-6 md:p-8"
+          >
             {/* FormSubmit configuration */}
-            <input type="hidden" name="_subject" value="New Race Submission" />
+            <input type="hidden" name="_subject" value="New Race Submission - HybridRaces.com" />
             <input type="hidden" name="_captcha" value="false" />
-            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="_next" value={window.location.href} />
 
           <div className="space-y-6">
             {/* Event Name */}
@@ -189,6 +350,9 @@ export function SubmitEventPage() {
                 id="location"
                 name="location"
                 required
+                autoComplete="off"
+                data-lpignore="true"
+                data-form-type="other"
                 className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
                 placeholder="e.g. RAI, Amsterdam, Netherlands"
               />
@@ -388,9 +552,46 @@ export function SubmitEventPage() {
                 name="description"
                 required
                 rows={4}
+                data-gramm="false"
+                data-gramm_editor="false"
+                data-enable-grammarly="false"
                 className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
                 placeholder="Provide a brief description of the event..."
               />
+            </div>
+
+            {/* Event Image Upload */}
+            <div>
+              <label htmlFor="eventImage" className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
+                Event Image (Optional)
+              </label>
+              <div className="space-y-3">
+                <input
+                  type="file"
+                  id="eventImage"
+                  name="eventImage"
+                  accept="image/*"
+                  onChange={handleImageSelect}
+                  className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800] file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:bg-[#D94800] file:text-black file:font-medium file:cursor-pointer hover:file:bg-[#E85D00]"
+                />
+                <p className="text-sm text-gray-400">
+                  Upload a high-quality event image (recommended: 800x800px or larger, max 5MB). If no image is provided, a default placeholder will be used.
+                </p>
+
+                {/* Image Preview */}
+                {imagePreview && (
+                  <div className="mt-4">
+                    <p className="text-sm font-medium mb-2 text-gray-400">Preview:</p>
+                    <div className="relative w-full max-w-xs aspect-square rounded-lg overflow-hidden border border-white/20">
+                      <img
+                        src={imagePreview}
+                        alt="Event preview"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Links Section */}
@@ -407,6 +608,9 @@ export function SubmitEventPage() {
                     type="url"
                     id="instagram"
                     name="instagram"
+                    autoComplete="off"
+                    data-lpignore="true"
+                    data-form-type="other"
                     className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
                     placeholder="https://instagram.com/..."
                   />
@@ -421,6 +625,9 @@ export function SubmitEventPage() {
                     id="website"
                     name="website"
                     required
+                    autoComplete="off"
+                    data-lpignore="true"
+                    data-form-type="other"
                     className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
                     placeholder="https://..."
                   />
@@ -434,6 +641,9 @@ export function SubmitEventPage() {
                     type="url"
                     id="tickets"
                     name="tickets"
+                    autoComplete="off"
+                    data-lpignore="true"
+                    data-form-type="other"
                     className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
                     placeholder="https://..."
                   />
@@ -447,6 +657,9 @@ export function SubmitEventPage() {
                     type="url"
                     id="workout"
                     name="workout"
+                    autoComplete="off"
+                    data-lpignore="true"
+                    data-form-type="other"
                     className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
                     placeholder="https://..."
                   />
@@ -460,6 +673,9 @@ export function SubmitEventPage() {
                     type="url"
                     id="weights"
                     name="weights"
+                    autoComplete="off"
+                    data-lpignore="true"
+                    data-form-type="other"
                     className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
                     placeholder="https://..."
                   />
@@ -473,6 +689,9 @@ export function SubmitEventPage() {
                     type="email"
                     id="contactEmail"
                     name="contactEmail"
+                    autoComplete="off"
+                    data-lpignore="true"
+                    data-form-type="other"
                     className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
                     placeholder="contact@example.com"
                   />
@@ -487,7 +706,7 @@ export function SubmitEventPage() {
                 disabled={isSubmitting}
                 className="w-full bg-[#D94800] text-black font-medium px-6 py-3 rounded uppercase tracking-wide text-sm hover:bg-[#E85D00] transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isSubmitting ? 'Submitting...' : 'Submit Event'}
+                {uploadingImage ? 'Uploading Image...' : isSubmitting ? 'Submitting...' : 'Submit Event'}
               </button>
             </div>
           </div>

@@ -24,7 +24,7 @@ export function EventMap({ events, highlightedEventId, selectedEventId, onEventC
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
-    return date.toLocaleDateString('nl-NL', {
+    return date.toLocaleDateString('en-US', {
       day: 'numeric',
       month: 'long',
       year: 'numeric'
@@ -35,11 +35,11 @@ export function EventMap({ events, highlightedEventId, selectedEventId, onEventC
     const startDate = new Date(startDateString)
     const endDate = new Date(endDateString)
 
-    const startDay = startDate.toLocaleDateString('nl-NL', { day: 'numeric' })
-    const startMonth = startDate.toLocaleDateString('nl-NL', { month: 'long' })
-    const endDay = endDate.toLocaleDateString('nl-NL', { day: 'numeric' })
-    const endMonth = endDate.toLocaleDateString('nl-NL', { month: 'long' })
-    const year = endDate.toLocaleDateString('nl-NL', { year: 'numeric' })
+    const startDay = startDate.toLocaleDateString('en-US', { day: 'numeric' })
+    const startMonth = startDate.toLocaleDateString('en-US', { month: 'long' })
+    const endDay = endDate.toLocaleDateString('en-US', { day: 'numeric' })
+    const endMonth = endDate.toLocaleDateString('en-US', { month: 'long' })
+    const year = endDate.toLocaleDateString('en-US', { year: 'numeric' })
 
     return `${startDay} ${startMonth} - ${endDay} ${endMonth} ${year}`
   }
@@ -319,36 +319,40 @@ export function EventMap({ events, highlightedEventId, selectedEventId, onEventC
                 </div>
 
                 {/* Content */}
-                <div className="relative z-20 h-full flex flex-col justify-between p-6">
+                <div className="relative z-20 h-full flex flex-col p-6">
+                  {/* Event name - fixed height for 2 lines */}
                   <div>
-                    <h3 className="text-xl sm:text-2xl md:text-2xl font-bold text-white uppercase tracking-wide mb-3">
-                      {selectedEvent.eventname}
+                    <h3 className="text-[1.75rem] md:text-2xl font-bold text-white uppercase tracking-wide line-clamp-2 h-[4.75rem] md:h-[4.5rem] leading-tight flex items-start">
+                      <span>{selectedEvent.eventname}</span>
                     </h3>
+                  </div>
 
-                    <div className="space-y-2 text-white mb-3">
-                      <p className="flex items-center gap-2 text-sm">
+                  {/* Event details - always starts at same position */}
+                  <div className="flex-1 flex flex-col justify-between">
+                    <div className="space-y-1 text-white mb-3">
+                      <p className="flex items-center gap-2 text-base md:text-sm">
                         <span>📅</span>
                         <span>{selectedEvent.enddate ? formatDateRange(selectedEvent.startdate, selectedEvent.enddate) : formatDate(selectedEvent.startdate)}</span>
                       </p>
-                      <p className="flex items-center gap-2 text-sm">
+                      <p className="flex items-center gap-2 text-base md:text-sm">
                         <span>📍</span>
                         <span>{selectedEvent.location}</span>
                       </p>
-                      <p className="flex items-center gap-2 text-sm">
+                      <p className="flex items-center gap-2 text-base md:text-sm">
                         <span>🏃‍♂️</span>
                         <span className="capitalize">{selectedEvent.typerace.join(', ')}</span>
                       </p>
                       {selectedEvent.organizationgym && (
-                        <p className="flex items-center gap-2 text-sm">
+                        <p className="flex items-center gap-2 text-base md:text-sm">
                           <span>🏢</span>
                           <span>{selectedEvent.organizationgym}</span>
                         </p>
                       )}
                     </div>
-                  </div>
 
-                  <div className="inline-block bg-[#D94800] text-black font-semibold px-6 py-2 rounded tracking-[0.15em] text-base text-center">
-                    Event information
+                    <div className="inline-block bg-[#D94800] text-black font-semibold px-6 py-2 rounded tracking-[0.15em] text-lg md:text-base text-center">
+                      Event information
+                    </div>
                   </div>
                 </div>
               </div>

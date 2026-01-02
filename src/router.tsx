@@ -35,8 +35,32 @@ export function useRouter(): [Route, string | null, (route: Route, eventId?: str
       setEventId(newEventId || null)
     }
     listeners.add(listener)
+
+    // Handle browser back/forward buttons
+    const handlePopState = () => {
+      const path = window.location.pathname.replace('/hybridmethod', '').replace(/^\//, '')
+      let newRoute: Route = 'find-a-race'
+      let newEventId: string | null = null
+
+      if (path === 'hybrid-races' || path === 'events' || path === 'blog' || path === 'hybrid-method' || path === 'submit-event' || path === 'find-a-race' || path === 'instagram') {
+        newRoute = path as Route
+      } else if (path.startsWith('event/')) {
+        newRoute = 'event-detail'
+        newEventId = path.replace('event/', '')
+      } else if (path === '' || path === 'home') {
+        newRoute = 'find-a-race'
+      }
+
+      currentRoute = newRoute
+      currentEventId = newEventId
+      listeners.forEach(listener => listener(newRoute, newEventId))
+    }
+
+    window.addEventListener('popstate', handlePopState)
+
     return () => {
       listeners.delete(listener)
+      window.removeEventListener('popstate', handlePopState)
     }
   }, [])
 

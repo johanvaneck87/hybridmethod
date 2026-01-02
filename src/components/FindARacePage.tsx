@@ -21,7 +21,7 @@ export function FindARacePage() {
   const [tempYear, setTempYear] = useState('')
   const [tempDivision, setTempDivision] = useState<DivisionType>('all')
   const [tempVenue, setTempVenue] = useState<VenueType>('all')
-  const [tempNewestFirst, setTempNewestFirst] = useState(false)
+  const [tempNewestFirst, setTempNewestFirst] = useState(true)
 
   // Applied filter states (actually used for filtering)
   const [filterType, setFilterType] = useState<FilterType>('all')
@@ -34,7 +34,7 @@ export function FindARacePage() {
   const [year, setYear] = useState('')
   const [division, setDivision] = useState<DivisionType>('all')
   const [venue, setVenue] = useState<VenueType>('all')
-  const [newestFirst, setNewestFirst] = useState(false)
+  const [newestFirst, setNewestFirst] = useState(true)
 
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
   const [viewMode, setViewMode] = useState<'list' | 'map'>('list')
@@ -190,7 +190,7 @@ export function FindARacePage() {
     setTempYear('')
     setTempDivision('all')
     setTempVenue('all')
-    setTempNewestFirst(false)
+    setTempNewestFirst(true)
     // Also apply the reset immediately
     setFilterType('all')
     setOnlyUpcomingEvents(false)
@@ -202,7 +202,7 @@ export function FindARacePage() {
     setYear('')
     setDivision('all')
     setVenue('all')
-    setNewestFirst(false)
+    setNewestFirst(true)
   }
 
   // Helper function to remove individual filter
@@ -249,8 +249,8 @@ export function FindARacePage() {
         if (!isMobile) setVenue('all')
         break
       case 'newestFirst':
-        setTempNewestFirst(false)
-        if (!isMobile) setNewestFirst(false)
+        setTempNewestFirst(true)
+        if (!isMobile) setNewestFirst(true)
         break
     }
   }
@@ -1161,7 +1161,7 @@ export function FindARacePage() {
                 </div>
 
                 <div className="relative z-10 mb-6 md:mb-12">
-                  <div className="h-[calc(100vh-380px)] md:h-[calc(100vh-280px)]">
+                  <div className="h-[calc(100vh-280px)] md:h-[calc(100vh-200px)]">
                     <EventMap events={filteredAndSortedEvents} />
                   </div>
                 </div>

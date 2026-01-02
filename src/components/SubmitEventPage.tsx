@@ -9,6 +9,11 @@ export function SubmitEventPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [selectedImage, setSelectedImage] = useState<File | null>(null)
   const [imagePreview, setImagePreview] = useState<string | null>(null)
+  const [instagramUrl, setInstagramUrl] = useState('https://')
+  const [websiteUrl, setWebsiteUrl] = useState('https://')
+  const [ticketsUrl, setTicketsUrl] = useState('https://')
+  const [workoutUrl, setWorkoutUrl] = useState('https://')
+  const [weightsUrl, setWeightsUrl] = useState('https://')
 
   const toggleRaceType = (type: string) => {
     setSelectedRaceTypes(prev =>
@@ -20,6 +25,14 @@ export function SubmitEventPage() {
     setSelectedDivisions(prev =>
       prev.includes(division) ? prev.filter(d => d !== division) : [...prev, division]
     )
+  }
+
+  const handleUrlChange = (value: string, setter: (val: string) => void) => {
+    if (!value.startsWith('https://')) {
+      setter('https://')
+    } else {
+      setter(value)
+    }
   }
 
   const handleImageSelect = (e: Event) => {
@@ -85,12 +98,14 @@ export function SubmitEventPage() {
     const form = e.target as HTMLFormElement
 
     try {
-      // Get location for coordinates
+      // Get location and country for coordinates
       const locationInput = form.querySelector('[name="location"]') as HTMLInputElement
       const location = locationInput.value
+      const countryInput = form.querySelector('[name="country"]') as HTMLInputElement
+      const country = countryInput.value
 
       // Get coordinates from location
-      const coordinates = await getCoordinates(location, 'NL')
+      const coordinates = await getCoordinates(location, country)
 
       // Generate ID from event name and year
       const eventName = (form.querySelector('[name="name"]') as HTMLInputElement).value
@@ -133,7 +148,7 @@ export function SubmitEventPage() {
         workout: (form.querySelector('[name="workout"]') as HTMLInputElement)?.value || '',
         weights: (form.querySelector('[name="weights"]') as HTMLInputElement)?.value || '',
         contactEmail: (form.querySelector('[name="contactEmail"]') as HTMLInputElement)?.value || '',
-        country: 'NL'
+        country: country
       }
 
       // Create formatted JSON string
@@ -164,6 +179,11 @@ export function SubmitEventPage() {
       setSelectedDivisions([])
       setSelectedImage(null)
       setImagePreview(null)
+      setInstagramUrl('https://')
+      setWebsiteUrl('https://')
+      setTicketsUrl('https://')
+      setWorkoutUrl('https://')
+      setWeightsUrl('https://')
     } catch (error) {
       console.error('Error submitting form:', error)
       alert('There was an error submitting the form. Please try again.')
@@ -317,7 +337,25 @@ export function SubmitEventPage() {
                 data-lpignore="true"
                 data-form-type="other"
                 className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
-                placeholder="e.g. RAI, Amsterdam, Netherlands"
+                placeholder="e.g. RAI, Amsterdam"
+              />
+            </div>
+
+            {/* Country */}
+            <div>
+              <label htmlFor="country" className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
+                Country *
+              </label>
+              <input
+                type="text"
+                id="country"
+                name="country"
+                required
+                autoComplete="off"
+                data-lpignore="true"
+                data-form-type="other"
+                className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
+                placeholder="e.g. Netherlands"
               />
             </div>
 
@@ -414,7 +452,7 @@ export function SubmitEventPage() {
             {/* Ticket Price Range */}
             <div>
               <label className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
-                Ticket Price Range *
+                Ticket Price Range
               </label>
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -422,7 +460,6 @@ export function SubmitEventPage() {
                     type="number"
                     id="priceMin"
                     name="priceMin"
-                    required
                     min="0"
                     className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
                     placeholder="Min (€)"
@@ -433,7 +470,6 @@ export function SubmitEventPage() {
                     type="number"
                     id="priceMax"
                     name="priceMax"
-                    required
                     min="0"
                     className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
                     placeholder="Max (€)"
@@ -527,7 +563,7 @@ export function SubmitEventPage() {
             {/* Event Image Upload */}
             <div>
               <label htmlFor="eventImage" className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
-                Event Image (Optional)
+                Event Image
               </label>
               <div className="space-y-3">
                 <input
@@ -566,15 +602,18 @@ export function SubmitEventPage() {
               <div className="space-y-4">
                 <div>
                   <label htmlFor="instagram" className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
-                    Instagram
+                    Instagram *
                   </label>
                   <input
                     type="url"
                     id="instagram"
                     name="instagram"
+                    required
                     autoComplete="off"
                     data-lpignore="true"
                     data-form-type="other"
+                    value={instagramUrl}
+                    onChange={(e) => handleUrlChange(e.currentTarget.value, setInstagramUrl)}
                     className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
                     placeholder="https://instagram.com/..."
                   />
@@ -592,6 +631,8 @@ export function SubmitEventPage() {
                     autoComplete="off"
                     data-lpignore="true"
                     data-form-type="other"
+                    value={websiteUrl}
+                    onChange={(e) => handleUrlChange(e.currentTarget.value, setWebsiteUrl)}
                     className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
                     placeholder="https://..."
                   />
@@ -608,6 +649,8 @@ export function SubmitEventPage() {
                     autoComplete="off"
                     data-lpignore="true"
                     data-form-type="other"
+                    value={ticketsUrl}
+                    onChange={(e) => handleUrlChange(e.currentTarget.value, setTicketsUrl)}
                     className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
                     placeholder="https://..."
                   />
@@ -624,6 +667,8 @@ export function SubmitEventPage() {
                     autoComplete="off"
                     data-lpignore="true"
                     data-form-type="other"
+                    value={workoutUrl}
+                    onChange={(e) => handleUrlChange(e.currentTarget.value, setWorkoutUrl)}
                     className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
                     placeholder="https://..."
                   />
@@ -640,6 +685,8 @@ export function SubmitEventPage() {
                     autoComplete="off"
                     data-lpignore="true"
                     data-form-type="other"
+                    value={weightsUrl}
+                    onChange={(e) => handleUrlChange(e.currentTarget.value, setWeightsUrl)}
                     className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
                     placeholder="https://..."
                   />

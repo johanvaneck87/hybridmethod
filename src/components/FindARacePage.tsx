@@ -64,30 +64,19 @@ export function FindARacePage() {
 
   // Auto-apply filters on desktop (always) and on mobile (when both location and distance are filled)
   useEffect(() => {
-    if (!isMobile) {
-      // Desktop: Apply all filters immediately
-      setFilterType(tempFilterType)
-      setOnlyUpcomingEvents(tempOnlyUpcomingEvents)
-      setLocationSearch(tempLocationSearch)
-      setDistanceKm(tempDistanceKm)
-      setHyroxOnly(tempHyroxOnly)
-      setOrganisation(tempOrganisation)
-      setMonth(tempMonth)
-      setYear(tempYear)
-      setDivision(tempDivision)
-      setVenue(tempVenue)
-      setNewestFirst(tempNewestFirst)
-    } else {
-      // Mobile: Only auto-apply location and distance when both are filled
-      if (tempLocationSearch.trim() !== '' && tempDistanceKm.trim() !== '') {
-        setLocationSearch(tempLocationSearch)
-        setDistanceKm(tempDistanceKm)
-      } else {
-        setLocationSearch('')
-        setDistanceKm('')
-      }
-    }
-  }, [tempFilterType, tempOnlyUpcomingEvents, tempLocationSearch, tempDistanceKm, tempHyroxOnly, tempOrganisation, tempMonth, tempYear, tempDivision, tempVenue, tempNewestFirst, isMobile])
+    // Apply all filters immediately on both desktop and mobile
+    setFilterType(tempFilterType)
+    setOnlyUpcomingEvents(tempOnlyUpcomingEvents)
+    setLocationSearch(tempLocationSearch)
+    setDistanceKm(tempDistanceKm)
+    setHyroxOnly(tempHyroxOnly)
+    setOrganisation(tempOrganisation)
+    setMonth(tempMonth)
+    setYear(tempYear)
+    setDivision(tempDivision)
+    setVenue(tempVenue)
+    setNewestFirst(tempNewestFirst)
+  }, [tempFilterType, tempOnlyUpcomingEvents, tempLocationSearch, tempDistanceKm, tempHyroxOnly, tempOrganisation, tempMonth, tempYear, tempDivision, tempVenue, tempNewestFirst])
 
   const events = eventsData as Event[]
 
@@ -189,21 +178,6 @@ export function FindARacePage() {
     })
     return Array.from(orgs).sort()
   }, [events])
-
-  const applyFilters = () => {
-    setFilterType(tempFilterType)
-    setOnlyUpcomingEvents(tempOnlyUpcomingEvents)
-    setLocationSearch(tempLocationSearch)
-    setDistanceKm(tempDistanceKm)
-    setHyroxOnly(tempHyroxOnly)
-    setOrganisation(tempOrganisation)
-    setMonth(tempMonth)
-    setYear(tempYear)
-    setDivision(tempDivision)
-    setVenue(tempVenue)
-    setNewestFirst(tempNewestFirst)
-    setMobileFiltersOpen(false)
-  }
 
   const resetFilters = () => {
     setTempFilterType('all')
@@ -589,7 +563,7 @@ export function FindARacePage() {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
-    return date.toLocaleDateString('nl-NL', {
+    return date.toLocaleDateString('en-US', {
       day: 'numeric',
       month: 'long',
       year: 'numeric'
@@ -600,11 +574,11 @@ export function FindARacePage() {
     const startDate = new Date(startDateString)
     const endDate = new Date(endDateString)
 
-    const startDay = startDate.toLocaleDateString('nl-NL', { day: 'numeric' })
-    const startMonth = startDate.toLocaleDateString('nl-NL', { month: 'long' })
-    const endDay = endDate.toLocaleDateString('nl-NL', { day: 'numeric' })
-    const endMonth = endDate.toLocaleDateString('nl-NL', { month: 'long' })
-    const year = endDate.toLocaleDateString('nl-NL', { year: 'numeric' })
+    const startDay = startDate.toLocaleDateString('en-US', { day: 'numeric' })
+    const startMonth = startDate.toLocaleDateString('en-US', { month: 'long' })
+    const endDay = endDate.toLocaleDateString('en-US', { day: 'numeric' })
+    const endMonth = endDate.toLocaleDateString('en-US', { month: 'long' })
+    const year = endDate.toLocaleDateString('en-US', { year: 'numeric' })
 
     return `${startDay} ${startMonth} - ${endDay} ${endMonth} ${year}`
   }
@@ -660,7 +634,7 @@ export function FindARacePage() {
                 value={tempLocationSearch}
                 onChange={(e) => setTempLocationSearch(e.currentTarget.value)}
                 placeholder="Postcode or city"
-                className="w-full bg-gray-900 border border-white/20 rounded px-3 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#D94800]"
+                className="w-full bg-gray-900 border border-white/20 rounded px-3 py-2.5 text-base md:text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#D94800]"
               />
             </div>
             <div className="w-24">
@@ -669,7 +643,7 @@ export function FindARacePage() {
                 value={tempDistanceKm}
                 onChange={(e) => setTempDistanceKm(e.currentTarget.value)}
                 placeholder="km"
-                className="w-full bg-gray-900 border border-white/20 rounded px-3 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#D94800]"
+                className="w-full bg-gray-900 border border-white/20 rounded px-3 py-2.5 text-base md:text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#D94800]"
               />
             </div>
           </div>
@@ -729,7 +703,7 @@ export function FindARacePage() {
                     value={tempLocationSearch}
                     onChange={(e) => setTempLocationSearch(e.currentTarget.value)}
                     placeholder="Postcode or city"
-                    className="w-full bg-gray-900 border border-white/20 rounded px-3 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#D94800]"
+                    className="w-full bg-gray-900 border border-white/20 rounded px-3 py-2.5 text-base md:text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#D94800]"
                   />
                 </div>
                 <div className="w-24">
@@ -738,7 +712,7 @@ export function FindARacePage() {
                     value={tempDistanceKm}
                     onChange={(e) => setTempDistanceKm(e.currentTarget.value)}
                     placeholder="km"
-                    className="w-full bg-gray-900 border border-white/20 rounded px-3 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#D94800]"
+                    className="w-full bg-gray-900 border border-white/20 rounded px-3 py-2.5 text-base md:text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#D94800]"
                   />
                 </div>
               </div>
@@ -930,9 +904,9 @@ export function FindARacePage() {
                 </select>
               </div>
 
-              {/* Apply button to close filters */}
+              {/* Close button */}
               <button
-                onClick={applyFilters}
+                onClick={() => setMobileFiltersOpen(false)}
                 className="w-full bg-[#D94800] text-black font-bold px-6 py-2 rounded uppercase tracking-wide hover:bg-[#E85D00] transition-colors duration-200"
               >
                 Show {tempFilteredEventsCount} Event{tempFilteredEventsCount !== 1 ? 's' : ''}
@@ -1014,7 +988,7 @@ export function FindARacePage() {
                 value={tempLocationSearch}
                 onChange={(e) => setTempLocationSearch(e.currentTarget.value)}
                 placeholder="Postcode or city"
-                className="w-full bg-gray-900 border border-white/20 rounded px-3 py-1.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#D94800]"
+                className="w-full bg-gray-900 border border-white/20 rounded px-3 py-1.5 text-base md:text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#D94800]"
               />
             </div>
             <div className="w-16">
@@ -1023,7 +997,7 @@ export function FindARacePage() {
                 value={tempDistanceKm}
                 onChange={(e) => setTempDistanceKm(e.currentTarget.value)}
                 placeholder="km"
-                className="w-full bg-gray-900 border border-white/20 rounded px-3 py-1.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#D94800]"
+                className="w-full bg-gray-900 border border-white/20 rounded px-3 py-1.5 text-base md:text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#D94800]"
               />
             </div>
           </div>

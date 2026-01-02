@@ -159,6 +159,24 @@ export function EventDetailPage({ eventId }: EventDetailPageProps) {
             <div>
               <h3 className="text-2xl font-bold mb-4 uppercase tracking-wide text-[#D94800]">Socials & Contact</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {event.instagram && (
+                  <a
+                    href={event.instagram.startsWith('http') ? event.instagram : `https://instagram.com/${event.instagram.replace('@', '')}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-3 hover:border-[#D94800] transition-colors duration-200 group"
+                  >
+                    <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">Instagram</p>
+                    <p className="text-sm text-white font-medium group-hover:text-[#D94800] transition-colors flex items-center gap-2">
+                      {event.instagram}
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}></line>
+                      </svg>
+                    </p>
+                  </a>
+                )}
                 {event.website && (
                   <a
                     href={event.website}
@@ -191,52 +209,18 @@ export function EventDetailPage({ eventId }: EventDetailPageProps) {
                       </p>
                     </a>
                   )}
-                {event.instagram && (
+                {(event.workout || event.weights) && (
                   <a
-                    href={event.instagram.startsWith('http') ? event.instagram : `https://instagram.com/${event.instagram.replace('@', '')}`}
+                    href={event.workout || event.weights}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-3 hover:border-[#D94800] transition-colors duration-200 group"
                   >
-                    <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">Instagram</p>
+                    <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">Workout & Weights Guide</p>
                     <p className="text-sm text-white font-medium group-hover:text-[#D94800] transition-colors flex items-center gap-2">
-                      {event.instagram}
+                      Visit Website
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}></rect>
-                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}></path>
-                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}></line>
-                      </svg>
-                    </p>
-                  </a>
-                )}
-                {event.workout && (
-                  <a
-                    href={event.workout}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-3 hover:border-[#D94800] transition-colors duration-200 group"
-                  >
-                    <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">Workout Guide</p>
-                    <p className="text-sm text-white font-medium group-hover:text-[#D94800] transition-colors flex items-center gap-2">
-                      View Workout
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                      </svg>
-                    </p>
-                  </a>
-                )}
-                {event.weights && (
-                  <a
-                    href={event.weights}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-3 hover:border-[#D94800] transition-colors duration-200 group"
-                  >
-                    <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">Weights Guide</p>
-                    <p className="text-sm text-white font-medium group-hover:text-[#D94800] transition-colors flex items-center gap-2">
-                      View Weights
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                       </svg>
                     </p>
                   </a>

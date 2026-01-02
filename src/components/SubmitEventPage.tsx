@@ -435,7 +435,7 @@ export function SubmitEventPage() {
               </label>
               <input type="hidden" name="division" value={selectedDivisions.join(', ')} required={selectedDivisions.length === 0} />
               <div className="space-y-2">
-                {['Open / Normal', 'Pro / Heavy', 'Other'].map(division => (
+                {['Open / Regular', 'Pro / Heavy', 'Other'].map(division => (
                   <label key={division} className="flex items-center gap-2 cursor-pointer">
                     <input
                       type="checkbox"

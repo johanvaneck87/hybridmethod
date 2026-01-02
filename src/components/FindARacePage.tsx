@@ -21,7 +21,7 @@ export function FindARacePage() {
   const [tempYear, setTempYear] = useState('')
   const [tempDivision, setTempDivision] = useState<DivisionType>('all')
   const [tempVenue, setTempVenue] = useState<VenueType>('all')
-  const [tempNewestFirst, setTempNewestFirst] = useState(true)
+  const [tempNewestFirst, setTempNewestFirst] = useState(false)
 
   // Applied filter states (actually used for filtering)
   const [filterType, setFilterType] = useState<FilterType>('all')
@@ -34,7 +34,7 @@ export function FindARacePage() {
   const [year, setYear] = useState('')
   const [division, setDivision] = useState<DivisionType>('all')
   const [venue, setVenue] = useState<VenueType>('all')
-  const [newestFirst, setNewestFirst] = useState(true)
+  const [newestFirst, setNewestFirst] = useState(false)
 
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
   const [viewMode, setViewMode] = useState<'list' | 'map'>('list')
@@ -190,7 +190,7 @@ export function FindARacePage() {
     setTempYear('')
     setTempDivision('all')
     setTempVenue('all')
-    setTempNewestFirst(true)
+    setTempNewestFirst(false)
     // Also apply the reset immediately
     setFilterType('all')
     setOnlyUpcomingEvents(false)
@@ -202,7 +202,7 @@ export function FindARacePage() {
     setYear('')
     setDivision('all')
     setVenue('all')
-    setNewestFirst(true)
+    setNewestFirst(false)
   }
 
   // Helper function to remove individual filter
@@ -249,8 +249,8 @@ export function FindARacePage() {
         if (!isMobile) setVenue('all')
         break
       case 'newestFirst':
-        setTempNewestFirst(true)
-        if (!isMobile) setNewestFirst(true)
+        setTempNewestFirst(false)
+        if (!isMobile) setNewestFirst(false)
         break
     }
   }
@@ -281,7 +281,7 @@ export function FindARacePage() {
       filters.push({ key: 'month', label: `${monthLabel}${monthLabel && yearLabel ? ' ' : ''}${yearLabel}`.trim() })
     }
     if (tempDivision !== 'all') {
-      const divLabel = tempDivision === 'open' ? 'Open / Normal' : tempDivision === 'pro' ? 'Pro / Heavy' : 'Other'
+      const divLabel = tempDivision === 'open' ? 'Open / Regular' : tempDivision === 'pro' ? 'Pro / Heavy' : 'Other'
       filters.push({ key: 'division', label: divLabel })
     }
     if (tempVenue !== 'all') {
@@ -405,7 +405,7 @@ export function FindARacePage() {
             const normalizedDivision = division.toLowerCase().replace(/\s+/g, '-').replace('/', '-')
             const normalizedFilter = tempDivision.toLowerCase().replace(/\s+/g, '-')
             return normalizedDivision.includes(normalizedFilter) ||
-                   (tempDivision === 'open' && (division.toLowerCase().includes('normal') || division.toLowerCase().includes('open'))) ||
+                   (tempDivision === 'open' && (division.toLowerCase().includes('regular') || division.toLowerCase().includes('normal') || division.toLowerCase().includes('open'))) ||
                    (tempDivision === 'pro' && (division.toLowerCase().includes('heavy') || division.toLowerCase().includes('pro')))
           })
         }
@@ -526,7 +526,7 @@ export function FindARacePage() {
             const normalizedDivision = div.toLowerCase().replace(/\s+/g, '-').replace('/', '-')
             const normalizedFilter = division.toLowerCase().replace(/\s+/g, '-')
             return normalizedDivision.includes(normalizedFilter) ||
-                   (division === 'open' && (div.toLowerCase().includes('normal') || div.toLowerCase().includes('open'))) ||
+                   (division === 'open' && (div.toLowerCase().includes('regular') || div.toLowerCase().includes('normal') || div.toLowerCase().includes('open'))) ||
                    (division === 'pro' && (div.toLowerCase().includes('heavy') || div.toLowerCase().includes('pro')))
           })
         }
@@ -772,6 +772,15 @@ export function FindARacePage() {
                   <label className="flex items-center gap-2 cursor-pointer w-fit">
                     <input
                       type="checkbox"
+                      checked={tempNewestFirst}
+                      onChange={(e) => setTempNewestFirst(e.currentTarget.checked)}
+                      className="w-4 h-4 cursor-pointer accent-[#D94800]"
+                    />
+                    <span className="text-sm text-white">Newest to oldest event</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer w-fit">
+                    <input
+                      type="checkbox"
                       checked={tempOnlyUpcomingEvents}
                       onChange={(e) => setTempOnlyUpcomingEvents(e.currentTarget.checked)}
                       className="w-4 h-4 cursor-pointer accent-[#D94800]"
@@ -786,15 +795,6 @@ export function FindARacePage() {
                       className="w-4 h-4 cursor-pointer accent-[#D94800]"
                     />
                     <span className="text-sm text-white">Only HYROX workouts</span>
-                  </label>
-                  <label className="flex items-center gap-2 cursor-pointer w-fit">
-                    <input
-                      type="checkbox"
-                      checked={tempNewestFirst}
-                      onChange={(e) => setTempNewestFirst(e.currentTarget.checked)}
-                      className="w-4 h-4 cursor-pointer accent-[#D94800]"
-                    />
-                    <span className="text-sm text-white">Newest to oldest event</span>
                   </label>
                 </div>
               </div>
@@ -881,7 +881,7 @@ export function FindARacePage() {
                   className="w-full bg-gray-900 border border-white/20 rounded px-3 py-1.5 text-sm text-white focus:outline-none focus:border-[#D94800]"
                 >
                   <option value="all">All</option>
-                  <option value="open">Open / Normal</option>
+                  <option value="open">Open / Regular</option>
                   <option value="pro">Pro / Heavy</option>
                   <option value="other">Other</option>
                 </select>
@@ -1011,6 +1011,15 @@ export function FindARacePage() {
               <label className="flex items-center gap-2 cursor-pointer w-fit">
                 <input
                   type="checkbox"
+                  checked={tempNewestFirst}
+                  onChange={(e) => setTempNewestFirst(e.currentTarget.checked)}
+                  className="w-4 h-4 cursor-pointer accent-[#D94800]"
+                />
+                <span className="text-sm text-white">Newest to oldest event</span>
+              </label>
+              <label className="flex items-center gap-2 cursor-pointer w-fit">
+                <input
+                  type="checkbox"
                   checked={tempOnlyUpcomingEvents}
                   onChange={(e) => setTempOnlyUpcomingEvents(e.currentTarget.checked)}
                   className="w-4 h-4 cursor-pointer accent-[#D94800]"
@@ -1025,15 +1034,6 @@ export function FindARacePage() {
                   className="w-4 h-4 cursor-pointer accent-[#D94800]"
                 />
                 <span className="text-sm text-white">Only HYROX workouts</span>
-              </label>
-              <label className="flex items-center gap-2 cursor-pointer w-fit">
-                <input
-                  type="checkbox"
-                  checked={tempNewestFirst}
-                  onChange={(e) => setTempNewestFirst(e.currentTarget.checked)}
-                  className="w-4 h-4 cursor-pointer accent-[#D94800]"
-                />
-                <span className="text-sm text-white">Newest to oldest event</span>
               </label>
             </div>
           </div>
@@ -1120,7 +1120,7 @@ export function FindARacePage() {
               className="w-full bg-gray-900 border border-white/20 rounded px-3 py-1.5 text-sm text-white focus:outline-none focus:border-[#D94800]"
             >
               <option value="all">All</option>
-              <option value="open">Open / Normal</option>
+              <option value="open">Open / Regular</option>
               <option value="pro">Pro / Heavy</option>
               <option value="other">Other</option>
             </select>

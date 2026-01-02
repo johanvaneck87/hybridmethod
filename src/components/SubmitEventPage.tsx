@@ -12,8 +12,7 @@ export function SubmitEventPage() {
   const [instagramUrl, setInstagramUrl] = useState('https://')
   const [websiteUrl, setWebsiteUrl] = useState('https://')
   const [ticketsUrl, setTicketsUrl] = useState('https://')
-  const [workoutUrl, setWorkoutUrl] = useState('https://')
-  const [weightsUrl, setWeightsUrl] = useState('https://')
+  const [workoutWeightsUrl, setWorkoutWeightsUrl] = useState('https://')
 
   const toggleRaceType = (type: string) => {
     setSelectedRaceTypes(prev =>
@@ -145,8 +144,8 @@ export function SubmitEventPage() {
         instagram: (form.querySelector('[name="instagram"]') as HTMLInputElement)?.value || '',
         website: (form.querySelector('[name="website"]') as HTMLInputElement)?.value || '',
         ticketUrl: (form.querySelector('[name="tickets"]') as HTMLInputElement)?.value || '',
-        workout: (form.querySelector('[name="workout"]') as HTMLInputElement)?.value || '',
-        weights: (form.querySelector('[name="weights"]') as HTMLInputElement)?.value || '',
+        workout: (form.querySelector('[name="workoutWeights"]') as HTMLInputElement)?.value || '',
+        weights: (form.querySelector('[name="workoutWeights"]') as HTMLInputElement)?.value || '',
         contactEmail: (form.querySelector('[name="contactEmail"]') as HTMLInputElement)?.value || '',
         country: country
       }
@@ -182,8 +181,7 @@ export function SubmitEventPage() {
       setInstagramUrl('https://')
       setWebsiteUrl('https://')
       setTicketsUrl('https://')
-      setWorkoutUrl('https://')
-      setWeightsUrl('https://')
+      setWorkoutWeightsUrl('https://')
     } catch (error) {
       console.error('Error submitting form:', error)
       alert('There was an error submitting the form. Please try again.')
@@ -657,36 +655,18 @@ export function SubmitEventPage() {
                 </div>
 
                 <div>
-                  <label htmlFor="workout" className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
-                    Workout
+                  <label htmlFor="workoutWeights" className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
+                    Workout & Weights
                   </label>
                   <input
                     type="url"
-                    id="workout"
-                    name="workout"
+                    id="workoutWeights"
+                    name="workoutWeights"
                     autoComplete="off"
                     data-lpignore="true"
                     data-form-type="other"
-                    value={workoutUrl}
-                    onChange={(e) => handleUrlChange(e.currentTarget.value, setWorkoutUrl)}
-                    className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
-                    placeholder="https://..."
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="weights" className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
-                    Weights
-                  </label>
-                  <input
-                    type="url"
-                    id="weights"
-                    name="weights"
-                    autoComplete="off"
-                    data-lpignore="true"
-                    data-form-type="other"
-                    value={weightsUrl}
-                    onChange={(e) => handleUrlChange(e.currentTarget.value, setWeightsUrl)}
+                    value={workoutWeightsUrl}
+                    onChange={(e) => handleUrlChange(e.currentTarget.value, setWorkoutWeightsUrl)}
                     className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
                     placeholder="https://..."
                   />

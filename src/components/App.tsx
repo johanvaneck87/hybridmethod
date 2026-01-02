@@ -5,6 +5,7 @@ import { BlogPage } from './BlogPage'
 import { SubmitEventPage } from './SubmitEventPage'
 import { FindARacePage } from './FindARacePage'
 import { EventDetailPage } from './EventDetailPage'
+import { InstagramPage } from './InstagramPage'
 
 export function App() {
   const [currentRoute, eventId] = useRouter()
@@ -20,7 +21,7 @@ export function App() {
       {currentRoute === 'submit-event' && <SubmitEventPage />}
       {currentRoute === 'find-a-race' && <FindARacePage />}
       {currentRoute === 'event-detail' && eventId && <EventDetailPage eventId={eventId} />}
-      {currentRoute === 'instagram' && <FindARacePage />}
+      {currentRoute === 'instagram' && <InstagramPage />}
     </div>
   )
 }

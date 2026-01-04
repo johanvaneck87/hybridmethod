@@ -147,10 +147,9 @@ async function updateEventImages() {
         console.log(`\n🔄 Event ${i + 1}/${eventsData.length}: ${event.eventname}`);
 
         try {
-          // Gebruik 'hyrox' als zoekterm voor HYROX events (check both organization and event name)
+          // Gebruik 'hyrox' als zoekterm voor HYROX events (check only organization field)
           let searchTerm;
-          const isHyroxEvent = (event.organizationgym && event.organizationgym.toUpperCase().includes('HYROX')) ||
-                              (event.eventname && event.eventname.toUpperCase().includes('HYROX'));
+          const isHyroxEvent = event.organizationgym && event.organizationgym.toUpperCase().includes('HYROX');
           if (isHyroxEvent) {
             searchTerm = 'hyrox';
           } else {

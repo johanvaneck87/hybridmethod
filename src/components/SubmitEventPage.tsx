@@ -228,6 +228,7 @@ export function SubmitEventPage() {
                       name="startDate"
                       required
                       className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
+                      style={{ colorScheme: 'dark' }}
                     />
                   </div>
                   <div>
@@ -240,6 +241,7 @@ export function SubmitEventPage() {
                       name="endDate"
                       required
                       className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
+                      style={{ colorScheme: 'dark' }}
                     />
                   </div>
                 </div>
@@ -254,6 +256,7 @@ export function SubmitEventPage() {
                     name="eventDate"
                     required
                     className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
+                    style={{ colorScheme: 'dark' }}
                   />
                 </div>
               )

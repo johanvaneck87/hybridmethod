@@ -194,10 +194,42 @@ function handleImageUpload($file, $eventId) {
     }
 }
 
+// Function to format Instagram to @username
+function formatInstagram($instagram) {
+    if (empty($instagram)) {
+        return '';
+    }
+
+    $instagram = trim($instagram);
+
+    // If already starts with @, return as is
+    if (strpos($instagram, '@') === 0) {
+        return $instagram;
+    }
+
+    // Extract username from various Instagram URL formats
+    $patterns = [
+        '#https?://(?:www\.)?instagram\.com/([^/?]+)#i',
+        '#instagram\.com/([^/?]+)#i',
+        '#@?([a-zA-Z0-9._]+)#'
+    ];
+
+    foreach ($patterns as $pattern) {
+        if (preg_match($pattern, $instagram, $matches)) {
+            // Remove trailing slash if present
+            $username = rtrim($matches[1], '/');
+            return '@' . $username;
+        }
+    }
+
+    // If no pattern matched, just add @ at the beginning
+    return '@' . $instagram;
+}
+
 // Get basic form data
 $name = isset($_POST['name']) ? trim($_POST['name']) : '';
 $location = isset($_POST['location']) ? trim($_POST['location']) : '';
-$instagramUrl = isset($_POST['instagram']) ? trim($_POST['instagram']) : '';
+$instagramUrl = isset($_POST['instagram']) ? formatInstagram(trim($_POST['instagram'])) : '';
 $startDate = isset($_POST['startDate']) ? trim($_POST['startDate']) : (isset($_POST['eventDate']) ? trim($_POST['eventDate']) : '');
 
 // Validate required fields

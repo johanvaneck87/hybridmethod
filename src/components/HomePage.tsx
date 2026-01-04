@@ -33,22 +33,22 @@ export function HomePage() {
   return (
     <div className="bg-black">
       {/* Hero Section - Fixed */}
-      <div className="sticky top-0 h-screen flex items-center">
-        <div className="max-w-7xl mx-auto px-6 w-full">
-          <div className="flex">
+      <div className="sticky top-0 h-screen flex items-start overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 w-full h-full flex items-center">
+          <div className="flex w-full">
             {/* Left side - Image */}
-            <div className="w-[70%] relative" style={{ height: '125vh' }}>
+            <div className="relative" style={{ width: '75%', height: '140vh', marginTop: '-20vh' }}>
               <div
                 className="absolute inset-0 bg-cover bg-left-top bg-no-repeat rounded-lg"
                 style={{ backgroundImage: `url(${backgroundImage})` }}
               >
                 {/* Dark overlay with gradient to blend into right side */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/20 to-black rounded-lg"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/15 to-black rounded-lg"></div>
               </div>
             </div>
 
             {/* Right side - Text box */}
-            <div className="w-[30%] bg-black flex items-center justify-end pl-12">
+            <div className="flex items-center justify-end pl-12" style={{ width: '25%' }}>
               <div className="bg-[#D94800] px-12 py-32">
                 <h2 className="text-black font-semibold text-4xl md:text-5xl lg:text-6xl leading-tight uppercase tracking-wide">
                   PREPARE

@@ -1155,7 +1155,7 @@ export function FindARacePage() {
                     Showing {filteredAndSortedEvents.length} event{filteredAndSortedEvents.length !== 1 ? 's' : ''}
                   </p>
                   <p className="text-gray-400">
-                    <span className="hidden sm:inline">Race not found? </span><a href="/hybridmethod/submit-a-race" className="text-[#D94800] hover:text-[#E85D00] underline transition-colors duration-200">Submit a race</a>
+                    <span className="hidden sm:inline">Race not found? </span><button onClick={() => navigate('submit-a-race')} className="text-[#D94800] hover:text-[#E85D00] underline transition-colors duration-200 cursor-pointer">Submit a race</button>
                   </p>
                 </div>
 
@@ -1174,7 +1174,7 @@ export function FindARacePage() {
                     Showing {filteredAndSortedEvents.length} event{filteredAndSortedEvents.length !== 1 ? 's' : ''}
                   </p>
                   <p className="text-gray-400">
-                    <span className="hidden sm:inline">Race not found? </span><a href="/hybridmethod/submit-a-race" className="text-[#D94800] hover:text-[#E85D00] underline transition-colors duration-200">Submit a race</a>
+                    <span className="hidden sm:inline">Race not found? </span><button onClick={() => navigate('submit-a-race')} className="text-[#D94800] hover:text-[#E85D00] underline transition-colors duration-200 cursor-pointer">Submit a race</button>
                   </p>
                 </div>
 

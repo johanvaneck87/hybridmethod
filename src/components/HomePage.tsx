@@ -37,18 +37,18 @@ export function HomePage() {
         <div className="max-w-7xl mx-auto px-6 w-full">
           <div className="flex">
             {/* Left side - Image */}
-            <div className="w-3/5 relative" style={{ height: '110vh' }}>
+            <div className="w-[70%] relative" style={{ height: '125vh' }}>
               <div
                 className="absolute inset-0 bg-cover bg-left-top bg-no-repeat rounded-lg"
                 style={{ backgroundImage: `url(${backgroundImage})` }}
               >
                 {/* Dark overlay with gradient to blend into right side */}
-                <div className="absolute inset-0 bg-gradient-to-r from-black/10 via-black/30 to-black rounded-lg"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/20 to-black rounded-lg"></div>
               </div>
             </div>
 
             {/* Right side - Text box */}
-            <div className="w-2/5 bg-black flex items-center justify-end pl-12">
+            <div className="w-[30%] bg-black flex items-center justify-end pl-12">
               <div className="bg-[#D94800] px-12 py-32">
                 <h2 className="text-black font-semibold text-4xl md:text-5xl lg:text-6xl leading-tight uppercase tracking-wide">
                   PREPARE

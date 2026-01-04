@@ -540,7 +540,6 @@ export function SubmitEventPage() {
                 className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
                 placeholder="Provide a brief description of the event..."
               />
-              <p className="text-xs text-gray-500 mt-1">Please write in English</p>
             </div>
 
             {/* Event Image Upload */}

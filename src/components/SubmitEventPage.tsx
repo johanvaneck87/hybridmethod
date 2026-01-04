@@ -54,12 +54,16 @@ export function SubmitEventPage() {
       // Validate file type
       if (!file.type.startsWith('image/')) {
         alert('Please select a valid image file')
+        target.value = '' // Clear file input
         return
       }
 
       // Validate file size (max 5MB)
       if (file.size > 5 * 1024 * 1024) {
-        alert('Image size must be less than 5MB')
+        alert('Image size must be less than 5MB. Please select a smaller image.')
+        target.value = '' // Clear file input
+        setSelectedImage(null)
+        setImagePreview(null)
         return
       }
 

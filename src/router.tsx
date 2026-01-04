@@ -9,15 +9,14 @@ const listeners: Set<(route: Route, eventId?: string | null) => void> = new Set(
 export function navigate(route: Route, eventId?: string) {
   currentRoute = route
   currentEventId = eventId || null
-  const basePath = '/hybridmethod'
 
-  let url = basePath
+  let url = '/'
   if (route === 'event-detail' && eventId) {
-    url = `${basePath}/event/${eventId}`
+    url = `/event/${eventId}`
   } else if (route === 'home' || route === 'find-a-race') {
-    url = basePath
+    url = '/'
   } else {
-    url = `${basePath}/${route}`
+    url = `/${route}`
   }
 
   window.history.pushState({}, '', url)
@@ -38,7 +37,7 @@ export function useRouter(): [Route, string | null, (route: Route, eventId?: str
 
     // Handle browser back/forward buttons
     const handlePopState = () => {
-      const path = window.location.pathname.replace('/hybridmethod', '').replace(/^\//, '')
+      const path = window.location.pathname.replace(/^\//, '')
       let newRoute: Route = 'find-a-race'
       let newEventId: string | null = null
 
@@ -68,7 +67,7 @@ export function useRouter(): [Route, string | null, (route: Route, eventId?: str
 }
 
 // Initialize route from URL
-const path = window.location.pathname.replace('/hybridmethod', '').replace(/^\//, '')
+const path = window.location.pathname.replace(/^\//, '')
 if (path === 'hybrid-races' || path === 'events' || path === 'blog' || path === 'hybrid-method' || path === 'submit-a-race' || path === 'find-a-race' || path === 'instagram') {
   currentRoute = path as Route
 } else if (path.startsWith('event/')) {

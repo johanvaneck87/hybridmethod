@@ -31,7 +31,8 @@
       "Bash(timeout /t 3)",
       "Bash(node update-events-structure.cjs:*)",
       "Bash(node update-event-images.cjs:*)",
-      "Bash(node fix-instagram-format.cjs:*)"
+      "Bash(node fix-instagram-format.cjs:*)",
+      "Bash(git remote set-url:*)"
     ],
     "deny": [],
     "ask": []

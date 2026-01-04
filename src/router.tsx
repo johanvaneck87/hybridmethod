@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'preact/hooks'
 
-export type Route = 'home' | 'hybrid-races' | 'events' | 'blog' | 'hybrid-method' | 'submit-event' | 'find-a-race' | 'event-detail' | 'instagram'
+export type Route = 'home' | 'hybrid-races' | 'events' | 'blog' | 'hybrid-method' | 'submit-a-race' | 'find-a-race' | 'event-detail' | 'instagram'
 
 let currentRoute: Route = 'find-a-race'
 let currentEventId: string | null = null
@@ -42,7 +42,7 @@ export function useRouter(): [Route, string | null, (route: Route, eventId?: str
       let newRoute: Route = 'find-a-race'
       let newEventId: string | null = null
 
-      if (path === 'hybrid-races' || path === 'events' || path === 'blog' || path === 'hybrid-method' || path === 'submit-event' || path === 'find-a-race' || path === 'instagram') {
+      if (path === 'hybrid-races' || path === 'events' || path === 'blog' || path === 'hybrid-method' || path === 'submit-a-race' || path === 'find-a-race' || path === 'instagram') {
         newRoute = path as Route
       } else if (path.startsWith('event/')) {
         newRoute = 'event-detail'
@@ -69,7 +69,7 @@ export function useRouter(): [Route, string | null, (route: Route, eventId?: str
 
 // Initialize route from URL
 const path = window.location.pathname.replace('/hybridmethod', '').replace(/^\//, '')
-if (path === 'hybrid-races' || path === 'events' || path === 'blog' || path === 'hybrid-method' || path === 'submit-event' || path === 'find-a-race' || path === 'instagram') {
+if (path === 'hybrid-races' || path === 'events' || path === 'blog' || path === 'hybrid-method' || path === 'submit-a-race' || path === 'find-a-race' || path === 'instagram') {
   currentRoute = path as Route
 } else if (path.startsWith('event/')) {
   currentRoute = 'event-detail'

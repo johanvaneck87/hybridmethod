@@ -46,7 +46,21 @@ export function EventTileImage({ event }: EventTileImageProps) {
 
     // Load and draw background image
     const img = new Image()
-    img.crossOrigin = 'anonymous'
+
+    // Only set crossOrigin for external URLs (Unsplash)
+    // For uploaded images (hybridraces.fit/uploads), don't use crossOrigin to avoid CORS issues
+    if (event.image.includes('unsplash.com')) {
+      img.crossOrigin = 'anonymous'
+    }
+
+    img.onerror = () => {
+      console.error(`Failed to load image for event ${event.id}:`, event.image)
+      // Draw a fallback solid color background
+      ctx.fillStyle = '#1a1a1a'
+      ctx.fillRect(0, 0, size, size)
+      drawOverlay()
+    }
+
     img.src = event.image
 
     img.onload = () => {
@@ -67,6 +81,10 @@ export function EventTileImage({ event }: EventTileImageProps) {
       }
 
       ctx.drawImage(img, sx, sy, sWidth, sHeight, 0, 0, size, size)
+      drawOverlay()
+    }
+
+    const drawOverlay = () => {
 
       // Draw gradient overlay
       const gradient = ctx.createLinearGradient(0, 0, 0, size)
@@ -89,7 +107,8 @@ export function EventTileImage({ event }: EventTileImageProps) {
       ctx.strokeRect(flagX - borderPadding, flagY - borderPadding, flagWidth + (borderPadding * 2), flagHeight + (borderPadding * 2))
 
       // Draw flag based on country
-      if (event.country === 'BE') {
+      const country = event.country.toUpperCase()
+      if (country === 'BE' || country === 'BELGIUM') {
         // Belgian flag (vertical stripes: black, yellow, red)
         // Black stripe
         ctx.fillStyle = '#000000'
@@ -102,8 +121,40 @@ export function EventTileImage({ event }: EventTileImageProps) {
         // Red stripe
         ctx.fillStyle = '#EF3340'
         ctx.fillRect(flagX + (2 * flagWidth / 3), flagY, flagWidth / 3, flagHeight)
+      } else if (country === 'DE' || country === 'GERMANY' || country === 'DEUTSCHLAND') {
+        // German flag (horizontal stripes: black, red, gold)
+        // Black stripe
+        ctx.fillStyle = '#000000'
+        ctx.fillRect(flagX, flagY, flagWidth, flagHeight / 3)
+
+        // Red stripe
+        ctx.fillStyle = '#DD0000'
+        ctx.fillRect(flagX, flagY + flagHeight / 3, flagWidth, flagHeight / 3)
+
+        // Gold stripe
+        ctx.fillStyle = '#FFCE00'
+        ctx.fillRect(flagX, flagY + (2 * flagHeight / 3), flagWidth, flagHeight / 3)
+      } else if (country === 'GB' || country === 'UK' || country === 'UNITED KINGDOM' || country === 'GREAT BRITAIN') {
+        // UK flag - simplified version with cross
+        // Blue background
+        ctx.fillStyle = '#012169'
+        ctx.fillRect(flagX, flagY, flagWidth, flagHeight)
+
+        // White cross (St. George's Cross background for red cross)
+        ctx.fillStyle = '#FFFFFF'
+        // Horizontal bar
+        ctx.fillRect(flagX, flagY + (flagHeight / 2) - 7, flagWidth, 14)
+        // Vertical bar
+        ctx.fillRect(flagX + (flagWidth / 2) - 7, flagY, 14, flagHeight)
+
+        // Red cross (St. George's Cross)
+        ctx.fillStyle = '#C8102E'
+        // Horizontal bar
+        ctx.fillRect(flagX, flagY + (flagHeight / 2) - 4, flagWidth, 8)
+        // Vertical bar
+        ctx.fillRect(flagX + (flagWidth / 2) - 4, flagY, 8, flagHeight)
       } else {
-        // Dutch flag (horizontal stripes: red, white, blue)
+        // Dutch flag (horizontal stripes: red, white, blue) - default for NL, Netherlands, etc.
         // Red stripe
         ctx.fillStyle = '#AE1C28'
         ctx.fillRect(flagX, flagY, flagWidth, flagHeight / 3)

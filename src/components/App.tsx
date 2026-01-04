@@ -18,7 +18,7 @@ export function App() {
       {currentRoute === 'events' && <FindARacePage />}
       {currentRoute === 'blog' && <BlogPage />}
       {currentRoute === 'hybrid-method' && <HomePage />}
-      {currentRoute === 'submit-event' && <SubmitEventPage />}
+      {currentRoute === 'submit-a-race' && <SubmitEventPage />}
       {currentRoute === 'find-a-race' && <FindARacePage />}
       {currentRoute === 'event-detail' && eventId && <EventDetailPage eventId={eventId} />}
       {currentRoute === 'instagram' && <InstagramPage />}

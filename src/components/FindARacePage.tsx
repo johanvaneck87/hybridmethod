@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from 'preact/hooks'
-import backgroundImage from '../picture/pexels-victorfreitas-841130.jpg'
+import backgroundImage from '../picture/Mainpage.jpg'
 import eventsData from '../data/events.json'
 import { EventMap } from './EventMap'
 import { navigate } from '../router'
@@ -1156,7 +1156,7 @@ export function FindARacePage() {
                     Showing {filteredAndSortedEvents.length} event{filteredAndSortedEvents.length !== 1 ? 's' : ''}
                   </p>
                   <p className="text-gray-400">
-                    <span className="hidden sm:inline">Race not found? </span><a href="/hybridmethod/submit-event" className="text-[#D94800] hover:text-[#E85D00] underline transition-colors duration-200">Submit a race</a>
+                    <span className="hidden sm:inline">Race not found? </span><a href="/hybridmethod/submit-a-race" className="text-[#D94800] hover:text-[#E85D00] underline transition-colors duration-200">Submit a race</a>
                   </p>
                 </div>
 
@@ -1175,7 +1175,7 @@ export function FindARacePage() {
                     Showing {filteredAndSortedEvents.length} event{filteredAndSortedEvents.length !== 1 ? 's' : ''}
                   </p>
                   <p className="text-gray-400">
-                    <span className="hidden sm:inline">Race not found? </span><a href="/hybridmethod/submit-event" className="text-[#D94800] hover:text-[#E85D00] underline transition-colors duration-200">Submit a race</a>
+                    <span className="hidden sm:inline">Race not found? </span><a href="/hybridmethod/submit-a-race" className="text-[#D94800] hover:text-[#E85D00] underline transition-colors duration-200">Submit a race</a>
                   </p>
                 </div>
 

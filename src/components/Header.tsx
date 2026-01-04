@@ -68,9 +68,9 @@ export function Header({ currentRoute }: HeaderProps) {
               FIND A RACE
             </button>
             <button
-              onClick={(e) => handleNavClick(e, 'submit-event')}
+              onClick={(e) => handleNavClick(e, 'submit-a-race')}
               className={`text-sm lg:text-base font-medium uppercase tracking-wide transition-colors duration-200 whitespace-nowrap ${
-                currentRoute === 'submit-event' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
+                currentRoute === 'submit-a-race' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
               }`}
             >
               SUBMIT A RACE
@@ -106,9 +106,9 @@ export function Header({ currentRoute }: HeaderProps) {
               FIND A RACE
             </button>
             <button
-              onClick={(e) => handleNavClick(e, 'submit-event')}
+              onClick={(e) => handleNavClick(e, 'submit-a-race')}
               className={`text-lg font-medium uppercase tracking-wide transition-colors duration-200 text-left ${
-                currentRoute === 'submit-event' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
+                currentRoute === 'submit-a-race' ? 'text-[#D94800]' : 'text-white hover:text-[#D94800]'
               }`}
             >
               SUBMIT A RACE

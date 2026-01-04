@@ -1,18 +1,30 @@
-import { useState } from 'preact/hooks'
+import { useState, useEffect } from 'preact/hooks'
 
 export function SubmitEventPage() {
+  // Check if user returned from FormSubmit success page
+  const urlParams = new URLSearchParams(window.location.search)
+  const successParam = urlParams.get('success') === 'true'
+
   const [isLocalGym, setIsLocalGym] = useState<boolean | null>(null)
   const [isMultipleDays, setIsMultipleDays] = useState<boolean | null>(null)
   const [selectedRaceTypes, setSelectedRaceTypes] = useState<string[]>([])
   const [selectedDivisions, setSelectedDivisions] = useState<string[]>([])
-  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(successParam)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [selectedImage, setSelectedImage] = useState<File | null>(null)
   const [imagePreview, setImagePreview] = useState<string | null>(null)
   const [instagramUrl, setInstagramUrl] = useState('https://')
   const [websiteUrl, setWebsiteUrl] = useState('https://')
-  const [ticketsUrl, setTicketsUrl] = useState('https://')
-  const [workoutWeightsUrl, setWorkoutWeightsUrl] = useState('https://')
+  const [ticketsUrl, setTicketsUrl] = useState('')
+  const [workoutWeightsUrl, setWorkoutWeightsUrl] = useState('')
+  const [priceType, setPriceType] = useState<'single' | 'range' | 'soldout' | null>(null)
+
+  // Clear success parameter from URL when component mounts
+  useEffect(() => {
+    if (successParam) {
+      window.history.replaceState({}, '', window.location.pathname)
+    }
+  }, [])
 
   const toggleRaceType = (type: string) => {
     setSelectedRaceTypes(prev =>
@@ -62,34 +74,6 @@ export function SubmitEventPage() {
     }
   }
 
-  const getCoordinates = async (location: string, country: string): Promise<{ lat: number; lng: number }> => {
-    try {
-      const searchQuery = country ? `${location}, ${country}` : location
-      const response = await fetch(
-        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(searchQuery)}&limit=1`,
-        {
-          headers: {
-            'User-Agent': 'HybridMethod-EventMap/1.0'
-          }
-        }
-      )
-
-      const results = await response.json()
-
-      if (results && results.length > 0) {
-        return {
-          lat: parseFloat(results[0].lat),
-          lng: parseFloat(results[0].lon)
-        }
-      }
-    } catch (error) {
-      console.error('Error fetching coordinates:', error)
-    }
-
-    // Default to Amsterdam if geocoding fails
-    return { lat: 52.3676, lng: 4.9041 }
-  }
-
   const handleSubmit = async (e: Event) => {
     e.preventDefault()
     setIsSubmitting(true)
@@ -97,94 +81,51 @@ export function SubmitEventPage() {
     const form = e.target as HTMLFormElement
 
     try {
-      // Get location and country for coordinates
-      const locationInput = form.querySelector('[name="location"]') as HTMLInputElement
-      const location = locationInput.value
-      const countryInput = form.querySelector('[name="country"]') as HTMLInputElement
-      const country = countryInput.value
-
-      // Get coordinates from location
-      const coordinates = await getCoordinates(location, country)
-
-      // Generate ID from event name and year
-      const eventName = (form.querySelector('[name="name"]') as HTMLInputElement).value
-      const startDate = (form.querySelector('[name="startDate"]') as HTMLInputElement)?.value ||
-                       (form.querySelector('[name="eventDate"]') as HTMLInputElement)?.value || ''
-      const year = startDate ? new Date(startDate).getFullYear() : new Date().getFullYear()
-      const eventId = eventName.toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/^-|-$/g, '') + '-' + year
-
-      // Determine image URL
-      const imageUrl = selectedImage
-        ? 'REPLACE_WITH_IMAGE_URL_AFTER_UPLOAD'
-        : 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop'
-
-      // Create complete JSON object for events.json
-      const eventData = {
-        id: eventId,
-        eventname: (form.querySelector('[name="name"]') as HTMLInputElement).value,
-        localgym: (form.querySelector('[name="localGym"]:checked') as HTMLInputElement)?.value || '',
-        organizationgym: (form.querySelector('[name="gym"]') as HTMLInputElement)?.value ||
-                        (form.querySelector('[name="organization"]') as HTMLInputElement)?.value || '',
-        startdate: (form.querySelector('[name="startDate"]') as HTMLInputElement)?.value ||
-                  (form.querySelector('[name="eventDate"]') as HTMLInputElement)?.value || '',
-        enddate: (form.querySelector('[name="endDate"]') as HTMLInputElement)?.value || '',
-        location: location,
-        coordinates: coordinates,
-        typerace: selectedRaceTypes,
-        divisions: selectedDivisions,
-        ticketpricelow: (form.querySelector('[name="priceMin"]') as HTMLInputElement)?.value || '',
-        ticketpricehigh: (form.querySelector('[name="priceMax"]') as HTMLInputElement)?.value || '',
-        fitnessobstacle: (form.querySelector('[name="eventType"]:checked') as HTMLInputElement)?.value || '',
-        indooroutdoor: (form.querySelector('[name="venue"]:checked') as HTMLInputElement)?.value || '',
-        hyroxworkout: (form.querySelector('[name="hyroxWorkout"]:checked') as HTMLInputElement)?.value || '',
-        description: (form.querySelector('[name="description"]') as HTMLTextAreaElement)?.value || '',
-        image: imageUrl,
-        instagram: (form.querySelector('[name="instagram"]') as HTMLInputElement)?.value || '',
-        website: (form.querySelector('[name="website"]') as HTMLInputElement)?.value || '',
-        ticketUrl: (form.querySelector('[name="tickets"]') as HTMLInputElement)?.value || '',
-        workout: (form.querySelector('[name="workoutWeights"]') as HTMLInputElement)?.value || '',
-        weights: (form.querySelector('[name="workoutWeights"]') as HTMLInputElement)?.value || '',
-        contactEmail: (form.querySelector('[name="contactEmail"]') as HTMLInputElement)?.value || '',
-        country: country
-      }
-
-      // Create formatted JSON string
-      const formattedJSON = JSON.stringify(eventData, null, 2)
-
-      // Create FormData with all form fields
+      // Create FormData object
       const formData = new FormData(form)
 
-      // Add computed fields to FormData
-      formData.append('coordinates_lat', coordinates.lat.toString())
-      formData.append('coordinates_lng', coordinates.lng.toString())
-      formData.append('raceTypes_formatted', selectedRaceTypes.join(', '))
-      formData.append('divisions_formatted', selectedDivisions.join(', '))
-      formData.append('COPY_PASTE_JSON_FOR_EVENTS_FILE', formattedJSON)
+      // Add selected race types and divisions as individual fields for PHP
+      selectedRaceTypes.forEach(type => {
+        formData.append(type.toLowerCase().replace(/\s+/g, '-'), 'on')
+      })
 
-      // Submit to FormSubmit.co using fetch
-      await fetch('https://formsubmit.co/hybridraces@gmail.com', {
+      // Add the image if selected
+      if (selectedImage) {
+        formData.append('image', selectedImage)
+      }
+
+      // Submit to PHP backend
+      const response = await fetch('https://hybridraces.fit/form.php', {
         method: 'POST',
         body: formData
       })
 
-      // Show success message
-      setIsSubmitted(true)
-      setIsSubmitting(false)
-      setIsLocalGym(null)
-      setIsMultipleDays(null)
-      setSelectedRaceTypes([])
-      setSelectedDivisions([])
-      setSelectedImage(null)
-      setImagePreview(null)
-      setInstagramUrl('https://')
-      setWebsiteUrl('https://')
-      setTicketsUrl('https://')
-      setWorkoutWeightsUrl('https://')
+      const result = await response.json()
+
+      if (result.success) {
+        // Show success message
+        setIsSubmitted(true)
+
+        // Reset form
+        form.reset()
+        setIsLocalGym(null)
+        setIsMultipleDays(null)
+        setSelectedRaceTypes([])
+        setSelectedDivisions([])
+        setSelectedImage(null)
+        setImagePreview(null)
+        setInstagramUrl('https://')
+        setWebsiteUrl('https://')
+        setTicketsUrl('')
+        setWorkoutWeightsUrl('')
+        setPriceType(null)
+      } else {
+        throw new Error(result.error || 'Submission failed')
+      }
     } catch (error) {
       console.error('Error submitting form:', error)
       alert('There was an error submitting the form. Please try again.')
+    } finally {
       setIsSubmitting(false)
     }
   }
@@ -220,12 +161,9 @@ export function SubmitEventPage() {
         ) : (
           <form
             onSubmit={handleSubmit}
+            encType="multipart/form-data"
             className="bg-gray-900 border border-white/20 rounded-lg p-6 md:p-8"
           >
-            {/* FormSubmit configuration - these will be included in FormData */}
-            <input type="hidden" name="_subject" value="New Race Submission - HybridRaces.com" />
-            <input type="hidden" name="_captcha" value="false" />
-
           <div className="space-y-6">
             {/* Event Name */}
             <div>
@@ -447,32 +385,79 @@ export function SubmitEventPage() {
               </div>
             </div>
 
-            {/* Ticket Price Range */}
+            {/* Ticket Price */}
             <div>
               <label className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
-                Ticket Price Range
+                Ticket Price
               </label>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
+              <div className="space-y-3">
+                {/* Price Type Selection */}
+                <div className="space-y-2">
+                  {[
+                    { value: 'single' as const, label: 'Single price' },
+                    { value: 'range' as const, label: 'Price range' },
+                    { value: 'soldout' as const, label: 'Sold out' }
+                  ].map(option => (
+                    <label key={option.value} className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="radio"
+                        name="priceType"
+                        value={option.value}
+                        checked={priceType === option.value}
+                        onChange={(e) => setPriceType(e.currentTarget.value as 'single' | 'range' | 'soldout')}
+                        className="w-4 h-4 cursor-pointer accent-[#D94800]"
+                      />
+                      <span className="text-white">{option.label}</span>
+                    </label>
+                  ))}
+                </div>
+
+                {/* Price Input Fields */}
+                {priceType === 'single' && (
+                  <div>
+                    <input
+                      type="number"
+                      id="priceMin"
+                      name="priceMin"
+                      min="0"
+                      className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
+                      placeholder="Price (€)"
+                    />
+                  </div>
+                )}
+
+                {priceType === 'range' && (
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <input
+                        type="number"
+                        id="priceMin"
+                        name="priceMin"
+                        min="0"
+                        className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
+                        placeholder="Min (€)"
+                      />
+                    </div>
+                    <div>
+                      <input
+                        type="number"
+                        id="priceMax"
+                        name="priceMax"
+                        min="0"
+                        className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
+                        placeholder="Max (€)"
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {priceType === 'soldout' && (
                   <input
-                    type="number"
-                    id="priceMin"
+                    type="hidden"
                     name="priceMin"
-                    min="0"
-                    className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
-                    placeholder="Min (€)"
+                    value="Sold out"
                   />
-                </div>
-                <div>
-                  <input
-                    type="number"
-                    id="priceMax"
-                    name="priceMax"
-                    min="0"
-                    className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
-                    placeholder="Max (€)"
-                  />
-                </div>
+                )}
               </div>
             </div>
 
@@ -648,7 +633,7 @@ export function SubmitEventPage() {
                     data-lpignore="true"
                     data-form-type="other"
                     value={ticketsUrl}
-                    onChange={(e) => handleUrlChange(e.currentTarget.value, setTicketsUrl)}
+                    onChange={(e) => setTicketsUrl(e.currentTarget.value)}
                     className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
                     placeholder="https://..."
                   />
@@ -666,7 +651,7 @@ export function SubmitEventPage() {
                     data-lpignore="true"
                     data-form-type="other"
                     value={workoutWeightsUrl}
-                    onChange={(e) => handleUrlChange(e.currentTarget.value, setWorkoutWeightsUrl)}
+                    onChange={(e) => setWorkoutWeightsUrl(e.currentTarget.value)}
                     className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
                     placeholder="https://..."
                   />

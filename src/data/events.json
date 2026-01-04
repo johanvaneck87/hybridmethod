@@ -1150,8 +1150,8 @@
     "location": "Sportpark Reijerpark, Ridderkerk",
     "country": "The Netherlands",
     "coordinates": {
-      "lat": 0,
-      "lng": 0
+      "lat": 51.8725,
+      "lng": 4.6044
     },
     "typerace": [
       "Solo",
@@ -1183,8 +1183,8 @@
     "location": "Sportpark Reijerpark, Ridderkerk",
     "country": "The Netherlands",
     "coordinates": {
-      "lat": 0,
-      "lng": 0
+      "lat": 51.8725,
+      "lng": 4.6044
     },
     "typerace": [
       "Solo",
@@ -1239,5 +1239,40 @@
     "ticketUrl": "https://www.protocolseries.nl/events/protocol-2026",
     "workoutWeights": "https://www.protocolseries.nl/de-race",
     "contactEmail": "info@protocolseries.nl"
+  },
+  {
+    "id": "hyrox-delft-2026",
+    "image": "https://hybridraces.fit/uploads/hyrox-delft-2026.jpg",
+    "eventname": "Hyrox Delft",
+    "localgym": "no",
+    "organizationgym": "HYROX",
+    "startdate": "2026-01-01",
+    "enddate": "",
+    "location": "Oude Kerk, Delft",
+    "country": "The Netherlands",
+    "coordinates": {
+      "lat": 52.0125957,
+      "lng": 4.355906
+    },
+    "typerace": [
+      "Solo",
+      "Duo / Buddy",
+      "Relay"
+    ],
+    "divisions": [
+      "Open / Regular",
+      "Pro / Heavy"
+    ],
+    "ticketpricelow": "50",
+    "ticketpricehigh": "",
+    "fitnessobstacle": "Fitness",
+    "indooroutdoor": "Indoor",
+    "hyroxworkout": "Yes",
+    "description": "Test voor Hyrox",
+    "instagram": "https://www.hyrox.nl",
+    "website": "https://www.hyrox.nl",
+    "ticketUrl": "https://www.hyrox.nl",
+    "workoutWeights": "https://www.hyrox.nl",
+    "contactEmail": "hyridraces@gmail.com"
   }
 ]

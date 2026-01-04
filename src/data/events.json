@@ -1,12 +1,14 @@
 [
   {
     "id": "hexafit-sprint-series-ijmuiden-2025",
+    "image": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&h=800&fit=crop",
     "eventname": "HexaFit Sprint Series IJmuiden",
     "localgym": "No",
     "organizationgym": "HexaFit",
     "startdate": "2025-01-11",
     "enddate": "",
     "location": "CrossFit IJmuiden, IJmuiden",
+    "country": "NL",
     "coordinates": {
       "lat": 52.4545846,
       "lng": 4.586838
@@ -23,23 +25,22 @@
     "indooroutdoor": "Indoor",
     "hyroxworkout": "No",
     "description": "HexaFit is de ultieme test van kracht én conditie. Zes kracht en zes conditieonderdelen dagen je uit op elk vlak, geen ruimte om te leunen op één kwaliteit. Verleg je grenzen, ontdek hoe fit je écht bent. Dit is jouw moment. Dit is HexaFit.",
-    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop",
     "instagram": "@hexafit.nl",
     "website": "https://hexafit.nl/",
     "ticketUrl": "https://hexafit.nl/sprint-series/",
-    "workout": "https://hexafit.nl/de-12-onderdelen/",
-    "weights": "https://hexafit.nl/divisies/",
-    "contactEmail": "info@hexafit.nl",
-    "country": "NL"
+    "workoutWeights": "https://hexafit.nl/de-12-onderdelen/",
+    "contactEmail": "info@hexafit.nl"
   },
   {
     "id": "gymrace-london-2025",
+    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop",
     "eventname": "Gymrace London",
     "localgym": "No",
     "organizationgym": "Gymrace",
     "startdate": "2025-03-21",
     "enddate": "2025-03-22",
     "location": "Excel London, London",
+    "country": "GB",
     "coordinates": {
       "lat": 51.5081127,
       "lng": 0.0297071
@@ -58,23 +59,22 @@
     "indooroutdoor": "Indoor",
     "hyroxworkout": "No",
     "description": "Bij GYMRACE gaat het erom dat jij jezelf uitdaagt om jouw fitheid te testen, én een toffe dag beleeft. De gemiddelde finishtijd is 1 uur 20 minuten. Je kan solo racen of met je buddy. Met je buddy ren je samen van start tot finish, en verdeel je het werk bij de stations. Er zijn verschillende gewichten voor vrouwen, mannen en… er is de heavy categorie. Bij de heavy categorie zijn de krachtstations zwaarder. Kies een categorie die bij jou past én jou uitdaagt. Je kan meer dan je denkt.",
-    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop",
     "instagram": "@gymrace",
     "website": "https://www.gymrace.com/",
     "ticketUrl": "https://www.gymrace.com/",
-    "workout": "https://www.gymrace.com/nl/de-race",
-    "weights": "https://www.gymrace.com/nl/de-race",
-    "contactEmail": "service@gymrace.com",
-    "country": "GB"
+    "workoutWeights": "https://www.gymrace.com/nl/de-race",
+    "contactEmail": "service@gymrace.com"
   },
   {
     "id": "gymrace-utrecht-2025",
+    "image": "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&h=800&fit=crop",
     "eventname": "Gymrace Utrecht",
     "localgym": "No",
     "organizationgym": "Gymrace",
     "startdate": "2025-05-02",
     "enddate": "2025-05-03",
     "location": "Jaarbeurs, Utrecht",
+    "country": "NL",
     "coordinates": {
       "lat": 52.0845399,
       "lng": 5.1040766
@@ -93,23 +93,22 @@
     "indooroutdoor": "Indoor",
     "hyroxworkout": "No",
     "description": "Bij GYMRACE gaat het erom dat jij jezelf uitdaagt om jouw fitheid te testen, én een toffe dag beleeft. De gemiddelde finishtijd is 1 uur 20 minuten. Je kan solo racen of met je buddy. Met je buddy ren je samen van start tot finish, en verdeel je het werk bij de stations. Er zijn verschillende gewichten voor vrouwen, mannen en… er is de heavy categorie. Bij de heavy categorie zijn de krachtstations zwaarder. Kies een categorie die bij jou past én jou uitdaagt. Je kan meer dan je denkt.",
-    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop",
     "instagram": "@gymrace",
     "website": "https://www.gymrace.com/",
     "ticketUrl": "https://www.gymrace.com/",
-    "workout": "https://www.gymrace.com/nl/de-race",
-    "weights": "https://www.gymrace.com/nl/de-race",
-    "contactEmail": "service@gymrace.com",
-    "country": "NL"
+    "workoutWeights": "https://www.gymrace.com/nl/de-race",
+    "contactEmail": "service@gymrace.com"
   },
   {
     "id": "hyrox-simulation-groningen-2025",
+    "image": "https://images.unsplash.com/photo-1534258936925-c58bed479fcb?w=800&h=800&fit=crop",
     "eventname": "HYROX Simulation Groningen",
     "localgym": "Yes",
     "organizationgym": "Gustafit",
     "startdate": "2025-06-01",
     "enddate": "",
     "location": "Suikerterrein, Groningen",
+    "country": "NL",
     "coordinates": {
       "lat": 53.2114523,
       "lng": 6.5379946
@@ -127,23 +126,22 @@
     "indooroutdoor": "Outdoor",
     "hyroxworkout": "Yes",
     "description": "Grootste outdoor HYROX simulatie van NL; opbrengst naar Jeugdfonds Sport & Cultuur",
-    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop",
     "instagram": "@gustafitnl",
     "website": "https://insidegroningen.com/event/hyrox-event/",
     "ticketUrl": "https://insidegroningen.com/event/hyrox-event/",
-    "workout": "",
-    "weights": "",
-    "contactEmail": "guus@gustafit.nl",
-    "country": "NL"
+    "workoutWeights": "",
+    "contactEmail": "guus@gustafit.nl"
   },
   {
     "id": "hexafit-fitness-race-haarlem-2025",
+    "image": "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&h=800&fit=crop",
     "eventname": "HexaFit Fitness Race Haarlem",
     "localgym": "No",
     "organizationgym": "HexaFit",
     "startdate": "2025-06-21",
     "enddate": "",
     "location": "Sporthal Kennemer Sportcenter, Haarlem",
+    "country": "NL",
     "coordinates": {
       "lat": 52.3676,
       "lng": 4.6462
@@ -162,23 +160,22 @@
     "indooroutdoor": "Indoor",
     "hyroxworkout": "No",
     "description": "HexaFit is de ultieme test van kracht én conditie. Zes kracht en zes conditieonderdelen dagen je uit op elk vlak, geen ruimte om te leunen op één kwaliteit. Verleg je grenzen, ontdek hoe fit je écht bent. Dit is jouw moment. Dit is HexaFit.",
-    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop",
     "instagram": "@hexafit.nl",
     "website": "https://hexafit.nl/",
     "ticketUrl": "https://atleta.cc/e/FTO9kpuTLyLl",
-    "workout": "https://hexafit.nl/de-12-onderdelen/",
-    "weights": "https://hexafit.nl/divisies/",
-    "contactEmail": "info@hexafit.nl",
-    "country": "NL"
+    "workoutWeights": "https://hexafit.nl/de-12-onderdelen/",
+    "contactEmail": "info@hexafit.nl"
   },
   {
     "id": "hybrid-games-nl-1st-edition-2025",
+    "image": "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=800&h=800&fit=crop",
     "eventname": "Hybrid Games NL 1st Edition",
     "localgym": "No",
     "organizationgym": "Hybrid Games NL",
     "startdate": "2025-06-28",
     "enddate": "",
     "location": "Omnisport, Apeldoorn",
+    "country": "NL",
     "coordinates": {
       "lat": 52.2074215,
       "lng": 5.9995993
@@ -196,23 +193,22 @@
     "indooroutdoor": "Outdoor",
     "hyroxworkout": "No",
     "description": "Brengt kracht en conditie samen. Een race in de openlucht om als hybride atleet jezelf maximaal uit te dagen op 9 toffe onderdelen die afgewisseld worden met steeds een 500 meter run op de atletiekbaan. Ben jij allround? Doe de race individueel, samen of schrijf je in voor de ouder-kind divisie. Let’s go!",
-    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop",
     "instagram": "@hybridgamesnl",
     "website": "https://hybridgamesnl.com/",
     "ticketUrl": "",
-    "workout": "https://hybridgamesnl.com/#de-race",
-    "weights": "",
-    "contactEmail": "info@hybridgamesnl.com",
-    "country": "NL"
+    "workoutWeights": "https://hybridgamesnl.com/#de-race",
+    "contactEmail": "info@hybridgamesnl.com"
   },
   {
     "id": "myrox-delft-2025-08",
+    "image": "https://images.unsplash.com/photo-1554284126-aa88f22d8b74?w=800&h=800&fit=crop",
     "eventname": "Myrox Delft",
     "localgym": "Yes",
     "organizationgym": "MIFIT Personal Sport Coaching",
     "startdate": "2025-08-24",
     "enddate": "",
     "location": "MIFIT, Delft",
+    "country": "NL",
     "coordinates": {
       "lat": 51.9946661,
       "lng": 4.3878072
@@ -231,23 +227,22 @@
     "indooroutdoor": "Indoor & Outdoor",
     "hyroxworkout": "Yes",
     "description": "Myrox- De ultieme HYROX race bij Mifit. Test je uithoudingsvermogen en conditie tijdens ons Myrox event op zondag 2 november 2025. Een unieke uitdaging voor sporters van elk niveau.",
-    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop",
     "instagram": "@mifit_personal_sport_coach",
     "website": "https://mifitsport.nl/myrox/",
     "ticketUrl": "https://mifitsport.nl/myrox/",
-    "workout": "https://hyroxbenelux.com/about-race/",
-    "weights": "https://hyroxbenelux.com/about-race/",
-    "contactEmail": "info@mifitsport.nl",
-    "country": "NL"
+    "workoutWeights": "https://hyroxbenelux.com/about-race/",
+    "contactEmail": "info@mifitsport.nl"
   },
   {
     "id": "hybrid-games-nl-2nd-edition-2025",
+    "image": "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&h=800&fit=crop",
     "eventname": "Hybrid Games NL 2nd Edition",
     "localgym": "No",
     "organizationgym": "Hybrid Games NL",
     "startdate": "2025-09-06",
     "enddate": "",
     "location": "Omnisport, Apeldoorn",
+    "country": "NL",
     "coordinates": {
       "lat": 52.2074215,
       "lng": 5.9995993
@@ -265,23 +260,22 @@
     "indooroutdoor": "Outdoor",
     "hyroxworkout": "No",
     "description": "Brengt kracht en conditie samen. Een race in de openlucht om als hybride atleet jezelf maximaal uit te dagen op 9 toffe onderdelen die afgewisseld worden met steeds een 500 meter run op de atletiekbaan. Ben jij allround? Doe de race individueel, samen of schrijf je in voor de ouder-kind divisie. Let’s go!",
-    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop",
     "instagram": "@hybridgamesnl",
     "website": "https://hybridgamesnl.com/",
     "ticketUrl": "",
-    "workout": "https://hybridgamesnl.com/#de-race",
-    "weights": "",
-    "contactEmail": "info@hybridgamesnl.com",
-    "country": "NL"
+    "workoutWeights": "https://hybridgamesnl.com/#de-race",
+    "contactEmail": "info@hybridgamesnl.com"
   },
   {
     "id": "grit-game-2025",
+    "image": "https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=800&h=800&fit=crop",
     "eventname": "GRIT Game",
     "localgym": "Yes",
     "organizationgym": "CrossFit Zeewolde",
     "startdate": "2025-09-07",
     "enddate": "",
     "location": "Atletiekbaan, Zeewolde",
+    "country": "NL",
     "coordinates": {
       "lat": 52.3284,
       "lng": 5.5408
@@ -300,23 +294,22 @@
     "indooroutdoor": "Outdoor",
     "hyroxworkout": "No",
     "description": "In een wereld waar fitnessraces steeds extremer, duurder en complexer worden, gaan wij juist terug naar de kern. Geen lasers, rookmachines of overdreven fancy obstakels. Geen eindeloze afstanden of een overkill aan gewicht. Geen show. Geen dure tickets. Alleen GRIT. Outdoor hybrid fitnessrace (7 stations / 8 km)",
-    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop",
     "instagram": "@gritgame.nl",
     "website": "https://gritgame.nl/",
     "ticketUrl": "https://gritgame.nl/",
-    "workout": "https://gritgame.nl/",
-    "weights": "https://gritgame.nl/",
-    "contactEmail": "info@gritgame.nl",
-    "country": "NL"
+    "workoutWeights": "https://gritgame.nl/",
+    "contactEmail": "info@gritgame.nl"
   },
   {
     "id": "hyrox-maastricht-2025",
+    "image": "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&h=800&fit=crop",
     "eventname": "HYROX Maastricht",
     "localgym": "No",
     "organizationgym": "HYROX",
     "startdate": "2025-09-19",
     "enddate": "2025-09-21",
     "location": "MECC, Maastricht",
+    "country": "NL",
     "coordinates": {
       "lat": 50.8392049,
       "lng": 5.7118022
@@ -336,23 +329,22 @@
     "indooroutdoor": "Indoor",
     "hyroxworkout": "Yes",
     "description": "HYROX verovert de fitnesswereld! De race werd geïnspireerd door miljoenen atleten over de hele wereld die functionele fitness als hun favoriete sport beschouwen. Tot nu toe was er geen meetbare fitnessrace die toegankelijk is voor iedereen. HYROX is de ultieme uitdaging: Een perfecte combinatie tussen kracht, uithoudingsvermogen en vastberadenheid.",
-    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop",
     "instagram": "@hyroxbenelux",
     "website": "https://hyroxbenelux.com",
     "ticketUrl": "",
-    "workout": "https://hyroxbenelux.com/about-race/",
-    "weights": "https://hyroxbenelux.com/about-race/",
-    "contactEmail": "benelux@hyrox.com",
-    "country": "NL"
+    "workoutWeights": "https://hyroxbenelux.com/about-race/",
+    "contactEmail": "benelux@hyrox.com"
   },
   {
     "id": "healthrox-2025",
+    "image": "https://images.unsplash.com/photo-1577221084712-45b0445d2b00?w=800&h=800&fit=crop",
     "eventname": "HealthROX",
     "localgym": "Yes",
     "organizationgym": "Health Platform",
     "startdate": "2025-09-27",
     "enddate": "2025-09-28",
     "location": "Olympus '70, Naaldwijk",
+    "country": "NL",
     "coordinates": {
       "lat": 51.9942,
       "lng": 4.2111
@@ -370,23 +362,22 @@
     "indooroutdoor": "Indoor & Outdoor",
     "hyroxworkout": "No",
     "description": "Nieuwe editie met extra heats en festival sfeer. Daag jezelf uit als atleet op 8 explosieve workouts, telkens gevolgd door een 1000 meter run op de atletiekbaan. Pure strijd. Geen excuses.",
-    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop",
     "instagram": "@healthplatform.nl",
     "website": "https://www.health-platform.nl/nl/HealthROX",
     "ticketUrl": "https://www.health-platform.nl/nl/HealthROX",
-    "workout": "https://www.health-platform.nl/nl/HealthROX",
-    "weights": "https://www.health-platform.nl/nl/HealthROX",
-    "contactEmail": "info@health-platform.nl",
-    "country": "NL"
+    "workoutWeights": "https://www.health-platform.nl/nl/HealthROX",
+    "contactEmail": "info@health-platform.nl"
   },
   {
     "id": "myrox-delft-2025-11",
+    "image": "https://images.unsplash.com/photo-1549060279-7e168fcee0c2?w=800&h=800&fit=crop",
     "eventname": "Myrox Delft",
     "localgym": "Yes",
     "organizationgym": "MIFIT Personal Sport Coaching",
     "startdate": "2025-11-02",
     "enddate": "2025-11-02",
     "location": "MIFIT, Delft",
+    "country": "NL",
     "coordinates": {
       "lat": 51.9946661,
       "lng": 4.3878072
@@ -405,23 +396,22 @@
     "indooroutdoor": "Indoor & Outdoor",
     "hyroxworkout": "Yes",
     "description": "Myrox- De ultieme HYROX race bij Mifit. Test je uithoudingsvermogen en conditie tijdens ons Myrox event op zondag 2 november 2025. Een unieke uitdaging voor sporters van elk niveau.",
-    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop",
     "instagram": "@mifit_personal_sport_coach",
     "website": "https://mifitsport.nl/myrox/",
     "ticketUrl": "https://mifitsport.nl/myrox/",
-    "workout": "https://hyroxbenelux.com/about-race/",
-    "weights": "https://hyroxbenelux.com/about-race/",
-    "contactEmail": "info@mifitsport.nl",
-    "country": "NL"
+    "workoutWeights": "https://hyroxbenelux.com/about-race/",
+    "contactEmail": "info@mifitsport.nl"
   },
   {
     "id": "hyrox-utrecht-2025",
+    "image": "https://images.unsplash.com/photo-1623428187969-5da2dcea5ebf?w=800&h=800&fit=crop",
     "eventname": "HYROX Utrecht",
     "localgym": "No",
     "organizationgym": "HYROX",
     "startdate": "2025-11-28",
     "enddate": "2025-11-30",
     "location": "Jaarbeurs, Utrecht",
+    "country": "NL",
     "coordinates": {
       "lat": 52.0845399,
       "lng": 5.1040766
@@ -441,23 +431,22 @@
     "indooroutdoor": "Indoor",
     "hyroxworkout": "Yes",
     "description": "HYROX verovert de fitnesswereld! De race werd geïnspireerd door miljoenen atleten over de hele wereld die functionele fitness als hun favoriete sport beschouwen. Tot nu toe was er geen meetbare fitnessrace die toegankelijk is voor iedereen. HYROX is de ultieme uitdaging: Een perfecte combinatie tussen kracht, uithoudingsvermogen en vastberadenheid.",
-    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop",
     "instagram": "@hyroxbenelux",
     "website": "https://hyroxbenelux.com",
     "ticketUrl": "",
-    "workout": "https://hyroxbenelux.com/about-race/",
-    "weights": "https://hyroxbenelux.com/about-race/",
-    "contactEmail": "benelux@hyrox.com",
-    "country": "NL"
+    "workoutWeights": "https://hyroxbenelux.com/about-race/",
+    "contactEmail": "benelux@hyrox.com"
   },
   {
     "id": "hexafit-sprint-series-meppel-2025",
+    "image": "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&h=800&fit=crop",
     "eventname": "HexaFit Sprint Series Meppel",
     "localgym": "No",
     "organizationgym": "HexaFit",
     "startdate": "2025-12-20",
     "enddate": "",
     "location": "Fitbox Meppel, Meppel",
+    "country": "NL",
     "coordinates": {
       "lat": 52.6952,
       "lng": 6.1944
@@ -474,23 +463,22 @@
     "indooroutdoor": "Indoor",
     "hyroxworkout": "No",
     "description": "HexaFit is de ultieme test van kracht én conditie. Zes kracht en zes conditieonderdelen dagen je uit op elk vlak, geen ruimte om te leunen op één kwaliteit. Verleg je grenzen, ontdek hoe fit je écht bent. Dit is jouw moment. Dit is HexaFit.",
-    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop",
     "instagram": "@hexafit.nl",
     "website": "https://hexafit.nl/",
     "ticketUrl": "https://hexafit.nl/sprint-series/",
-    "workout": "https://hexafit.nl/de-12-onderdelen/",
-    "weights": "https://hexafit.nl/divisies/",
-    "contactEmail": "info@hexafit.nl",
-    "country": "NL"
+    "workoutWeights": "https://hexafit.nl/de-12-onderdelen/",
+    "contactEmail": "info@hexafit.nl"
   },
   {
     "id": "hybride-extreme-2025",
+    "image": "https://images.unsplash.com/photo-1599058917212-d750089bc07e?w=800&h=800&fit=crop",
     "eventname": "Hybride Extreme",
     "localgym": "Yes",
     "organizationgym": "Hybride Sports Venlo",
     "startdate": "2025-12-20",
     "enddate": "",
     "location": "Sportpark Maassenhof, Venlo",
+    "country": "NL",
     "coordinates": {
       "lat": 51.3704,
       "lng": 6.1724
@@ -508,23 +496,22 @@
     "indooroutdoor": "Indoor & Outdoor",
     "hyroxworkout": "No",
     "description": "Deelnemers leggen meerdere HYROX/HYBRIDE BATTLE-rondes af, afgewisseld met functionele workouts.\n\nOf je nu solo gaat of in teamverband: deze editie vraagt het uiterste van je doorzettingsvermogen. Nieuw is dat we buiten de 12-uurs variant ook een 6-uurs variant aanbieden én daarnaast kun je kiezen tussen het uitvoeren van HYROX óf HYBRIDE BATTLE. Tevens introduceren we onze eigen Battle Fit test waar je aan kan deelnemen!",
-    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop",
     "instagram": "@hybridesportsvenlo",
     "website": "https://www.hybridesports.nl/evenementen/hybrid-extreme",
     "ticketUrl": "https://www.hybridesports.nl/evenementen/hybrid-extreme",
-    "workout": "",
-    "weights": "",
-    "contactEmail": "info@hyroxvenlo.nl",
-    "country": "NL"
+    "workoutWeights": "",
+    "contactEmail": "info@hyroxvenlo.nl"
   },
   {
     "id": "hyrox-simulation-zwolle-2026",
+    "image": "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=800&h=800&fit=crop",
     "eventname": "HYROX Simulation Zwolle",
     "localgym": "Yes",
     "organizationgym": "FIT ELITE / Hyrox Zwolle",
     "startdate": "2026-01-01",
     "enddate": "",
     "location": "Ossenkamp 2T, Zwolle",
+    "country": "NL",
     "coordinates": {
       "lat": 52.5224536,
       "lng": 6.1199604
@@ -543,23 +530,22 @@
     "indooroutdoor": "Indoor",
     "hyroxworkout": "Yes",
     "description": "Medio januari 2026 organiseert FIT ELITE, de enige echte HYROX GYM van Zwolle, weer een HYROX SIM. Dat wil zeggen, nu ga je voor een echte HYROX race simulatie; 8x 1000meter hardlopen gecombineerd met alle 8 onderdelen van de HYROX race.",
-    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop",
     "instagram": "@zwollehyrox",
     "website": "https://zwollehyrox.nl/evenement/hyrox-sim-bij-fit-elite-hyrox-simulatie/",
     "ticketUrl": "",
-    "workout": "",
-    "weights": "",
-    "contactEmail": "info@zwollehyrox.nl",
-    "country": "NL"
+    "workoutWeights": "",
+    "contactEmail": "info@zwollehyrox.nl"
   },
   {
     "id": "hyrox-simulation-leiden-2026",
+    "image": "https://images.unsplash.com/photo-1550259979-ed79b48d2a30?w=800&h=800&fit=crop",
     "eventname": "HYROX Simulation Leiden",
     "localgym": "Yes",
     "organizationgym": "CrossFit Leiden",
     "startdate": "2026-01-04",
     "enddate": "",
     "location": "CrossFit Leiden, Leiden",
+    "country": "NL",
     "coordinates": {
       "lat": 52.1601,
       "lng": 4.497
@@ -578,23 +564,22 @@
     "indooroutdoor": "Outdoor + Indoor",
     "hyroxworkout": "Yes",
     "description": "Complete HYROX simulatie met Roxzone‑overgangen; vrijwilligers krijgen gratis deelname",
-    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop",
     "instagram": "@crossfitleiden",
     "website": "https://hyrox.crossfitleiden.com/",
     "ticketUrl": "https://hyrox.crossfitleiden.com/",
-    "workout": "https://hyrox.crossfitleiden.com/",
-    "weights": "",
-    "contactEmail": "https://www.instagram.com/crossfitleiden/",
-    "country": "NL"
+    "workoutWeights": "https://hyrox.crossfitleiden.com/",
+    "contactEmail": "https://www.instagram.com/crossfitleiden/"
   },
   {
     "id": "hyrox-amsterdam-2026",
+    "image": "https://images.unsplash.com/photo-1517963879433-6ad2b056d712?w=800&h=800&fit=crop",
     "eventname": "HYROX Amsterdam",
     "localgym": "No",
     "organizationgym": "HYROX",
     "startdate": "2026-01-21",
     "enddate": "2026-01-25",
     "location": "RAI, Amsterdam",
+    "country": "NL",
     "coordinates": {
       "lat": 52.3412264,
       "lng": 4.8899065
@@ -614,23 +599,22 @@
     "indooroutdoor": "Indoor",
     "hyroxworkout": "Yes",
     "description": "HYROX verovert de fitnesswereld! De race werd geïnspireerd door miljoenen atleten over de hele wereld die functionele fitness als hun favoriete sport beschouwen. Tot nu toe was er geen meetbare fitnessrace die toegankelijk is voor iedereen. HYROX is de ultieme uitdaging: Een perfecte combinatie tussen kracht, uithoudingsvermogen en vastberadenheid.",
-    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop",
     "instagram": "@hyroxbenelux",
     "website": "https://hyroxbenelux.com",
     "ticketUrl": "https://hyroxbenelux.com/event/hyrox-amsterdam/",
-    "workout": "https://hyroxbenelux.com/about-race/",
-    "weights": "https://hyroxbenelux.com/about-race/",
-    "contactEmail": "benelux@hyrox.com",
-    "country": "NL"
+    "workoutWeights": "https://hyroxbenelux.com/about-race/",
+    "contactEmail": "benelux@hyrox.com"
   },
   {
     "id": "hyrox-youngstars-amsterdam-2026",
+    "image": "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&h=800&fit=crop",
     "eventname": "HYROX Youngstars Amsterdam",
     "localgym": "No",
     "organizationgym": "HYROX",
     "startdate": "2026-01-24",
     "enddate": "2026-01-25",
     "location": "RAI, Amsterdam",
+    "country": "NL",
     "coordinates": {
       "lat": 52.3412264,
       "lng": 4.8899065
@@ -647,23 +631,22 @@
     "indooroutdoor": "Indoor",
     "hyroxworkout": "Yes",
     "description": "HYROX verovert de fitnesswereld! De race werd geïnspireerd door miljoenen atleten over de hele wereld die functionele fitness als hun favoriete sport beschouwen. Tot nu toe was er geen meetbare fitnessrace die toegankelijk is voor iedereen. HYROX is de ultieme uitdaging: Een perfecte combinatie tussen kracht, uithoudingsvermogen en vastberadenheid.",
-    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop",
     "instagram": "@hyroxbenelux",
     "website": "https://hyroxbenelux.com",
     "ticketUrl": "https://hyroxbenelux.com/event/hyrox-youngstars-amsterdam/",
-    "workout": "https://hyroxbenelux.com/hyrox-youngstars/",
-    "weights": "https://hyroxbenelux.com/hyrox-youngstars/",
-    "contactEmail": "benelux@hyrox.com",
-    "country": "NL"
+    "workoutWeights": "https://hyroxbenelux.com/hyrox-youngstars/",
+    "contactEmail": "benelux@hyrox.com"
   },
   {
     "id": "breakline-2026",
+    "image": "https://images.unsplash.com/photo-1611672585731-fa10603fb9e0?w=800&h=800&fit=crop",
     "eventname": "Breakline",
     "localgym": "Yes",
     "organizationgym": "CrossFit Zeewolde",
     "startdate": "2026-01-30",
     "enddate": "",
     "location": "RCN Vakantiepark, Zeewolde",
+    "country": "NL",
     "coordinates": {
       "lat": 52.3284,
       "lng": 5.5408
@@ -681,23 +664,22 @@
     "indooroutdoor": "Outdoor",
     "hyroxworkout": "No",
     "description": "Het fundament van BREAKLINE.\nEndurance. Discipline. Herhaling.\nElk uur opnieuw, tot er niemand meer over is.",
-    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop",
     "instagram": "@breakline.nl",
     "website": "https://breakline.nl/",
     "ticketUrl": "https://breakline.nl/",
-    "workout": "https://breakline.nl/",
-    "weights": "https://breakline.nl/",
-    "contactEmail": "info@cfzeewolde.nl",
-    "country": "NL"
+    "workoutWeights": "https://breakline.nl/",
+    "contactEmail": "info@cfzeewolde.nl"
   },
   {
     "id": "hexafit-sprint-series-hoorn-2026",
+    "image": "https://images.unsplash.com/photo-1623874228601-f4193c7b1818?w=800&h=800&fit=crop",
     "eventname": "HexaFit Sprint Series Hoorn",
     "localgym": "No",
     "organizationgym": "HexaFit",
     "startdate": "2026-02-14",
     "enddate": "",
     "location": "Hoorn",
+    "country": "NL",
     "coordinates": {
       "lat": 52.653272,
       "lng": 5.0735802
@@ -714,23 +696,22 @@
     "indooroutdoor": "Indoor",
     "hyroxworkout": "No",
     "description": "HexaFit is de ultieme test van kracht én conditie. Zes kracht en zes conditieonderdelen dagen je uit op elk vlak, geen ruimte om te leunen op één kwaliteit. Verleg je grenzen, ontdek hoe fit je écht bent. Dit is jouw moment. Dit is HexaFit.",
-    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop",
     "instagram": "@hexafit.nl",
     "website": "https://hexafit.nl/",
     "ticketUrl": "https://hexafit.nl/sprint-series/",
-    "workout": "https://hexafit.nl/de-12-onderdelen/",
-    "weights": "https://hexafit.nl/divisies/",
-    "contactEmail": "info@hexafit.nl",
-    "country": "NL"
+    "workoutWeights": "https://hexafit.nl/de-12-onderdelen/",
+    "contactEmail": "info@hexafit.nl"
   },
   {
     "id": "gymrace-amsterdam-2026",
+    "image": "https://images.unsplash.com/photo-1558611848-73f7eb4001a1?w=800&h=800&fit=crop",
     "eventname": "Gymrace Amsterdam",
     "localgym": "No",
     "organizationgym": "Gymrace",
     "startdate": "2026-02-27",
     "enddate": "2026-01-03",
     "location": "RAI, Amsterdam",
+    "country": "NL",
     "coordinates": {
       "lat": 52.3412264,
       "lng": 4.8899065
@@ -749,23 +730,22 @@
     "indooroutdoor": "Indoor",
     "hyroxworkout": "No",
     "description": "Bij GYMRACE gaat het erom dat jij jezelf uitdaagt om jouw fitheid te testen, én een toffe dag beleeft. De gemiddelde finishtijd is 1 uur 20 minuten. Je kan solo racen of met je buddy. Met je buddy ren je samen van start tot finish, en verdeel je het werk bij de stations. Er zijn verschillende gewichten voor vrouwen, mannen en… er is de heavy categorie. Bij de heavy categorie zijn de krachtstations zwaarder. Kies een categorie die bij jou past én jou uitdaagt. Je kan meer dan je denkt.",
-    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop",
     "instagram": "@gymrace",
     "website": "https://www.gymrace.com/",
     "ticketUrl": "https://www.gymrace.com/",
-    "workout": "https://www.gymrace.com/nl/de-race",
-    "weights": "https://www.gymrace.com/nl/de-race",
-    "contactEmail": "service@gymrace.com",
-    "country": "NL"
+    "workoutWeights": "https://www.gymrace.com/nl/de-race",
+    "contactEmail": "service@gymrace.com"
   },
   {
     "id": "hybride-battle-2026",
+    "image": "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=800&h=800&fit=crop",
     "eventname": "Hybride Battle",
     "localgym": "Yes",
     "organizationgym": "Hybride Sports Venlo",
     "startdate": "2026-03-07",
     "enddate": "",
     "location": "Daily Trade Fair, Venlo",
+    "country": "NL",
     "coordinates": {
       "lat": 51.3704,
       "lng": 6.1724
@@ -784,23 +764,22 @@
     "indooroutdoor": "Indoor & Outdoor",
     "hyroxworkout": "No",
     "description": "De volgende editie van de Hybride Battle vindt plaats op zaterdag 7 maart 2026 bij Daily Trade Fair Venlo – de voormalige bloemenveiling. Deze unieke en karakteristieke locatie biedt volop ruimte voor een grootschalig indoor fitnessevent, met hardlooproutes buiten en de workouts binnen.",
-    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop",
     "instagram": "@hybridebattle",
     "website": "https://www.hybridebattle.nl/",
     "ticketUrl": "https://www.hybridebattle.nl/",
-    "workout": "",
-    "weights": "",
-    "contactEmail": "info@hybridebattle.nl",
-    "country": "NL"
+    "workoutWeights": "",
+    "contactEmail": "info@hybridebattle.nl"
   },
   {
     "id": "myrox-delft-2026",
+    "image": "https://images.unsplash.com/photo-1594381898411-846e7d193883?w=800&h=800&fit=crop",
     "eventname": "Myrox Delft",
     "localgym": "Yes",
     "organizationgym": "MIFIT Personal Sport Coaching",
     "startdate": "2026-04-01",
     "enddate": "",
     "location": "MIFIT, Delft",
+    "country": "NL",
     "coordinates": {
       "lat": 51.9946661,
       "lng": 4.3878072
@@ -819,23 +798,22 @@
     "indooroutdoor": "Indoor & Outdoor",
     "hyroxworkout": "Yes",
     "description": "Myrox- De ultieme HYROX race bij Mifit. Test je uithoudingsvermogen en conditie tijdens ons Myrox event op zondag 2 november 2025. Een unieke uitdaging voor sporters van elk niveau.",
-    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop",
     "instagram": "@mifit_personal_sport_coach",
     "website": "https://mifitsport.nl/myrox/",
     "ticketUrl": "https://mifitsport.nl/myrox/",
-    "workout": "https://hyroxbenelux.com/about-race/",
-    "weights": "https://hyroxbenelux.com/about-race/",
-    "contactEmail": "info@mifitsport.nl",
-    "country": "NL"
+    "workoutWeights": "https://hyroxbenelux.com/about-race/",
+    "contactEmail": "info@mifitsport.nl"
   },
   {
     "id": "hybrid-games-nl-3rd-edition-2026",
+    "image": "https://images.unsplash.com/photo-1591940742878-13aba4b81587?w=800&h=800&fit=crop",
     "eventname": "Hybrid Games NL 3rd Edition",
     "localgym": "No",
     "organizationgym": "Hybrid Games NL",
     "startdate": "2026-04-04",
     "enddate": "",
     "location": "Omnisport, Apeldoorn",
+    "country": "NL",
     "coordinates": {
       "lat": 52.2074215,
       "lng": 5.9995993
@@ -853,23 +831,22 @@
     "indooroutdoor": "Indoor",
     "hyroxworkout": "No",
     "description": "Brengt kracht en conditie samen. Een race in de openlucht om als hybride atleet jezelf maximaal uit te dagen op 9 toffe onderdelen die afgewisseld worden met steeds een 500 meter run op de atletiekbaan. Ben jij allround? Doe de race individueel, samen of schrijf je in voor de ouder-kind divisie. Let’s go!",
-    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop",
     "instagram": "@hybridgamesnl",
     "website": "https://hybridgamesnl.com/",
     "ticketUrl": "",
-    "workout": "https://hybridgamesnl.com/#de-race",
-    "weights": "",
-    "contactEmail": "info@hybridgamesnl.com",
-    "country": "NL"
+    "workoutWeights": "https://hybridgamesnl.com/#de-race",
+    "contactEmail": "info@hybridgamesnl.com"
   },
   {
     "id": "hyrox-rotterdam-2026",
+    "image": "https://images.unsplash.com/photo-1533681904393-9ab6eee7e408?w=800&h=800&fit=crop",
     "eventname": "HYROX Rotterdam",
     "localgym": "No",
     "organizationgym": "HYROX",
     "startdate": "2026-04-15",
     "enddate": "2026-04-19",
     "location": "Ahoy, Rotterdam",
+    "country": "NL",
     "coordinates": {
       "lat": 51.8832963,
       "lng": 4.4883655
@@ -889,23 +866,22 @@
     "indooroutdoor": "Indoor",
     "hyroxworkout": "Yes",
     "description": "HYROX verovert de fitnesswereld! De race werd geïnspireerd door miljoenen atleten over de hele wereld die functionele fitness als hun favoriete sport beschouwen. Tot nu toe was er geen meetbare fitnessrace die toegankelijk is voor iedereen. HYROX is de ultieme uitdaging: Een perfecte combinatie tussen kracht, uithoudingsvermogen en vastberadenheid.",
-    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop",
     "instagram": "@hyroxbenelux",
     "website": "https://hyroxbenelux.com",
     "ticketUrl": "https://hyroxbenelux.com/event/hyrox-rotterdam/",
-    "workout": "https://hyroxbenelux.com/about-race/",
-    "weights": "https://hyroxbenelux.com/about-race/",
-    "contactEmail": "benelux@hyrox.com",
-    "country": "NL"
+    "workoutWeights": "https://hyroxbenelux.com/about-race/",
+    "contactEmail": "benelux@hyrox.com"
   },
   {
     "id": "hexafit-sprint-series-tilburg-2026",
+    "image": "https://images.unsplash.com/photo-1601422407692-ec4eeec1d9b3?w=800&h=800&fit=crop",
     "eventname": "HexaFit Sprint Series Tilburg",
     "localgym": "No",
     "organizationgym": "HexaFit",
     "startdate": "2026-04-25",
     "enddate": "",
     "location": "Tilburg",
+    "country": "NL",
     "coordinates": {
       "lat": 51.5856184,
       "lng": 5.0660616
@@ -922,23 +898,22 @@
     "indooroutdoor": "Indoor",
     "hyroxworkout": "No",
     "description": "HexaFit is de ultieme test van kracht én conditie. Zes kracht en zes conditieonderdelen dagen je uit op elk vlak, geen ruimte om te leunen op één kwaliteit. Verleg je grenzen, ontdek hoe fit je écht bent. Dit is jouw moment. Dit is HexaFit.",
-    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop",
     "instagram": "@hexafit.nl",
     "website": "https://hexafit.nl/",
     "ticketUrl": "https://hexafit.nl/sprint-series/",
-    "workout": "https://hexafit.nl/de-12-onderdelen/",
-    "weights": "https://hexafit.nl/divisies/",
-    "contactEmail": "info@hexafit.nl",
-    "country": "NL"
+    "workoutWeights": "https://hexafit.nl/de-12-onderdelen/",
+    "contactEmail": "info@hexafit.nl"
   },
   {
     "id": "hyrox-heerenveen-2026",
+    "image": "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&h=800&fit=crop",
     "eventname": "HYROX Heerenveen",
     "localgym": "No",
     "organizationgym": "HYROX",
     "startdate": "2026-05-14",
     "enddate": "2026-05-17",
     "location": "Thialf, Heerenveen",
+    "country": "NL",
     "coordinates": {
       "lat": 52.9389776,
       "lng": 5.9424166
@@ -958,23 +933,22 @@
     "indooroutdoor": "Indoor",
     "hyroxworkout": "Yes",
     "description": "HYROX verovert de fitnesswereld! De race werd geïnspireerd door miljoenen atleten over de hele wereld die functionele fitness als hun favoriete sport beschouwen. Tot nu toe was er geen meetbare fitnessrace die toegankelijk is voor iedereen. HYROX is de ultieme uitdaging: Een perfecte combinatie tussen kracht, uithoudingsvermogen en vastberadenheid.",
-    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop",
     "instagram": "@hyroxbenelux",
     "website": "https://hyroxbenelux.com",
     "ticketUrl": "https://hyroxbenelux.com/event/hyrox-heerenveen/",
-    "workout": "https://hyroxbenelux.com/about-race/",
-    "weights": "https://hyroxbenelux.com/about-race/",
-    "contactEmail": "benelux@hyrox.com",
-    "country": "NL"
+    "workoutWeights": "https://hyroxbenelux.com/about-race/",
+    "contactEmail": "benelux@hyrox.com"
   },
   {
     "id": "healthrox-2026",
+    "image": "https://images.unsplash.com/photo-1556817411-31ae72fa3ea0?w=800&h=800&fit=crop",
     "eventname": "HealthROX",
     "localgym": "Yes",
     "organizationgym": "Health Platform",
     "startdate": "2026-05-29",
     "enddate": "2026-05-31",
     "location": "Olympus '70, Naaldwijk",
+    "country": "NL",
     "coordinates": {
       "lat": 51.9942,
       "lng": 4.2111
@@ -993,23 +967,22 @@
     "indooroutdoor": "Indoor & Outdoor",
     "hyroxworkout": "No",
     "description": "Nieuwe editie met extra heats en festival sfeer. Daag jezelf uit als atleet op 8 explosieve workouts, telkens gevolgd door een 1000 meter run op de atletiekbaan. Pure strijd. Geen excuses.",
-    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop",
     "instagram": "@healthplatform.nl",
     "website": "https://www.health-platform.nl/nl/HealthROX",
     "ticketUrl": "https://www.health-platform.nl/nl/HealthROX",
-    "workout": "https://www.health-platform.nl/nl/HealthROX",
-    "weights": "https://www.health-platform.nl/nl/HealthROX",
-    "contactEmail": "info@health-platform.nl",
-    "country": "NL"
+    "workoutWeights": "https://www.health-platform.nl/nl/HealthROX",
+    "contactEmail": "info@health-platform.nl"
   },
   {
     "id": "gymrace-airport-weeze-2026",
+    "image": "https://images.unsplash.com/photo-1598971639058-fab3c3109a00?w=800&h=800&fit=crop",
     "eventname": "Gymrace Airport Weeze",
     "localgym": "No",
     "organizationgym": "Gymrace",
     "startdate": "2026-05-30",
     "enddate": "",
     "location": "Airport Weeze, Duitsland",
+    "country": "DE",
     "coordinates": {
       "lat": 51.6024,
       "lng": 6.1422
@@ -1028,23 +1001,22 @@
     "indooroutdoor": "Indoor",
     "hyroxworkout": "No",
     "description": "Bij GYMRACE gaat het erom dat jij jezelf uitdaagt om jouw fitheid te testen, én een toffe dag beleeft. De gemiddelde finishtijd is 1 uur 20 minuten. Je kan solo racen of met je buddy. Met je buddy ren je samen van start tot finish, en verdeel je het werk bij de stations. Er zijn verschillende gewichten voor vrouwen, mannen en… er is de heavy categorie. Bij de heavy categorie zijn de krachtstations zwaarder. Kies een categorie die bij jou past én jou uitdaagt. Je kan meer dan je denkt.",
-    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop",
     "instagram": "@gymrace",
     "website": "https://www.gymrace.com/",
     "ticketUrl": "https://www.gymrace.com/",
-    "workout": "https://www.gymrace.com/nl/de-race",
-    "weights": "https://www.gymrace.com/nl/de-race",
-    "contactEmail": "service@gymrace.com",
-    "country": "DE"
+    "workoutWeights": "https://www.gymrace.com/nl/de-race",
+    "contactEmail": "service@gymrace.com"
   },
   {
     "id": "challenge-accepted-2026",
+    "image": "https://images.unsplash.com/photo-1521804906057-1df8fdb718b7?w=800&h=800&fit=crop",
     "eventname": "Challenge Accepted",
     "localgym": "No",
     "organizationgym": "Challenge Accepted",
     "startdate": "2026-06-06",
     "enddate": "2026-06-07",
     "location": "Olympisch Stadion, Amsterdam",
+    "country": "NL",
     "coordinates": {
       "lat": 52.3434439,
       "lng": 4.8540543
@@ -1061,23 +1033,22 @@
     "indooroutdoor": "Outdoor",
     "hyroxworkout": "No",
     "description": "Challenge Accepted (CA) is het nieuwe sportevenement dat plaatsvindt op een historische locatie in Amsterdam, namelijk in het Olympisch Stadion. Een plek waar geschiedenis is geschreven, sportprestaties zijn geleverd en waar deelnemers keer op keer nieuwe uitdagingen aangaan. Hybrid fitness race (8 stations + 7 km running). Festival setting met muziek/foodtrucks; duo‑format; waves per dag",
-    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop",
     "instagram": "@challengeaccepted.nl",
     "website": "https://www.challengeaccepted.nl/en",
     "ticketUrl": "https://www.challengeaccepted.nl/en/tickets",
-    "workout": "https://www.challengeaccepted.nl/over-event",
-    "weights": "",
-    "contactEmail": "info@challengeaccepted.nl",
-    "country": "NL"
+    "workoutWeights": "https://www.challengeaccepted.nl/over-event",
+    "contactEmail": "info@challengeaccepted.nl"
   },
   {
     "id": "hexafit-fitness-race-haarlem-2026",
+    "image": "https://images.unsplash.com/photo-1547919307-1ecb10702e6f?w=800&h=800&fit=crop",
     "eventname": "HexaFit Fitness Race Haarlem",
     "localgym": "No",
     "organizationgym": "HexaFit",
     "startdate": "2026-06-06",
     "enddate": "2026-06-07",
     "location": "Sporthal Kennemer Sportcenter, Haarlem",
+    "country": "NL",
     "coordinates": {
       "lat": 52.3676,
       "lng": 4.6462
@@ -1096,23 +1067,22 @@
     "indooroutdoor": "Indoor",
     "hyroxworkout": "No",
     "description": "HexaFit is de ultieme test van kracht én conditie. Zes kracht en zes conditieonderdelen dagen je uit op elk vlak, geen ruimte om te leunen op één kwaliteit. Verleg je grenzen, ontdek hoe fit je écht bent. Dit is jouw moment. Dit is HexaFit.",
-    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop",
     "instagram": "@hexafit.nl",
     "website": "https://hexafit.nl/",
     "ticketUrl": "https://atleta.cc/e/FTO9kpuTLyLl",
-    "workout": "https://hexafit.nl/de-12-onderdelen/",
-    "weights": "https://hexafit.nl/divisies/",
-    "contactEmail": "info@hexafit.nl",
-    "country": "NL"
+    "workoutWeights": "https://hexafit.nl/de-12-onderdelen/",
+    "contactEmail": "info@hexafit.nl"
   },
   {
     "id": "hybrid-games-nl-4th-edition-2026",
+    "image": "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&h=800&fit=crop",
     "eventname": "Hybrid Games NL 4th Edition",
     "localgym": "No",
     "organizationgym": "Hybrid Games NL",
     "startdate": "2026-06-27",
     "enddate": "",
     "location": "Omnisport, Apeldoorn",
+    "country": "NL",
     "coordinates": {
       "lat": 52.2074215,
       "lng": 5.9995993
@@ -1130,23 +1100,22 @@
     "indooroutdoor": "Outdoor",
     "hyroxworkout": "No",
     "description": "Brengt kracht en conditie samen. Een race in de openlucht om als hybride atleet jezelf maximaal uit te dagen op 9 toffe onderdelen die afgewisseld worden met steeds een 500 meter run op de atletiekbaan. Ben jij allround? Doe de race individueel, samen of schrijf je in voor de ouder-kind divisie. Let’s go!",
-    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop",
     "instagram": "@hybridgamesnl",
     "website": "https://hybridgamesnl.com/",
     "ticketUrl": "",
-    "workout": "https://hybridgamesnl.com/#de-race",
-    "weights": "",
-    "contactEmail": "info@hybridgamesnl.com",
-    "country": "NL"
+    "workoutWeights": "https://hybridgamesnl.com/#de-race",
+    "contactEmail": "info@hybridgamesnl.com"
   },
   {
     "id": "harbour-run-2026",
+    "image": "https://images.unsplash.com/photo-1576678927484-cc907957088c?w=800&h=800&fit=crop",
     "eventname": "Harbour Run",
     "localgym": "No",
     "organizationgym": "Harbour Run",
     "startdate": "2026-10-04",
     "enddate": "",
     "location": "RDM Onderzeebootloods, Rotterdam",
+    "country": "NL",
     "coordinates": {
       "lat": 51.8989135,
       "lng": 4.419451
@@ -1164,13 +1133,111 @@
     "indooroutdoor": "Outdoor",
     "hyroxworkout": "No",
     "description": "Rotterdam Havenstad! Ontdek het op 4 oktober 2026 tijdens de 13e editie van de Harbour Run Rotterdam. Ren tussen en klim over de grote containers als een echte havenarbeider. Haal je klauwen maar uit de mouwen, want het parcours heeft verschillende obstakels die je moet overwinnen. Gaan jullie samen de uitdaging aan?",
-    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop",
     "instagram": "@harbourrunnl",
     "website": "https://harbourrun.nl/",
     "ticketUrl": "https://harbourrun.nl/",
-    "workout": "",
-    "weights": "",
-    "contactEmail": "info@harbourrun.nl",
-    "country": "NL"
+    "workoutWeights": "",
+    "contactEmail": "info@harbourrun.nl"
+  },
+  {
+    "id": "riddersterk-2025",
+    "image": "https://images.unsplash.com/photo-1590487988256-9ed24133863e?w=800&h=800&fit=crop",
+    "eventname": "RidderSterk",
+    "localgym": "no",
+    "organizationgym": "RidderSterk",
+    "startdate": "2025-10-25",
+    "enddate": "2025-10-26",
+    "location": "Sportpark Reijerpark, Ridderkerk",
+    "country": "The Netherlands",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "typerace": [
+      "Solo",
+      "Duo / Buddy"
+    ],
+    "divisions": [
+      "Open / Regular"
+    ],
+    "ticketpricelow": "49",
+    "ticketpricehigh": "",
+    "fitnessobstacle": "Fitness",
+    "indooroutdoor": "Indoor & Outdoor",
+    "hyroxworkout": "Yes",
+    "description": "RidderSterk is dé lokale fitrace | HYROX Simulatie van Ridderkerk met 8 rondes van 1 kilometer hardlopen afgewisseld met functionele oefeningen.\r\n\r\nEen uitdagende combinatie van kracht, conditie en karakter. Voor sporters, doorzetters en iedereen die zichzelf echt wil testen.\r\n\r\nSolo. Duo. Kids. Bedrijven. Iedereen doet mee.\r\nOp z’n eigen manier. Met power.",
+    "instagram": "https://instagram.com/riddersterk.fitrace",
+    "website": "https://www.riddersterk.nl/",
+    "ticketUrl": "https://www.riddersterk.nl/tickets/",
+    "workoutWeights": "https://www.riddersterk.nl/#het-event",
+    "contactEmail": "info@riddersterk.nl"
+  },
+  {
+    "id": "riddersterk-2026",
+    "image": "https://images.unsplash.com/photo-1623874106121-3a39b18e2c79?w=800&h=800&fit=crop",
+    "eventname": "RidderSterk",
+    "localgym": "no",
+    "organizationgym": "RidderSterk",
+    "startdate": "2026-05-01",
+    "enddate": "2026-05-03",
+    "location": "Sportpark Reijerpark, Ridderkerk",
+    "country": "The Netherlands",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "typerace": [
+      "Solo",
+      "Duo / Buddy"
+    ],
+    "divisions": [
+      "Open / Regular"
+    ],
+    "ticketpricelow": "49",
+    "ticketpricehigh": "58",
+    "fitnessobstacle": "Fitness",
+    "indooroutdoor": "Indoor & Outdoor",
+    "hyroxworkout": "Yes",
+    "description": "RidderSterk is dé lokale fitrace | HYROX Simulatie van Ridderkerk met 8 rondes van 1 kilometer hardlopen afgewisseld met functionele oefeningen.\r\n\r\nEen uitdagende combinatie van kracht, conditie en karakter. Voor sporters, doorzetters en iedereen die zichzelf echt wil testen.\r\n\r\nSolo. Duo. Kids. Bedrijven. Iedereen doet mee.\r\nOp z’n eigen manier. Met power.",
+    "instagram": "https://instagram.com/riddersterk.fitrace",
+    "website": "https://www.riddersterk.nl/",
+    "ticketUrl": "https://www.riddersterk.nl/tickets/",
+    "workoutWeights": "https://www.riddersterk.nl/#het-event",
+    "contactEmail": "info@riddersterk.nl"
+  },
+  {
+    "id": "protocol-series-rosmalen-2026",
+    "image": "https://images.unsplash.com/photo-1596357395217-80de13130e92?w=800&h=800&fit=crop",
+    "eventname": "Protocol Series Rosmalen",
+    "localgym": "no",
+    "organizationgym": "Protocol Series",
+    "startdate": "2026-01-24",
+    "enddate": "",
+    "location": "Autotron, Rosmalen",
+    "country": "The Netherlands",
+    "coordinates": {
+      "lat": 51.7125755,
+      "lng": 5.4137464
+    },
+    "typerace": [
+      "Solo",
+      "Duo / Buddy",
+      "Other"
+    ],
+    "divisions": [
+      "Open / Regular",
+      "Pro / Heavy"
+    ],
+    "ticketpricelow": "75",
+    "ticketpricehigh": "90",
+    "fitnessobstacle": "Fitness",
+    "indooroutdoor": "Indoor",
+    "hyroxworkout": "No",
+    "description": "Welkom bij het begin van een nieuwe standaard in functionele racing. Protocol 2026 is rauw, intens en ontworpen om alles van je te vragen.\r\n\r\nVijf zones, meerdere workouts, maar één doel: jezelf overtreffen. De exacte invulling blijft geheim tot een maand voor de race, maar geloof ons: het zit logisch in elkaar.\r\n\r\nTrain op alles. Vertrouw op niets.",
+    "instagram": "https://www.instagram.com/protocolseries",
+    "website": "https://www.protocolseries.nl/",
+    "ticketUrl": "https://www.protocolseries.nl/events/protocol-2026",
+    "workoutWeights": "https://www.protocolseries.nl/de-race",
+    "contactEmail": "info@protocolseries.nl"
   }
 ]

@@ -22,8 +22,7 @@ export interface RaceEvent {
   instagram: string
   website: string
   ticketUrl: string
-  workout: string
-  weights: string
+  workoutWeights: string
   contactEmail: string
   country: string
 }

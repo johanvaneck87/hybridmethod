@@ -330,20 +330,20 @@ export function EventMap({ events, highlightedEventId, selectedEventId, onEventC
                   {/* Event details - always starts at same position */}
                   <div className="flex-1 flex flex-col justify-between">
                     <div className="space-y-1 text-white mb-3">
-                      <p className="flex items-center gap-2 text-base md:text-sm">
+                      <p className="flex items-center gap-2 text-sm md:text-sm">
                         <span>📅</span>
                         <span>{selectedEvent.enddate ? formatDateRange(selectedEvent.startdate, selectedEvent.enddate) : formatDate(selectedEvent.startdate)}</span>
                       </p>
-                      <p className="flex items-center gap-2 text-base md:text-sm">
+                      <p className="flex items-center gap-2 text-sm md:text-sm">
                         <span>📍</span>
                         <span>{selectedEvent.location}</span>
                       </p>
-                      <p className="flex items-center gap-2 text-base md:text-sm">
+                      <p className="flex items-center gap-2 text-sm md:text-sm">
                         <span>🏃‍♂️</span>
                         <span className="capitalize">{selectedEvent.typerace.join(', ')}</span>
                       </p>
                       {selectedEvent.organizationgym && (
-                        <p className="flex items-center gap-2 text-base md:text-sm">
+                        <p className="flex items-center gap-2 text-sm md:text-sm">
                           <span>🏢</span>
                           <span>{selectedEvent.organizationgym}</span>
                         </p>

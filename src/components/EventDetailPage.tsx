@@ -209,9 +209,9 @@ export function EventDetailPage({ eventId }: EventDetailPageProps) {
                       </p>
                     </a>
                   )}
-                {(event.workout || event.weights) && (
+                {event.workoutWeights && (
                   <a
-                    href={event.workout || event.weights}
+                    href={event.workoutWeights}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-3 hover:border-[#D94800] transition-colors duration-200 group"

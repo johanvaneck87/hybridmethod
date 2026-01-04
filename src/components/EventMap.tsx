@@ -24,24 +24,23 @@ export function EventMap({ events, highlightedEventId, selectedEventId, onEventC
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
-    return date.toLocaleDateString('en-US', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
-    })
+    const month = date.toLocaleDateString('en-US', { month: 'long' })
+    const day = date.toLocaleDateString('en-US', { day: 'numeric' })
+    const year = date.toLocaleDateString('en-US', { year: 'numeric' })
+    return `${month} ${day}, ${year}`
   }
 
   const formatDateRange = (startDateString: string, endDateString: string) => {
     const startDate = new Date(startDateString)
     const endDate = new Date(endDateString)
 
-    const startDay = startDate.toLocaleDateString('en-US', { day: 'numeric' })
     const startMonth = startDate.toLocaleDateString('en-US', { month: 'long' })
-    const endDay = endDate.toLocaleDateString('en-US', { day: 'numeric' })
+    const startDay = startDate.toLocaleDateString('en-US', { day: 'numeric' })
     const endMonth = endDate.toLocaleDateString('en-US', { month: 'long' })
+    const endDay = endDate.toLocaleDateString('en-US', { day: 'numeric' })
     const year = endDate.toLocaleDateString('en-US', { year: 'numeric' })
 
-    return `${startDay} ${startMonth} - ${endDay} ${endMonth} ${year}`
+    return `${startMonth} ${startDay} - ${endMonth} ${endDay}, ${year}`
   }
 
   useEffect(() => {
@@ -350,7 +349,7 @@ export function EventMap({ events, highlightedEventId, selectedEventId, onEventC
                       )}
                     </div>
 
-                    <div className="inline-block bg-[#D94800] text-black font-semibold px-6 py-2 rounded tracking-[0.15em] text-lg md:text-base text-center">
+                    <div className="inline-block bg-[#D94800] text-black font-semibold px-6 py-2 rounded tracking-[0.15em] text-base md:text-base text-center">
                       Event information
                     </div>
                   </div>

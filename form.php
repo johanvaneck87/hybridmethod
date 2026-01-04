@@ -43,24 +43,44 @@ function generateEventId($eventName, $startDate) {
     return $slug . '-' . $year;
 }
 
-// Function to geocode location
-function geocodeLocation($location) {
-    $location = urlencode($location);
-    $url = "https://nominatim.openstreetmap.org/search?format=json&q={$location}&limit=1";
+// Function to geocode location with enhanced retry logic
+function geocodeLocation($location, $country = '') {
+    // Add country to search query if provided
+    $searchQuery = trim($location);
+    if (!empty($country)) {
+        $searchQuery .= ', ' . $country;
+    } else {
+        // Default to Netherlands if no country specified
+        $searchQuery .= ', Netherlands';
+    }
+
+    $encodedLocation = urlencode($searchQuery);
+    $url = "https://nominatim.openstreetmap.org/search?format=json&q={$encodedLocation}&limit=5&addressdetails=1";
 
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_USERAGENT, 'HybridRaces/1.0');
-    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 15); // Increased timeout
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
 
     $response = curl_exec($ch);
     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $curlError = curl_error($ch);
     curl_close($ch);
+
+    // Log errors for debugging
+    if ($httpCode !== 200) {
+        error_log("Geocoding failed for '{$searchQuery}': HTTP {$httpCode}, Error: {$curlError}");
+    }
 
     if ($httpCode === 200 && $response) {
         $data = json_decode($response, true);
         if (!empty($data) && isset($data[0]['lat']) && isset($data[0]['lon'])) {
+            // Rate limiting: sleep for 1 second to respect Nominatim usage policy
+            sleep(1);
+
             return [
                 'lat' => (float)$data[0]['lat'],
                 'lng' => (float)$data[0]['lon']
@@ -193,6 +213,9 @@ if (empty($name) || empty($location)) {
 // Generate event ID from name and start date
 $eventId = generateEventId($name, $startDate);
 
+// Get country early for geocoding
+$country = isset($_POST['country']) ? trim($_POST['country']) : '';
+
 // Handle image upload or auto-assign Unsplash image
 $imageResult = null;
 $imageUrl = '';
@@ -213,10 +236,11 @@ if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
     $imageUrl = getAutoPlaceholderImage();
 }
 
-// Geocode location to get coordinates
-$coordinates = geocodeLocation($location);
+// Geocode location to get coordinates (pass country for better accuracy)
+$coordinates = geocodeLocation($location, $country);
 if (!$coordinates) {
-    // If geocoding fails, use default coordinates (will show in ocean)
+    // If geocoding fails, log warning and use default coordinates
+    error_log("WARNING: Geocoding failed for location '{$location}', country '{$country}'. Using default coordinates [0,0].");
     $coordinates = ['lat' => 0, 'lng' => 0];
 }
 
@@ -224,7 +248,6 @@ if (!$coordinates) {
 $localGym = isset($_POST['localGym']) ? trim($_POST['localGym']) : '';
 $organizationGym = isset($_POST['gym']) ? trim($_POST['gym']) : (isset($_POST['organization']) ? trim($_POST['organization']) : '');
 $endDate = isset($_POST['endDate']) ? trim($_POST['endDate']) : '';
-$country = isset($_POST['country']) ? trim($_POST['country']) : '';
 $priceMin = isset($_POST['priceMin']) ? trim($_POST['priceMin']) : '';
 $priceMax = isset($_POST['priceMax']) ? trim($_POST['priceMax']) : '';
 $eventType = isset($_POST['eventType']) ? trim($_POST['eventType']) : '';

@@ -561,6 +561,29 @@ export function FindARacePage() {
     return filtered
   }, [events, filterType, onlyUpcomingEvents, locationSearch, distanceKm, searchCoordinates, hyroxOnly, organisation, month, year, division, venue, newestFirst])
 
+  const getCountryFlag = (countryCode: string) => {
+    const code = countryCode.toUpperCase()
+    // Handle full country names
+    if (code === 'THE NETHERLANDS' || code === 'NETHERLANDS') return '🇳🇱'
+    if (code === 'UNITED KINGDOM' || code === 'UK') return '🇬🇧'
+    if (code === 'GERMANY') return '🇩🇪'
+
+    // Handle ISO codes
+    const flags: Record<string, string> = {
+      'NL': '🇳🇱',
+      'GB': '🇬🇧',
+      'DE': '🇩🇪',
+      'BE': '🇧🇪',
+      'FR': '🇫🇷',
+      'ES': '🇪🇸',
+      'IT': '🇮🇹',
+      'US': '🇺🇸',
+      'CA': '🇨🇦',
+      'AU': '🇦🇺'
+    }
+    return flags[code] || '🌍'
+  }
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
     const month = date.toLocaleDateString('en-US', { month: 'long' })
@@ -1212,7 +1235,7 @@ export function FindARacePage() {
                       <span>{event.enddate ? formatDateRange(event.startdate, event.enddate) : formatDate(event.startdate)}</span>
                     </p>
                     <p className="flex items-center gap-2 text-base md:text-sm">
-                      <span>📍</span>
+                      <span>{getCountryFlag(event.country)}</span>
                       <span>{event.location}</span>
                     </p>
                     <p className="flex items-center gap-2 text-base md:text-sm">

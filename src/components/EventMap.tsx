@@ -22,6 +22,29 @@ export function EventMap({ events, highlightedEventId, selectedEventId, onEventC
   // Helper to get selected event
   const selectedEvent = selectedEvents.length > 0 ? selectedEvents[currentEventIndex] : null
 
+  const getCountryFlag = (countryCode: string) => {
+    const code = countryCode.toUpperCase()
+    // Handle full country names
+    if (code === 'THE NETHERLANDS' || code === 'NETHERLANDS') return '🇳🇱'
+    if (code === 'UNITED KINGDOM' || code === 'UK') return '🇬🇧'
+    if (code === 'GERMANY') return '🇩🇪'
+
+    // Handle ISO codes
+    const flags: Record<string, string> = {
+      'NL': '🇳🇱',
+      'GB': '🇬🇧',
+      'DE': '🇩🇪',
+      'BE': '🇧🇪',
+      'FR': '🇫🇷',
+      'ES': '🇪🇸',
+      'IT': '🇮🇹',
+      'US': '🇺🇸',
+      'CA': '🇨🇦',
+      'AU': '🇦🇺'
+    }
+    return flags[code] || '🌍'
+  }
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
     const month = date.toLocaleDateString('en-US', { month: 'long' })
@@ -334,7 +357,7 @@ export function EventMap({ events, highlightedEventId, selectedEventId, onEventC
                         <span>{selectedEvent.enddate ? formatDateRange(selectedEvent.startdate, selectedEvent.enddate) : formatDate(selectedEvent.startdate)}</span>
                       </p>
                       <p className="flex items-center gap-2 text-sm md:text-sm">
-                        <span>📍</span>
+                        <span>{getCountryFlag(selectedEvent.country)}</span>
                         <span>{selectedEvent.location}</span>
                       </p>
                       <p className="flex items-center gap-2 text-sm md:text-sm">

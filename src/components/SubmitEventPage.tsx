@@ -232,7 +232,7 @@ export function SubmitEventPage() {
                       name="startDate"
                       required
                       className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
-                      style={{ colorScheme: 'dark' }}
+                      style={{ colorScheme: 'dark', maxWidth: '100%' }}
                     />
                   </div>
                   <div>
@@ -245,7 +245,7 @@ export function SubmitEventPage() {
                       name="endDate"
                       required
                       className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
-                      style={{ colorScheme: 'dark' }}
+                      style={{ colorScheme: 'dark', maxWidth: '100%' }}
                     />
                   </div>
                 </div>
@@ -260,7 +260,7 @@ export function SubmitEventPage() {
                     name="eventDate"
                     required
                     className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
-                    style={{ colorScheme: 'dark' }}
+                    style={{ colorScheme: 'dark', maxWidth: '100%' }}
                   />
                 </div>
               )
@@ -395,7 +395,7 @@ export function SubmitEventPage() {
             {/* Ticket Price */}
             <div>
               <label className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
-                Ticket Price
+                Ticket Price *
               </label>
               <div className="space-y-3">
                 {/* Price Type Selection */}
@@ -413,6 +413,7 @@ export function SubmitEventPage() {
                         checked={priceType === option.value}
                         onChange={(e) => setPriceType(e.currentTarget.value as 'single' | 'range' | 'soldout')}
                         className="w-4 h-4 cursor-pointer accent-[#D94800]"
+                        required
                       />
                       <span className="text-white">{option.label}</span>
                     </label>

@@ -28,6 +28,29 @@ export function EventDetailPage({ eventId }: EventDetailPageProps) {
     return `${month} ${day}, ${year}`
   }
 
+  const getCountryFlag = (countryCode: string) => {
+    const code = countryCode.toUpperCase()
+    // Handle full country names
+    if (code === 'THE NETHERLANDS' || code === 'NETHERLANDS') return '🇳🇱'
+    if (code === 'UNITED KINGDOM' || code === 'UK') return '🇬🇧'
+    if (code === 'GERMANY') return '🇩🇪'
+
+    // Handle ISO codes
+    const flags: Record<string, string> = {
+      'NL': '🇳🇱',
+      'GB': '🇬🇧',
+      'DE': '🇩🇪',
+      'BE': '🇧🇪',
+      'FR': '🇫🇷',
+      'ES': '🇪🇸',
+      'IT': '🇮🇹',
+      'US': '🇺🇸',
+      'CA': '🇨🇦',
+      'AU': '🇦🇺'
+    }
+    return flags[code] || '🌍'
+  }
+
   const formatDateRange = (startDateString: string, endDateString: string) => {
     const startDate = new Date(startDateString)
     const endDate = new Date(endDateString)
@@ -67,7 +90,7 @@ export function EventDetailPage({ eventId }: EventDetailPageProps) {
                 <span>{event.enddate ? formatDateRange(event.startdate, event.enddate) : formatDate(event.startdate)}</span>
               </span>
               <span className="flex items-center gap-1.5 md:gap-2">
-                <span className="flex-shrink-0">📍</span>
+                <span className="flex-shrink-0">{getCountryFlag(event.country)}</span>
                 <span>{event.location}</span>
               </span>
               <span className="flex items-center gap-1.5 md:gap-2">
@@ -126,7 +149,7 @@ export function EventDetailPage({ eventId }: EventDetailPageProps) {
                     </div>
                   )}
                   <div className="bg-gray-900/60 backdrop-blur-sm border border-white/20 rounded-lg p-3">
-                    <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">Ticket Price Range</p>
+                    <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">Ticket Price (range)</p>
                     <p className="text-base text-white font-medium">
                       {(() => {
                         // Check if value is a number (supports both comma and dot decimals)
@@ -135,10 +158,10 @@ export function EventDetailPage({ eventId }: EventDetailPageProps) {
 
                         if (event.ticketpricehigh && isLowNumber && isHighNumber) {
                           return `€${event.ticketpricelow} - €${event.ticketpricehigh}`
-                        } else if (isLowNumber) {
+                        } else if (event.ticketpricelow && isLowNumber) {
                           return `€${event.ticketpricelow}`
                         } else {
-                          return event.ticketpricelow
+                          return event.ticketpricelow || '-'
                         }
                       })()}
                     </p>
@@ -217,9 +240,9 @@ export function EventDetailPage({ eventId }: EventDetailPageProps) {
                   >
                     <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">Workout & Weights Guide</p>
                     <p className="text-sm text-white font-medium group-hover:text-[#D94800] transition-colors flex items-center gap-2">
-                      Visit Website
+                      View workout & weights
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                       </svg>
                     </p>
                   </a>

@@ -1,5 +1,6 @@
 import eventsData from '../data/events.json'
-import type { RaceEvent as Event } from '../types/Event'
+import type { RaceEvent as Event} from '../types/Event'
+import { CountryFlag } from './CountryFlag'
 
 interface EventDetailPageProps {
   eventId: string
@@ -26,29 +27,6 @@ export function EventDetailPage({ eventId }: EventDetailPageProps) {
     const day = date.toLocaleDateString('en-US', { day: 'numeric' })
     const year = date.toLocaleDateString('en-US', { year: 'numeric' })
     return `${month} ${day}, ${year}`
-  }
-
-  const getCountryFlag = (countryCode: string) => {
-    const code = countryCode.toUpperCase()
-    // Handle full country names
-    if (code === 'THE NETHERLANDS' || code === 'NETHERLANDS') return '🇳🇱'
-    if (code === 'UNITED KINGDOM' || code === 'UK') return '🇬🇧'
-    if (code === 'GERMANY') return '🇩🇪'
-
-    // Handle ISO codes
-    const flags: Record<string, string> = {
-      'NL': '🇳🇱',
-      'GB': '🇬🇧',
-      'DE': '🇩🇪',
-      'BE': '🇧🇪',
-      'FR': '🇫🇷',
-      'ES': '🇪🇸',
-      'IT': '🇮🇹',
-      'US': '🇺🇸',
-      'CA': '🇨🇦',
-      'AU': '🇦🇺'
-    }
-    return flags[code] || '🌍'
   }
 
   const formatDateRange = (startDateString: string, endDateString: string) => {
@@ -85,9 +63,9 @@ export function EventDetailPage({ eventId }: EventDetailPageProps) {
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white uppercase tracking-wide leading-tight">
                 {event.eventname}
               </h1>
-              <span className="text-3xl md:text-5xl border-2 border-white/30 rounded px-2 py-1 flex-shrink-0">
-                {getCountryFlag(event.country)}
-              </span>
+              <div className="flex-shrink-0">
+                <CountryFlag country={event.country} size="large" />
+              </div>
             </div>
             <div className="flex flex-col md:flex-row md:flex-wrap gap-2 md:gap-4 text-base md:text-xl text-white">
               <span className="flex items-center gap-1.5 md:gap-2">

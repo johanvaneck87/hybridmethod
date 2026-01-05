@@ -3,6 +3,7 @@ import backgroundImage from '../picture/Mainpage.jpg'
 import eventsData from '../data/events.json'
 import { EventMap } from './EventMap'
 import { navigate } from '../router'
+import { CountryFlag } from './CountryFlag'
 import type { RaceEvent as Event } from '../types/Event'
 
 type FilterType = 'all' | 'solo' | 'duo' | 'relay' | 'team' | 'other'
@@ -560,29 +561,6 @@ export function FindARacePage() {
 
     return filtered
   }, [events, filterType, onlyUpcomingEvents, locationSearch, distanceKm, searchCoordinates, hyroxOnly, organisation, month, year, division, venue, newestFirst])
-
-  const getCountryFlag = (countryCode: string) => {
-    const code = countryCode.toUpperCase()
-    // Handle full country names
-    if (code === 'THE NETHERLANDS' || code === 'NETHERLANDS') return '🇳🇱'
-    if (code === 'UNITED KINGDOM' || code === 'UK') return '🇬🇧'
-    if (code === 'GERMANY') return '🇩🇪'
-
-    // Handle ISO codes
-    const flags: Record<string, string> = {
-      'NL': '🇳🇱',
-      'GB': '🇬🇧',
-      'DE': '🇩🇪',
-      'BE': '🇧🇪',
-      'FR': '🇫🇷',
-      'ES': '🇪🇸',
-      'IT': '🇮🇹',
-      'US': '🇺🇸',
-      'CA': '🇨🇦',
-      'AU': '🇦🇺'
-    }
-    return flags[code] || '🌍'
-  }
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
@@ -1219,10 +1197,8 @@ export function FindARacePage() {
               </div>
 
               {/* Country Flag - Top Right */}
-              <div className="absolute top-4 right-4 z-10">
-                <span className="text-2xl md:text-3xl border-2 border-white/30 rounded px-2 py-1 bg-black/40 backdrop-blur-sm">
-                  {getCountryFlag(event.country)}
-                </span>
+              <div className="absolute top-4 right-4 z-10 bg-black/40 backdrop-blur-sm rounded p-1">
+                <CountryFlag country={event.country} size="medium" />
               </div>
 
               {/* Content */}

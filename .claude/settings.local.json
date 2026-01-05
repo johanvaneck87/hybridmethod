@@ -34,7 +34,8 @@
       "Bash(node fix-instagram-format.cjs:*)",
       "Bash(git remote set-url:*)",
       "Bash(node translate-descriptions.cjs)",
-      "Bash(node translate-all-descriptions.cjs:*)"
+      "Bash(node translate-all-descriptions.cjs:*)",
+      "Bash(node fix-country-codes.cjs:*)"
     ],
     "deny": [],
     "ask": []

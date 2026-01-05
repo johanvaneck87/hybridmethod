@@ -289,17 +289,24 @@ export function SubmitEventPage() {
               <label htmlFor="country" className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
                 Country *
               </label>
-              <input
-                type="text"
+              <select
                 id="country"
                 name="country"
                 required
-                autoComplete="off"
-                data-lpignore="true"
-                data-form-type="other"
                 className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
-                placeholder="e.g. Netherlands"
-              />
+              >
+                <option value="">Select country</option>
+                <option value="NL">🇳🇱 Netherlands</option>
+                <option value="GB">🇬🇧 United Kingdom</option>
+                <option value="DE">🇩🇪 Germany</option>
+                <option value="BE">🇧🇪 Belgium</option>
+                <option value="FR">🇫🇷 France</option>
+                <option value="ES">🇪🇸 Spain</option>
+                <option value="IT">🇮🇹 Italy</option>
+                <option value="US">🇺🇸 United States</option>
+                <option value="CA">🇨🇦 Canada</option>
+                <option value="AU">🇦🇺 Australia</option>
+              </select>
             </div>
 
             {/* Local Gym */}

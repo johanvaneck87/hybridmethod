@@ -1148,7 +1148,7 @@
     "startdate": "2025-10-25",
     "enddate": "2025-10-26",
     "location": "Sportpark Reijerpark, Ridderkerk",
-    "country": "The Netherlands",
+    "country": "NL",
     "coordinates": {
       "lat": 51.8725,
       "lng": 4.6044
@@ -1181,7 +1181,7 @@
     "startdate": "2026-05-01",
     "enddate": "2026-05-03",
     "location": "Sportpark Reijerpark, Ridderkerk",
-    "country": "The Netherlands",
+    "country": "NL",
     "coordinates": {
       "lat": 51.8725,
       "lng": 4.6044
@@ -1214,7 +1214,7 @@
     "startdate": "2026-01-24",
     "enddate": "",
     "location": "Autotron, Rosmalen",
-    "country": "The Netherlands",
+    "country": "NL",
     "coordinates": {
       "lat": 51.7125755,
       "lng": 5.4137464
@@ -1249,7 +1249,7 @@
     "startdate": "2026-01-01",
     "enddate": "",
     "location": "Oude Kerk, Delft",
-    "country": "The Netherlands",
+    "country": "NL",
     "coordinates": {
       "lat": 52.0125957,
       "lng": 4.355906

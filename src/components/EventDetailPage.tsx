@@ -81,16 +81,21 @@ export function EventDetailPage({ eventId }: EventDetailPageProps) {
         {/* Event Title Overlay - Scrolls with content */}
         <div className="-mt-[50vh] md:-mt-[60vh] h-[50vh] md:h-[60vh] min-h-[300px] md:min-h-[400px] flex items-end">
           <div className="max-w-7xl mx-auto px-6 pb-8 md:pb-12 w-full">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white uppercase tracking-wide mb-3 md:mb-4 leading-tight">
-              {event.eventname}
-            </h1>
+            <div className="flex items-center gap-3 mb-3 md:mb-4">
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white uppercase tracking-wide leading-tight">
+                {event.eventname}
+              </h1>
+              <span className="text-3xl md:text-5xl border-2 border-white/30 rounded px-2 py-1 flex-shrink-0">
+                {getCountryFlag(event.country)}
+              </span>
+            </div>
             <div className="flex flex-col md:flex-row md:flex-wrap gap-2 md:gap-4 text-base md:text-xl text-white">
               <span className="flex items-center gap-1.5 md:gap-2">
                 <span className="flex-shrink-0">📅</span>
                 <span>{event.enddate ? formatDateRange(event.startdate, event.enddate) : formatDate(event.startdate)}</span>
               </span>
               <span className="flex items-center gap-1.5 md:gap-2">
-                <span className="flex-shrink-0">{getCountryFlag(event.country)}</span>
+                <span className="flex-shrink-0">📍</span>
                 <span>{event.location}</span>
               </span>
               <span className="flex items-center gap-1.5 md:gap-2">

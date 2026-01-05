@@ -1218,6 +1218,13 @@ export function FindARacePage() {
                 <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/70 to-black/90"></div>
               </div>
 
+              {/* Country Flag - Top Right */}
+              <div className="absolute top-4 right-4 z-10">
+                <span className="text-2xl md:text-3xl border-2 border-white/30 rounded px-2 py-1 bg-black/40 backdrop-blur-sm">
+                  {getCountryFlag(event.country)}
+                </span>
+              </div>
+
               {/* Content */}
               <div className="relative h-full flex flex-col p-6">
                 {/* Event name - fixed height for 2 lines */}
@@ -1235,7 +1242,7 @@ export function FindARacePage() {
                       <span>{event.enddate ? formatDateRange(event.startdate, event.enddate) : formatDate(event.startdate)}</span>
                     </p>
                     <p className="flex items-center gap-2 text-base md:text-sm">
-                      <span>{getCountryFlag(event.country)}</span>
+                      <span>📍</span>
                       <span>{event.location}</span>
                     </p>
                     <p className="flex items-center gap-2 text-base md:text-sm">

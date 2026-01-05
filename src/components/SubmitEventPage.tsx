@@ -535,7 +535,7 @@ export function SubmitEventPage() {
             {/* About this event */}
             <div>
               <label htmlFor="description" className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
-                About this event *
+                About this event (in English) *
               </label>
               <textarea
                 id="description"
@@ -546,7 +546,7 @@ export function SubmitEventPage() {
                 data-gramm_editor="false"
                 data-enable-grammarly="false"
                 className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
-                placeholder="Provide a brief description of the event..."
+                placeholder="Provide a brief description of the event in English..."
               />
             </div>
 

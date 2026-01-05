@@ -33,7 +33,8 @@
       "Bash(node update-event-images.cjs:*)",
       "Bash(node fix-instagram-format.cjs:*)",
       "Bash(git remote set-url:*)",
-      "Bash(node translate-descriptions.cjs)"
+      "Bash(node translate-descriptions.cjs)",
+      "Bash(node translate-all-descriptions.cjs:*)"
     ],
     "deny": [],
     "ask": []

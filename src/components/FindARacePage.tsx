@@ -1197,7 +1197,7 @@ export function FindARacePage() {
               </div>
 
               {/* Country Flag - Top Right */}
-              <div className="absolute top-4 right-4 z-10 bg-black/40 backdrop-blur-sm rounded p-1">
+              <div className="absolute top-4 right-4 z-10">
                 <CountryFlag country={event.country} size="medium" />
               </div>
 

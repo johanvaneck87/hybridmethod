@@ -62,17 +62,21 @@ function sendEventEmail($eventData, $jsonCode) {
 
     $body .= "Coordinates: " . $eventData['coordinates']['lat'] . ", " . $eventData['coordinates']['lng'] . "\n";
     $body .= "\n================\n\n";
-    $body .= "JSON Code (ready to paste into events.json):\n";
-    $body .= "Copy everything between the lines below:\n\n";
-    $body .= "----------------\n";
-    $body .= $jsonCode . "\n";
-    $body .= "----------------\n\n";
-    $body .= "To add this event to the website:\n";
-    $body .= "1. Copy the JSON code above (everything between the dashes)\n";
-    $body .= "2. Open src/data/events.json\n";
-    $body .= "3. Add a comma after the last event in the array\n";
-    $body .= "4. Paste the JSON object\n";
-    $body .= "5. Save, commit and push the changes\n";
+    $body .= "JSON CODE - READY TO COPY TO events.json:\n";
+    $body .= "==========================================\n\n";
+    $body .= $jsonCode;
+    $body .= "\n\n==========================================\n\n";
+    $body .= "INSTRUCTIONS TO ADD THIS EVENT:\n";
+    $body .= "1. Copy the JSON object above (the entire { ... } block)\n";
+    $body .= "2. Open src/data/events.json in your editor\n";
+    $body .= "3. Go to the end of the file, find the last event's closing }\n";
+    $body .= "4. Add a comma after that }\n";
+    $body .= "5. Paste the JSON object on a new line\n";
+    $body .= "6. Save the file\n";
+    $body .= "7. Run: git add src/data/events.json\n";
+    $body .= "8. Run: git commit -m \"Add new event: " . $eventData['eventname'] . "\"\n";
+    $body .= "9. Run: git push\n";
+    $body .= "10. Deploy to production\n";
 
     // Email headers
     $headers = [];

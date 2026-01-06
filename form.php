@@ -335,9 +335,23 @@ $jsonCode = json_encode($eventData, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 
 // Log the submission data to a file for backup
 $logFile = __DIR__ . '/submissions.log';
-$logEntry = date('Y-m-d H:i:s') . " - New submission: " . $eventId . "\n";
-$logEntry .= json_encode($eventData, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n";
-$logEntry .= "---\n\n";
+$logEntry = "================================================================================\n";
+$logEntry .= "NEW EVENT SUBMISSION\n";
+$logEntry .= "Date: " . date('Y-m-d H:i:s') . "\n";
+$logEntry .= "Event ID: " . $eventId . "\n";
+$logEntry .= "Event Name: " . $eventData['eventname'] . "\n";
+$logEntry .= "================================================================================\n\n";
+$logEntry .= "JSON CODE (Ready to copy to events.json):\n";
+$logEntry .= "----------------------------------------\n";
+$logEntry .= $jsonCode . "\n";
+$logEntry .= "----------------------------------------\n\n";
+$logEntry .= "INSTRUCTIONS:\n";
+$logEntry .= "1. Copy the JSON object above\n";
+$logEntry .= "2. Open src/data/events.json\n";
+$logEntry .= "3. Add a comma after the last event\n";
+$logEntry .= "4. Paste this JSON object\n";
+$logEntry .= "5. Save, commit and push\n\n";
+$logEntry .= "================================================================================\n\n";
 file_put_contents($logFile, $logEntry, FILE_APPEND);
 
 // Try to send email, but don't fail if it doesn't work
@@ -349,10 +363,23 @@ try {
     $emailSent = $emailResult['success'];
     if (!$emailSent) {
         $emailError = $emailResult['error'];
-        error_log("Email sending failed: " . $emailError);
+        error_log("=== EMAIL SEND FAILED ===");
+        error_log("Event: " . $eventData['eventname']);
+        error_log("Error: " . $emailError);
+        error_log("Check submissions.log for the JSON code");
+        error_log("========================");
+    } else {
+        error_log("=== EMAIL SENT SUCCESSFULLY ===");
+        error_log("Event: " . $eventData['eventname']);
+        error_log("Sent to: hybridraces@gmail.com");
+        error_log("==============================");
     }
 } catch (Exception $e) {
-    error_log("Email exception: " . $e->getMessage());
+    error_log("=== EMAIL EXCEPTION ===");
+    error_log("Event: " . $eventData['eventname']);
+    error_log("Exception: " . $e->getMessage());
+    error_log("Check submissions.log for the JSON code");
+    error_log("======================");
     $emailError = $e->getMessage();
 }
 

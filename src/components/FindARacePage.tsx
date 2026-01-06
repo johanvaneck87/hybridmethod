@@ -586,14 +586,14 @@ export function FindARacePage() {
   return (
     <div className="bg-black">
       {/* Hero Section - Fixed below header, 26.25vh height (5% bigger) - Hidden on mobile */}
-      <div className="hidden md:block sticky top-0 pt-16" style={{ height: 'calc(30.25vh + 64px)' }}>
-        <div className="h-full">
+      <div className="hidden md:block sticky top-0 pt-16" style={{ height: 'calc(40vh + 64px)' }}>
+        <div className="h-full" style={{ height: '115%' }}>
           <div className="max-w-7xl mx-auto px-6 h-full">
-            <div className="flex h-full">
+            <div className="flex h-full items-start">
               {/* Left side - Image */}
               <div className="w-1/2 relative h-full">
                 <div
-                  className="w-full h-full bg-cover bg-center bg-no-repeat rounded-lg"
+                  className="w-full h-full bg-cover bg-left bg-no-repeat rounded-lg"
                   style={{ backgroundImage: `url(${backgroundImage})` }}
                 >
                   {/* Dark overlay with gradient to blend into right side */}
@@ -602,7 +602,7 @@ export function FindARacePage() {
               </div>
 
               {/* Right side - Text box */}
-              <div className="w-1/2 bg-black flex items-center justify-end pl-12">
+              <div className="w-1/2 bg-black flex items-start justify-end pl-12">
                 <div className="bg-[#D94800] w-full max-w-[28.8rem] flex items-center justify-center" style={{ aspectRatio: '1.6', padding: 'clamp(1.5rem, 3vw, 3rem) clamp(1rem, 2.5vw, 2.5rem)' }}>
                   <h2 className="text-black font-semibold uppercase tracking-wide" style={{ fontSize: 'clamp(2rem, 3.5vw, 3.125rem)', lineHeight: '1.15' }}>
                     FIND YOUR
@@ -1197,15 +1197,15 @@ export function FindARacePage() {
               </div>
 
               {/* Country Flag - Top Right */}
-              <div className="absolute top-4 right-4 z-10">
-                <CountryFlag country={event.country} size="medium" />
+              <div className="absolute top-1 right-1 z-10">
+                <CountryFlag country={event.country} size="small" />
               </div>
 
               {/* Content */}
               <div className="relative h-full flex flex-col p-6">
-                {/* Event name - fixed height for 2 lines */}
+                {/* Event name - max 2 lines */}
                 <div>
-                  <h3 className="text-[1.75rem] md:text-2xl font-bold text-white uppercase tracking-wide line-clamp-2 h-[4.75rem] md:h-[4.5rem] leading-tight flex items-start">
+                  <h3 className="text-[1.75rem] md:text-2xl font-bold text-white uppercase tracking-wide line-clamp-2 leading-tight flex items-start">
                     <span>{event.eventname}</span>
                   </h3>
                 </div>

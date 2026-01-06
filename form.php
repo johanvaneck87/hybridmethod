@@ -333,21 +333,33 @@ $eventData = [
 // Format JSON for email (pretty print)
 $jsonCode = json_encode($eventData, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 
-// Include mail.php and send email
-require_once __DIR__ . '/mail.php';
-$emailResult = sendEventEmail($eventData, $jsonCode);
+// Log the submission data to a file for backup
+$logFile = __DIR__ . '/submissions.log';
+$logEntry = date('Y-m-d H:i:s') . " - New submission: " . $eventId . "\n";
+$logEntry .= json_encode($eventData, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n";
+$logEntry .= "---\n\n";
+file_put_contents($logFile, $logEntry, FILE_APPEND);
 
-if ($emailResult['success']) {
-    echo json_encode([
-        'success' => true,
-        'message' => 'Event submitted successfully! You will receive a confirmation email shortly.',
-        'eventId' => $eventId
-    ]);
-} else {
-    // Email failed, but we still processed the form
-    http_response_code(500);
-    echo json_encode([
-        'success' => false,
-        'error' => 'Form processed but email sending failed: ' . $emailResult['error']
-    ]);
+// Try to send email, but don't fail if it doesn't work
+$emailSent = false;
+$emailError = '';
+try {
+    require_once __DIR__ . '/mail.php';
+    $emailResult = sendEventEmail($eventData, $jsonCode);
+    $emailSent = $emailResult['success'];
+    if (!$emailSent) {
+        $emailError = $emailResult['error'];
+        error_log("Email sending failed: " . $emailError);
+    }
+} catch (Exception $e) {
+    error_log("Email exception: " . $e->getMessage());
+    $emailError = $e->getMessage();
 }
+
+// Always return success since we've logged the data
+echo json_encode([
+    'success' => true,
+    'message' => 'Event submitted successfully!' . ($emailSent ? ' You will receive a confirmation email shortly.' : ' (Note: Confirmation email could not be sent, but your submission was recorded.)'),
+    'eventId' => $eventId,
+    'emailSent' => $emailSent
+]);

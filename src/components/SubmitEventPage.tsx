@@ -1,5 +1,201 @@
 import { useState, useEffect } from 'preact/hooks'
 
+// Complete list of countries with their ISO codes
+const COUNTRIES = [
+  { code: 'AF', name: 'Afghanistan' },
+  { code: 'AL', name: 'Albania' },
+  { code: 'DZ', name: 'Algeria' },
+  { code: 'AD', name: 'Andorra' },
+  { code: 'AO', name: 'Angola' },
+  { code: 'AR', name: 'Argentina' },
+  { code: 'AM', name: 'Armenia' },
+  { code: 'AU', name: 'Australia' },
+  { code: 'AT', name: 'Austria' },
+  { code: 'AZ', name: 'Azerbaijan' },
+  { code: 'BS', name: 'Bahamas' },
+  { code: 'BH', name: 'Bahrain' },
+  { code: 'BD', name: 'Bangladesh' },
+  { code: 'BB', name: 'Barbados' },
+  { code: 'BY', name: 'Belarus' },
+  { code: 'BE', name: 'Belgium' },
+  { code: 'BZ', name: 'Belize' },
+  { code: 'BJ', name: 'Benin' },
+  { code: 'BT', name: 'Bhutan' },
+  { code: 'BO', name: 'Bolivia' },
+  { code: 'BA', name: 'Bosnia and Herzegovina' },
+  { code: 'BW', name: 'Botswana' },
+  { code: 'BR', name: 'Brazil' },
+  { code: 'BN', name: 'Brunei' },
+  { code: 'BG', name: 'Bulgaria' },
+  { code: 'BF', name: 'Burkina Faso' },
+  { code: 'BI', name: 'Burundi' },
+  { code: 'KH', name: 'Cambodia' },
+  { code: 'CM', name: 'Cameroon' },
+  { code: 'CA', name: 'Canada' },
+  { code: 'CV', name: 'Cape Verde' },
+  { code: 'CF', name: 'Central African Republic' },
+  { code: 'TD', name: 'Chad' },
+  { code: 'CL', name: 'Chile' },
+  { code: 'CN', name: 'China' },
+  { code: 'CO', name: 'Colombia' },
+  { code: 'KM', name: 'Comoros' },
+  { code: 'CG', name: 'Congo' },
+  { code: 'CR', name: 'Costa Rica' },
+  { code: 'HR', name: 'Croatia' },
+  { code: 'CU', name: 'Cuba' },
+  { code: 'CY', name: 'Cyprus' },
+  { code: 'CZ', name: 'Czech Republic' },
+  { code: 'DK', name: 'Denmark' },
+  { code: 'DJ', name: 'Djibouti' },
+  { code: 'DM', name: 'Dominica' },
+  { code: 'DO', name: 'Dominican Republic' },
+  { code: 'EC', name: 'Ecuador' },
+  { code: 'EG', name: 'Egypt' },
+  { code: 'SV', name: 'El Salvador' },
+  { code: 'GQ', name: 'Equatorial Guinea' },
+  { code: 'ER', name: 'Eritrea' },
+  { code: 'EE', name: 'Estonia' },
+  { code: 'ET', name: 'Ethiopia' },
+  { code: 'FJ', name: 'Fiji' },
+  { code: 'FI', name: 'Finland' },
+  { code: 'FR', name: 'France' },
+  { code: 'GA', name: 'Gabon' },
+  { code: 'GM', name: 'Gambia' },
+  { code: 'GE', name: 'Georgia' },
+  { code: 'DE', name: 'Germany' },
+  { code: 'GH', name: 'Ghana' },
+  { code: 'GR', name: 'Greece' },
+  { code: 'GD', name: 'Grenada' },
+  { code: 'GT', name: 'Guatemala' },
+  { code: 'GN', name: 'Guinea' },
+  { code: 'GW', name: 'Guinea-Bissau' },
+  { code: 'GY', name: 'Guyana' },
+  { code: 'HT', name: 'Haiti' },
+  { code: 'HN', name: 'Honduras' },
+  { code: 'HU', name: 'Hungary' },
+  { code: 'IS', name: 'Iceland' },
+  { code: 'IN', name: 'India' },
+  { code: 'ID', name: 'Indonesia' },
+  { code: 'IR', name: 'Iran' },
+  { code: 'IQ', name: 'Iraq' },
+  { code: 'IE', name: 'Ireland' },
+  { code: 'IL', name: 'Israel' },
+  { code: 'IT', name: 'Italy' },
+  { code: 'JM', name: 'Jamaica' },
+  { code: 'JP', name: 'Japan' },
+  { code: 'JO', name: 'Jordan' },
+  { code: 'KZ', name: 'Kazakhstan' },
+  { code: 'KE', name: 'Kenya' },
+  { code: 'KI', name: 'Kiribati' },
+  { code: 'KW', name: 'Kuwait' },
+  { code: 'KG', name: 'Kyrgyzstan' },
+  { code: 'LA', name: 'Laos' },
+  { code: 'LV', name: 'Latvia' },
+  { code: 'LB', name: 'Lebanon' },
+  { code: 'LS', name: 'Lesotho' },
+  { code: 'LR', name: 'Liberia' },
+  { code: 'LY', name: 'Libya' },
+  { code: 'LI', name: 'Liechtenstein' },
+  { code: 'LT', name: 'Lithuania' },
+  { code: 'LU', name: 'Luxembourg' },
+  { code: 'MK', name: 'Macedonia' },
+  { code: 'MG', name: 'Madagascar' },
+  { code: 'MW', name: 'Malawi' },
+  { code: 'MY', name: 'Malaysia' },
+  { code: 'MV', name: 'Maldives' },
+  { code: 'ML', name: 'Mali' },
+  { code: 'MT', name: 'Malta' },
+  { code: 'MH', name: 'Marshall Islands' },
+  { code: 'MR', name: 'Mauritania' },
+  { code: 'MU', name: 'Mauritius' },
+  { code: 'MX', name: 'Mexico' },
+  { code: 'FM', name: 'Micronesia' },
+  { code: 'MD', name: 'Moldova' },
+  { code: 'MC', name: 'Monaco' },
+  { code: 'MN', name: 'Mongolia' },
+  { code: 'ME', name: 'Montenegro' },
+  { code: 'MA', name: 'Morocco' },
+  { code: 'MZ', name: 'Mozambique' },
+  { code: 'MM', name: 'Myanmar' },
+  { code: 'NA', name: 'Namibia' },
+  { code: 'NR', name: 'Nauru' },
+  { code: 'NP', name: 'Nepal' },
+  { code: 'NL', name: 'Netherlands' },
+  { code: 'NZ', name: 'New Zealand' },
+  { code: 'NI', name: 'Nicaragua' },
+  { code: 'NE', name: 'Niger' },
+  { code: 'NG', name: 'Nigeria' },
+  { code: 'KP', name: 'North Korea' },
+  { code: 'NO', name: 'Norway' },
+  { code: 'OM', name: 'Oman' },
+  { code: 'PK', name: 'Pakistan' },
+  { code: 'PW', name: 'Palau' },
+  { code: 'PA', name: 'Panama' },
+  { code: 'PG', name: 'Papua New Guinea' },
+  { code: 'PY', name: 'Paraguay' },
+  { code: 'PE', name: 'Peru' },
+  { code: 'PH', name: 'Philippines' },
+  { code: 'PL', name: 'Poland' },
+  { code: 'PT', name: 'Portugal' },
+  { code: 'QA', name: 'Qatar' },
+  { code: 'RO', name: 'Romania' },
+  { code: 'RU', name: 'Russia' },
+  { code: 'RW', name: 'Rwanda' },
+  { code: 'KN', name: 'Saint Kitts and Nevis' },
+  { code: 'LC', name: 'Saint Lucia' },
+  { code: 'VC', name: 'Saint Vincent and the Grenadines' },
+  { code: 'WS', name: 'Samoa' },
+  { code: 'SM', name: 'San Marino' },
+  { code: 'ST', name: 'Sao Tome and Principe' },
+  { code: 'SA', name: 'Saudi Arabia' },
+  { code: 'SN', name: 'Senegal' },
+  { code: 'RS', name: 'Serbia' },
+  { code: 'SC', name: 'Seychelles' },
+  { code: 'SL', name: 'Sierra Leone' },
+  { code: 'SG', name: 'Singapore' },
+  { code: 'SK', name: 'Slovakia' },
+  { code: 'SI', name: 'Slovenia' },
+  { code: 'SB', name: 'Solomon Islands' },
+  { code: 'SO', name: 'Somalia' },
+  { code: 'ZA', name: 'South Africa' },
+  { code: 'KR', name: 'South Korea' },
+  { code: 'SS', name: 'South Sudan' },
+  { code: 'ES', name: 'Spain' },
+  { code: 'LK', name: 'Sri Lanka' },
+  { code: 'SD', name: 'Sudan' },
+  { code: 'SR', name: 'Suriname' },
+  { code: 'SZ', name: 'Swaziland' },
+  { code: 'SE', name: 'Sweden' },
+  { code: 'CH', name: 'Switzerland' },
+  { code: 'SY', name: 'Syria' },
+  { code: 'TW', name: 'Taiwan' },
+  { code: 'TJ', name: 'Tajikistan' },
+  { code: 'TZ', name: 'Tanzania' },
+  { code: 'TH', name: 'Thailand' },
+  { code: 'TL', name: 'Timor-Leste' },
+  { code: 'TG', name: 'Togo' },
+  { code: 'TO', name: 'Tonga' },
+  { code: 'TT', name: 'Trinidad and Tobago' },
+  { code: 'TN', name: 'Tunisia' },
+  { code: 'TR', name: 'Turkey' },
+  { code: 'TM', name: 'Turkmenistan' },
+  { code: 'TV', name: 'Tuvalu' },
+  { code: 'UG', name: 'Uganda' },
+  { code: 'UA', name: 'Ukraine' },
+  { code: 'AE', name: 'United Arab Emirates' },
+  { code: 'GB', name: 'United Kingdom' },
+  { code: 'US', name: 'United States' },
+  { code: 'UY', name: 'Uruguay' },
+  { code: 'UZ', name: 'Uzbekistan' },
+  { code: 'VU', name: 'Vanuatu' },
+  { code: 'VA', name: 'Vatican City' },
+  { code: 'VE', name: 'Venezuela' },
+  { code: 'VN', name: 'Vietnam' },
+  { code: 'YE', name: 'Yemen' },
+  { code: 'ZM', name: 'Zambia' },
+  { code: 'ZW', name: 'Zimbabwe' }
+]
+
 export function SubmitEventPage() {
   // Check if user returned from FormSubmit success page
   const urlParams = new URLSearchParams(window.location.search)
@@ -18,12 +214,27 @@ export function SubmitEventPage() {
   const [ticketsUrl, setTicketsUrl] = useState('')
   const [workoutWeightsUrl, setWorkoutWeightsUrl] = useState('')
   const [priceType, setPriceType] = useState<'single' | 'range' | 'soldout' | null>(null)
+  const [countrySearch, setCountrySearch] = useState('')
+  const [selectedCountryCode, setSelectedCountryCode] = useState('')
+  const [isCountryDropdownOpen, setIsCountryDropdownOpen] = useState(false)
 
   // Clear success parameter from URL when component mounts
   useEffect(() => {
     if (successParam) {
       window.history.replaceState({}, '', window.location.pathname)
     }
+  }, [])
+
+  // Close country dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement
+      if (!target.closest('#countrySearch') && !target.closest('.absolute.z-50')) {
+        setIsCountryDropdownOpen(false)
+      }
+    }
+    document.addEventListener('click', handleClickOutside)
+    return () => document.removeEventListener('click', handleClickOutside)
   }, [])
 
   const toggleRaceType = (type: string) => {
@@ -80,6 +291,13 @@ export function SubmitEventPage() {
 
   const handleSubmit = async (e: Event) => {
     e.preventDefault()
+
+    // Validate country selection
+    if (!selectedCountryCode) {
+      alert('Please select a country')
+      return
+    }
+
     setIsSubmitting(true)
 
     const form = e.target as HTMLFormElement
@@ -99,14 +317,39 @@ export function SubmitEventPage() {
       }
 
       // Submit to PHP backend
+      // Note: Form submission only works in production due to CORS restrictions
+      const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+
+      if (isLocalhost) {
+        // For testing on localhost, just show success without actually submitting
+        console.log('Form data (localhost test mode):', Object.fromEntries(formData.entries()))
+        await new Promise(resolve => setTimeout(resolve, 1000)) // Simulate network delay
+        throw new Error('Form submission is disabled on localhost. Please test on the production site: https://hybridraces.fit/submit-a-race')
+      }
+
       const response = await fetch('https://hybridraces.fit/form.php', {
         method: 'POST',
         body: formData
       })
 
-      const result = await response.json()
+      // Check if response is ok
+      if (!response.ok) {
+        throw new Error(`Server error: ${response.status}`)
+      }
 
-      if (result.success) {
+      // Try to parse JSON, but handle non-JSON responses
+      let result
+      const contentType = response.headers.get('content-type')
+      if (contentType && contentType.includes('application/json')) {
+        result = await response.json()
+      } else {
+        // If response is not JSON, treat it as text
+        const text = await response.text()
+        console.log('Non-JSON response:', text)
+        result = { success: true } // Assume success if we got a response
+      }
+
+      if (result.success || result.success === undefined) {
         // Show success message
         setIsSubmitted(true)
 
@@ -123,12 +366,15 @@ export function SubmitEventPage() {
         setTicketsUrl('')
         setWorkoutWeightsUrl('')
         setPriceType(null)
+        setCountrySearch('')
+        setSelectedCountryCode('')
       } else {
         throw new Error(result.error || 'Submission failed')
       }
     } catch (error) {
       console.error('Error submitting form:', error)
-      alert('There was an error submitting the form. Please try again.')
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+      alert(`There was an error submitting the form: ${errorMessage}\n\nPlease try again or contact us at hybridraces@gmail.com`)
     } finally {
       setIsSubmitting(false)
     }
@@ -285,28 +531,55 @@ export function SubmitEventPage() {
             </div>
 
             {/* Country */}
-            <div>
+            <div className="relative">
               <label htmlFor="country" className="block text-sm font-medium mb-2 uppercase tracking-wide text-gray-400">
                 Country *
               </label>
-              <select
+              <input
+                type="text"
+                id="countrySearch"
+                value={countrySearch}
+                onInput={(e) => {
+                  setCountrySearch((e.target as HTMLInputElement).value)
+                  setIsCountryDropdownOpen(true)
+                }}
+                onFocus={() => setIsCountryDropdownOpen(true)}
+                placeholder="Search for a country..."
+                autoComplete="off"
+                className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
+              />
+              <input
+                type="hidden"
                 id="country"
                 name="country"
-                required
-                className="w-full bg-black border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-[#D94800]"
-              >
-                <option value="">Select country</option>
-                <option value="NL">🇳🇱 Netherlands</option>
-                <option value="GB">🇬🇧 United Kingdom</option>
-                <option value="DE">🇩🇪 Germany</option>
-                <option value="BE">🇧🇪 Belgium</option>
-                <option value="FR">🇫🇷 France</option>
-                <option value="ES">🇪🇸 Spain</option>
-                <option value="IT">🇮🇹 Italy</option>
-                <option value="US">🇺🇸 United States</option>
-                <option value="CA">🇨🇦 Canada</option>
-                <option value="AU">🇦🇺 Australia</option>
-              </select>
+                value={selectedCountryCode}
+              />
+              {isCountryDropdownOpen && (
+                <div className="absolute z-50 w-full mt-1 bg-black border border-white/20 rounded max-h-60 overflow-y-auto">
+                  {COUNTRIES
+                    .filter(country =>
+                      country.name.toLowerCase().includes(countrySearch.toLowerCase())
+                    )
+                    .map(country => (
+                      <div
+                        key={country.code}
+                        onClick={() => {
+                          setSelectedCountryCode(country.code)
+                          setCountrySearch(country.name)
+                          setIsCountryDropdownOpen(false)
+                        }}
+                        className="px-4 py-2 text-white hover:bg-[#D94800] cursor-pointer"
+                      >
+                        {country.name}
+                      </div>
+                    ))}
+                  {COUNTRIES.filter(country =>
+                    country.name.toLowerCase().includes(countrySearch.toLowerCase())
+                  ).length === 0 && (
+                    <div className="px-4 py-2 text-gray-400">No countries found</div>
+                  )}
+                </div>
+              )}
             </div>
 
             {/* Local Gym */}

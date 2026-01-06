@@ -94,10 +94,10 @@ export function EventTileImage({ event }: EventTileImageProps) {
       ctx.fillRect(0, 0, size, size)
 
       // Draw flag in top right corner
-      const flagWidth = 64
-      const flagHeight = 43
-      const flagX = size - flagWidth - 24
-      const flagY = 24
+      const flagWidth = 72
+      const flagHeight = 48
+      const flagX = size - flagWidth - 21  // Was 16, now 21 (increased by 5px)
+      const flagY = 21                      // Was 16, now 21 (increased by 5px)
 
       // Draw subtle border around flag (similar to filter bar)
       const borderPadding = 4
@@ -167,16 +167,16 @@ export function EventTileImage({ event }: EventTileImageProps) {
         ctx.fillRect(flagX, flagY + (2 * flagHeight / 3), flagWidth, flagHeight / 3)
       }
 
-      // Draw event name - with word wrapping if needed (matching desktop event tile size)
+      // Draw event name - fixed font size, wrap to 2 lines if needed
       ctx.fillStyle = '#FFFFFF'
       const name = event.eventname.toUpperCase()
-      const maxWidth = size - 100 // Leave 50px padding on each side
+      const maxWidth = size - 100 // Leave padding on both sides
 
-      // Start with desktop tile font size
-      let fontSize = 64
+      // Fixed font size - always 64px
+      const fontSize = 64
       ctx.font = `bold ${fontSize}px Arial`
 
-      // If still too long, wrap to multiple lines
+      // Word wrapping logic
       const words = name.split(' ')
       const lines: string[] = []
       let currentLine = words[0]
@@ -184,7 +184,8 @@ export function EventTileImage({ event }: EventTileImageProps) {
       for (let i = 1; i < words.length; i++) {
         const testLine = currentLine + ' ' + words[i]
         const metrics = ctx.measureText(testLine)
-        if (metrics.width > maxWidth) {
+        if (metrics.width > maxWidth && lines.length < 1) {
+          // Only wrap to second line if we haven't already wrapped
           lines.push(currentLine)
           currentLine = words[i]
         } else {
@@ -204,7 +205,7 @@ export function EventTileImage({ event }: EventTileImageProps) {
 
       // Draw event details - ALWAYS at same position (reserve space for 2 lines of event name)
       const reservedNameHeight = (lineHeight * 2) + extraLineSpacing // Space for 2 lines max
-      let detailsStartY = yPos + reservedNameHeight + 10 // Small spacing between name and details (similar to mb-1)
+      let detailsStartY = yPos + reservedNameHeight + 30 // Increased spacing between name and details
       ctx.font = '42px Arial' // Increased from 36px for larger text
 
       // Helper function to wrap text with emoji centered on text height

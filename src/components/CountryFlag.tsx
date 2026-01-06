@@ -8,67 +8,75 @@ export function CountryFlag({ country, size = 'medium' }: CountryFlagProps) {
 
   // Size configurations - matching Instagram canvas sizes
   const sizes = {
-    small: { width: 32, height: 21, borderPadding: 2 },
-    medium: { width: 48, height: 32, borderPadding: 3 },
-    large: { width: 64, height: 43, borderPadding: 4 }
+    small: { width: 28, height: 19, borderPadding: 4 },
+    medium: { width: 48, height: 32, borderPadding: 4 },
+    large: { width: 72, height: 48, borderPadding: 4 }
   }
 
   const { width, height, borderPadding } = sizes[size]
-  const totalWidth = width + (borderPadding * 2)
-  const totalHeight = height + (borderPadding * 2)
+  const strokeWidth = 2
+  const totalWidth = width + (borderPadding * 2) + strokeWidth
+  const totalHeight = height + (borderPadding * 2) + strokeWidth
 
   // Determine which flag to render
   const renderFlag = () => {
+    const flagX = borderPadding + (strokeWidth / 2)
+    const flagY = borderPadding + (strokeWidth / 2)
+
     if (countryCode === 'BE' || countryCode === 'BELGIUM') {
       // Belgian flag (vertical stripes: black, yellow, red)
       return (
         <svg width={totalWidth} height={totalHeight} viewBox={`0 0 ${totalWidth} ${totalHeight}`}>
-          {/* Border */}
-          <rect x={borderPadding} y={borderPadding} width={width} height={height} fill="none" stroke="rgba(255, 255, 255, 0.4)" strokeWidth="2" />
           {/* Flag stripes */}
-          <rect x={borderPadding} y={borderPadding} width={width / 3} height={height} fill="#000000" />
-          <rect x={borderPadding + width / 3} y={borderPadding} width={width / 3} height={height} fill="#FDDA24" />
-          <rect x={borderPadding + (2 * width) / 3} y={borderPadding} width={width / 3} height={height} fill="#EF3340" />
+          <rect x={flagX} y={flagY} width={width / 3} height={height} fill="#000000" />
+          <rect x={flagX + width / 3} y={flagY} width={width / 3} height={height} fill="#FDDA24" />
+          <rect x={flagX + (2 * width) / 3} y={flagY} width={width / 3} height={height} fill="#EF3340" />
+          {/* Border around flag */}
+          <rect x={flagX} y={flagY} width={width} height={height} fill="none" stroke="rgba(255, 255, 255, 0.4)" strokeWidth={strokeWidth} />
         </svg>
       )
     } else if (countryCode === 'DE' || countryCode === 'GERMANY' || countryCode === 'DEUTSCHLAND') {
       // German flag (horizontal stripes: black, red, gold)
       return (
         <svg width={totalWidth} height={totalHeight} viewBox={`0 0 ${totalWidth} ${totalHeight}`}>
-          {/* Border */}
-          <rect x={borderPadding} y={borderPadding} width={width} height={height} fill="none" stroke="rgba(255, 255, 255, 0.4)" strokeWidth="2" />
           {/* Flag stripes */}
-          <rect x={borderPadding} y={borderPadding} width={width} height={height / 3} fill="#000000" />
-          <rect x={borderPadding} y={borderPadding + height / 3} width={width} height={height / 3} fill="#DD0000" />
-          <rect x={borderPadding} y={borderPadding + (2 * height) / 3} width={width} height={height / 3} fill="#FFCE00" />
+          <rect x={flagX} y={flagY} width={width} height={height / 3} fill="#000000" />
+          <rect x={flagX} y={flagY + height / 3} width={width} height={height / 3} fill="#DD0000" />
+          <rect x={flagX} y={flagY + (2 * height) / 3} width={width} height={height / 3} fill="#FFCE00" />
+          {/* Border around flag */}
+          <rect x={flagX} y={flagY} width={width} height={height} fill="none" stroke="rgba(255, 255, 255, 0.4)" strokeWidth={strokeWidth} />
         </svg>
       )
     } else if (countryCode === 'GB' || countryCode === 'UK' || countryCode === 'UNITED KINGDOM' || countryCode === 'GREAT BRITAIN') {
       // UK flag - simplified version matching Instagram canvas
+      // Calculate proportional cross widths based on flag size
+      const whiteBarWidth = Math.max(6, width * 0.22)   // ~22% of flag width, min 6px for small flags
+      const redBarWidth = Math.max(3, width * 0.125)    // ~12.5% of flag width, min 3px for small flags
+
       return (
         <svg width={totalWidth} height={totalHeight} viewBox={`0 0 ${totalWidth} ${totalHeight}`}>
-          {/* Border */}
-          <rect x={borderPadding} y={borderPadding} width={width} height={height} fill="none" stroke="rgba(255, 255, 255, 0.4)" strokeWidth="2" />
           {/* Blue background */}
-          <rect x={borderPadding} y={borderPadding} width={width} height={height} fill="#012169" />
+          <rect x={flagX} y={flagY} width={width} height={height} fill="#012169" />
           {/* White cross background (St. George's Cross) */}
-          <rect x={borderPadding} y={borderPadding + (height / 2) - 7} width={width} height="14" fill="#FFFFFF" />
-          <rect x={borderPadding + (width / 2) - 7} y={borderPadding} width="14" height={height} fill="#FFFFFF" />
+          <rect x={flagX} y={flagY + (height / 2) - (whiteBarWidth / 2)} width={width} height={whiteBarWidth} fill="#FFFFFF" />
+          <rect x={flagX + (width / 2) - (whiteBarWidth / 2)} y={flagY} width={whiteBarWidth} height={height} fill="#FFFFFF" />
           {/* Red cross (St. George's Cross) */}
-          <rect x={borderPadding} y={borderPadding + (height / 2) - 4} width={width} height="8" fill="#C8102E" />
-          <rect x={borderPadding + (width / 2) - 4} y={borderPadding} width="8" height={height} fill="#C8102E" />
+          <rect x={flagX} y={flagY + (height / 2) - (redBarWidth / 2)} width={width} height={redBarWidth} fill="#C8102E" />
+          <rect x={flagX + (width / 2) - (redBarWidth / 2)} y={flagY} width={redBarWidth} height={height} fill="#C8102E" />
+          {/* Border around flag */}
+          <rect x={flagX} y={flagY} width={width} height={height} fill="none" stroke="rgba(255, 255, 255, 0.4)" strokeWidth={strokeWidth} />
         </svg>
       )
     } else {
       // Dutch flag (default) - horizontal stripes: red, white, blue
       return (
         <svg width={totalWidth} height={totalHeight} viewBox={`0 0 ${totalWidth} ${totalHeight}`}>
-          {/* Border */}
-          <rect x={borderPadding} y={borderPadding} width={width} height={height} fill="none" stroke="rgba(255, 255, 255, 0.4)" strokeWidth="2" />
           {/* Flag stripes */}
-          <rect x={borderPadding} y={borderPadding} width={width} height={height / 3} fill="#AE1C28" />
-          <rect x={borderPadding} y={borderPadding + height / 3} width={width} height={height / 3} fill="#FFFFFF" />
-          <rect x={borderPadding} y={borderPadding + (2 * height) / 3} width={width} height={height / 3} fill="#21468B" />
+          <rect x={flagX} y={flagY} width={width} height={height / 3} fill="#AE1C28" />
+          <rect x={flagX} y={flagY + height / 3} width={width} height={height / 3} fill="#FFFFFF" />
+          <rect x={flagX} y={flagY + (2 * height) / 3} width={width} height={height / 3} fill="#21468B" />
+          {/* Border around flag */}
+          <rect x={flagX} y={flagY} width={width} height={height} fill="none" stroke="rgba(255, 255, 255, 0.4)" strokeWidth={strokeWidth} />
         </svg>
       )
     }

@@ -59,13 +59,18 @@ export function EventDetailPage({ eventId }: EventDetailPageProps) {
         {/* Event Title Overlay - Scrolls with content */}
         <div className="-mt-[50vh] md:-mt-[60vh] h-[50vh] md:h-[60vh] min-h-[300px] md:min-h-[400px] flex items-end">
           <div className="max-w-7xl mx-auto px-6 pb-8 md:pb-12 w-full">
-            <div className="flex items-center gap-3 mb-3 md:mb-4">
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white uppercase tracking-wide leading-tight">
-                {event.eventname}
+            <div className="mb-3 md:mb-4">
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white uppercase tracking-wide leading-tight inline">
+                <span>{event.eventname} </span>
+                <span className="inline-block" style={{
+                  height: '1.35em',
+                  width: 'auto',
+                  verticalAlign: 'middle',
+                  transform: 'translateY(0.08em)'
+                }}>
+                  <CountryFlag country={event.country} size="large" />
+                </span>
               </h1>
-              <div className="flex-shrink-0">
-                <CountryFlag country={event.country} size="large" />
-              </div>
             </div>
             <div className="flex flex-col md:flex-row md:flex-wrap gap-2 md:gap-4 text-base md:text-xl text-white">
               <span className="flex items-center gap-1.5 md:gap-2">
@@ -223,9 +228,13 @@ export function EventDetailPage({ eventId }: EventDetailPageProps) {
                   >
                     <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">Workout & Weights Guide</p>
                     <p className="text-sm text-white font-medium group-hover:text-[#D94800] transition-colors flex items-center gap-2">
-                      View workout & weights
+                      View Workout & Weights
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                        <rect x="2" y="10" width="3" height="4" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+                        <rect x="19" y="10" width="3" height="4" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+                        <line x1="5" y1="12" x2="10" y2="12" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+                        <line x1="14" y1="12" x2="19" y2="12" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+                        <rect x="10" y="10" width="4" height="4" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
                       </svg>
                     </p>
                   </a>

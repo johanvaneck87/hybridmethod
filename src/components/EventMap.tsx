@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'preact/hooks'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { navigate } from '../router'
+import { CountryFlag } from './CountryFlag'
 import type { RaceEvent as Event } from '../types/Event'
 
 interface EventMapProps {
@@ -317,10 +318,15 @@ export function EventMap({ events, highlightedEventId, selectedEventId, onEventC
                   <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/70 to-black/90 z-0"></div>
                 </div>
 
+                {/* Country Flag - Top Right */}
+                <div className="absolute top-2 right-2 z-10">
+                  <CountryFlag country={selectedEvent.country} size="small" />
+                </div>
+
                 {/* Content */}
                 <div className="relative z-20 h-full flex flex-col p-6">
                   {/* Event name - fixed height for 2 lines */}
-                  <div>
+                  <div className="pr-12">
                     <h3 className="text-[1.75rem] md:text-2xl font-bold text-white uppercase tracking-wide line-clamp-2 h-[4.75rem] md:h-[4.5rem] leading-tight flex items-start">
                       <span>{selectedEvent.eventname}</span>
                     </h3>

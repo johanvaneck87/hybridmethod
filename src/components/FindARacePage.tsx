@@ -1203,37 +1203,38 @@ export function FindARacePage() {
 
               {/* Content */}
               <div className="relative h-full flex flex-col p-6">
-                {/* Event name - max 2 lines with fixed height to reserve space */}
-                <div className="mb-4" style={{ minHeight: '4.5rem' }}>
+                {/* Event name - fixed height to reserve space for 2 lines */}
+                <div className="mb-6" style={{ height: '4.5rem' }}>
                   <h3 className="text-[1.75rem] md:text-2xl font-bold text-white uppercase tracking-wide line-clamp-2 leading-tight flex items-start">
                     <span>{event.eventname}</span>
                   </h3>
                 </div>
 
-                {/* Event details - always starts at same position */}
-                <div className="flex-1 flex flex-col justify-end">
-                  <div className="space-y-1 text-white mb-3">
+                {/* Event details - always starts at same position from top */}
+                <div className="space-y-1 text-white mb-6">
+                  <p className="flex items-center gap-2 text-base md:text-sm">
+                    <span>📅</span>
+                    <span>{event.enddate ? formatDateRange(event.startdate, event.enddate) : formatDate(event.startdate)}</span>
+                  </p>
+                  <p className="flex items-center gap-2 text-base md:text-sm">
+                    <span>📍</span>
+                    <span>{event.location}</span>
+                  </p>
+                  <p className="flex items-center gap-2 text-base md:text-sm">
+                    <span>🏃‍♂️</span>
+                    <span className="capitalize">{event.typerace.join(', ')}</span>
+                  </p>
+                  {event.organizationgym && (
                     <p className="flex items-center gap-2 text-base md:text-sm">
-                      <span>📅</span>
-                      <span>{event.enddate ? formatDateRange(event.startdate, event.enddate) : formatDate(event.startdate)}</span>
+                      <span>🏢</span>
+                      <span>{event.organizationgym}</span>
                     </p>
-                    <p className="flex items-center gap-2 text-base md:text-sm">
-                      <span>📍</span>
-                      <span>{event.location}</span>
-                    </p>
-                    <p className="flex items-center gap-2 text-base md:text-sm">
-                      <span>🏃‍♂️</span>
-                      <span className="capitalize">{event.typerace.join(', ')}</span>
-                    </p>
-                    {event.organizationgym && (
-                      <p className="flex items-center gap-2 text-base md:text-sm">
-                        <span>🏢</span>
-                        <span>{event.organizationgym}</span>
-                      </p>
-                    )}
-                  </div>
+                  )}
+                </div>
 
-                  <div className="inline-block bg-[#D94800] text-black font-semibold px-6 py-2 rounded tracking-[0.15em] text-lg md:text-base text-center">
+                {/* Button - always at same position from top */}
+                <div className="absolute bottom-6 left-6 right-6">
+                  <div className="bg-[#D94800] text-black font-semibold px-6 py-2 rounded tracking-[0.15em] text-lg md:text-base text-center">
                     Event information
                   </div>
                 </div>

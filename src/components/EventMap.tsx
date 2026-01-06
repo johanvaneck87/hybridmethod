@@ -325,37 +325,38 @@ export function EventMap({ events, highlightedEventId, selectedEventId, onEventC
 
                 {/* Content */}
                 <div className="relative z-20 h-full flex flex-col p-6">
-                  {/* Event name - fixed height for 2 lines */}
-                  <div className="pr-12 mb-4" style={{ minHeight: '4.5rem' }}>
+                  {/* Event name - fixed height to reserve space for 2 lines */}
+                  <div className="pr-12 mb-6" style={{ height: '4.5rem' }}>
                     <h3 className="text-[1.75rem] md:text-2xl font-bold text-white uppercase tracking-wide line-clamp-2 leading-tight flex items-start">
                       <span>{selectedEvent.eventname}</span>
                     </h3>
                   </div>
 
-                  {/* Event details - always starts at same position */}
-                  <div className="flex-1 flex flex-col justify-end">
-                    <div className="space-y-1 text-white mb-3">
+                  {/* Event details - always starts at same position from top */}
+                  <div className="space-y-1 text-white mb-6">
+                    <p className="flex items-center gap-2 text-sm md:text-sm">
+                      <span>📅</span>
+                      <span>{selectedEvent.enddate ? formatDateRange(selectedEvent.startdate, selectedEvent.enddate) : formatDate(selectedEvent.startdate)}</span>
+                    </p>
+                    <p className="flex items-center gap-2 text-sm md:text-sm">
+                      <span>📍</span>
+                      <span>{selectedEvent.location}</span>
+                    </p>
+                    <p className="flex items-center gap-2 text-sm md:text-sm">
+                      <span>🏃‍♂️</span>
+                      <span className="capitalize">{selectedEvent.typerace.join(', ')}</span>
+                    </p>
+                    {selectedEvent.organizationgym && (
                       <p className="flex items-center gap-2 text-sm md:text-sm">
-                        <span>📅</span>
-                        <span>{selectedEvent.enddate ? formatDateRange(selectedEvent.startdate, selectedEvent.enddate) : formatDate(selectedEvent.startdate)}</span>
+                        <span>🏢</span>
+                        <span>{selectedEvent.organizationgym}</span>
                       </p>
-                      <p className="flex items-center gap-2 text-sm md:text-sm">
-                        <span>📍</span>
-                        <span>{selectedEvent.location}</span>
-                      </p>
-                      <p className="flex items-center gap-2 text-sm md:text-sm">
-                        <span>🏃‍♂️</span>
-                        <span className="capitalize">{selectedEvent.typerace.join(', ')}</span>
-                      </p>
-                      {selectedEvent.organizationgym && (
-                        <p className="flex items-center gap-2 text-sm md:text-sm">
-                          <span>🏢</span>
-                          <span>{selectedEvent.organizationgym}</span>
-                        </p>
-                      )}
-                    </div>
+                    )}
+                  </div>
 
-                    <div className="inline-block bg-[#D94800] text-black font-semibold px-6 py-2 rounded tracking-[0.15em] text-base md:text-base text-center">
+                  {/* Button - always at same position from top */}
+                  <div className="absolute bottom-6 left-6 right-6">
+                    <div className="bg-[#D94800] text-black font-semibold px-6 py-2 rounded tracking-[0.15em] text-base md:text-base text-center">
                       Event information
                     </div>
                   </div>

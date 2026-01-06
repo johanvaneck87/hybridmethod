@@ -326,14 +326,14 @@ export function EventMap({ events, highlightedEventId, selectedEventId, onEventC
                 {/* Content */}
                 <div className="relative z-20 h-full flex flex-col p-6">
                   {/* Event name - fixed height for 2 lines */}
-                  <div className="pr-12">
-                    <h3 className="text-[1.75rem] md:text-2xl font-bold text-white uppercase tracking-wide line-clamp-2 h-[4.75rem] md:h-[4.5rem] leading-tight flex items-start">
+                  <div className="pr-12 mb-4" style={{ minHeight: '4.5rem' }}>
+                    <h3 className="text-[1.75rem] md:text-2xl font-bold text-white uppercase tracking-wide line-clamp-2 leading-tight flex items-start">
                       <span>{selectedEvent.eventname}</span>
                     </h3>
                   </div>
 
                   {/* Event details - always starts at same position */}
-                  <div className="flex-1 flex flex-col justify-between">
+                  <div className="flex-1 flex flex-col justify-end">
                     <div className="space-y-1 text-white mb-3">
                       <p className="flex items-center gap-2 text-sm md:text-sm">
                         <span>📅</span>

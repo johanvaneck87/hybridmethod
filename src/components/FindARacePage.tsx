@@ -1203,15 +1203,15 @@ export function FindARacePage() {
 
               {/* Content */}
               <div className="relative h-full flex flex-col p-6">
-                {/* Event name - max 2 lines */}
-                <div>
+                {/* Event name - max 2 lines with fixed height to reserve space */}
+                <div className="mb-4" style={{ minHeight: '4.5rem' }}>
                   <h3 className="text-[1.75rem] md:text-2xl font-bold text-white uppercase tracking-wide line-clamp-2 leading-tight flex items-start">
                     <span>{event.eventname}</span>
                   </h3>
                 </div>
 
                 {/* Event details - always starts at same position */}
-                <div className="flex-1 flex flex-col justify-between">
+                <div className="flex-1 flex flex-col justify-end">
                   <div className="space-y-1 text-white mb-3">
                     <p className="flex items-center gap-2 text-base md:text-sm">
                       <span>📅</span>

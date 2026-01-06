@@ -1204,7 +1204,7 @@ export function FindARacePage() {
               {/* Content */}
               <div className="relative h-full flex flex-col p-6">
                 {/* Event name - fixed height to reserve space for 2 lines */}
-                <div className="mb-6" style={{ height: '4.5rem' }}>
+                <div className="mb-0" style={{ height: '4.5rem' }}>
                   <h3 className="text-[1.75rem] md:text-2xl font-bold text-white uppercase tracking-wide line-clamp-2 leading-tight flex items-start">
                     <span>{event.eventname}</span>
                   </h3>

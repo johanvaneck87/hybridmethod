@@ -10,9 +10,6 @@ lerna-debug.log*
 # Form submissions
 submissions.log
 uploads/
-smtp-config.php
-phpmailer.zip
-PHPMailer-6.9.1/
 
 node_modules
 dist

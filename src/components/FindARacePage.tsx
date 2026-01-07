@@ -611,7 +611,7 @@ export function FindARacePage() {
     height: 'calc(40vh + 64px)',
   }}
 >
-                  <h2 className="text-black font-semibold uppercase tracking-wide" style={{ fontSize: 'clamp(2rem, 3.5vw, 3.125rem)', lineHeight: '1.15' }}>
+                  <h2 className="text-black font-semibold uppercase tracking-wide" style={{ fontSize: 'clamp(2rem,2vw,1.5rem)', lineHeight: '1.15' }}>
                     FIND YOUR
                     <br />
                     NEXT HYBRID

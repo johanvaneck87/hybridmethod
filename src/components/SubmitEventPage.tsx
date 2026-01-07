@@ -327,7 +327,7 @@ export function SubmitEventPage() {
         throw new Error('Form submission is disabled on localhost. Please test on the production site: https://hybridraces.fit/submit-a-race')
       }
 
-      const response = await fetch('https://hybridraces.fit/form.php', {
+      const response = await fetch('https://images.hybridraces.fit/form.php', {
         method: 'POST',
         body: formData
       })

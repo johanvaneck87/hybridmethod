@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'preact/hooks'
-import backgroundImage from '../picture/Mainpage.jpg'
+
+const backgroundImage = 'https://images.hybridraces.fit/public_html/uploads/Mainpage.jpg'
 
 export function HomePage() {
   const [scrollProgress, setScrollProgress] = useState(0)

@@ -36,7 +36,10 @@
       "Bash(node translate-descriptions.cjs)",
       "Bash(node translate-all-descriptions.cjs:*)",
       "Bash(node fix-country-codes.cjs:*)",
-      "Bash(git log:*)"
+      "Bash(git log:*)",
+      "Bash(gh workflow run:*)",
+      "Bash(git pull:*)",
+      "Bash(git stash:*)"
     ],
     "deny": [],
     "ask": []

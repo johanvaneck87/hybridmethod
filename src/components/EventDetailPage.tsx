@@ -59,19 +59,18 @@ export function EventDetailPage({ eventId }: EventDetailPageProps) {
         {/* Event Title Overlay - Scrolls with content */}
         <div className="-mt-[60vh] h-[60vh] min-h-[400px] flex items-end">
           <div className="max-w-7xl mx-auto px-6 pb-12 w-full">
-            <div className="mb-3 md:mb-4">
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white uppercase tracking-wide leading-tight inline">
-                <span>{event.eventname} </span>
-                <span className="inline-block" style={{
-                  height: '1.35em',
-                  width: 'auto',
-                  verticalAlign: 'middle',
-                  transform: 'translateY(0.08em)'
-                }}>
-                  <CountryFlag country={event.country} size="large" />
-                </span>
-              </h1>
-            </div>
+<div className="mb-3 md:mb-4">
+  <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white uppercase tracking-wide leading-tight">
+    <span className="inline-flex items-end gap-3">
+      <span>{event.eventname}</span>
+
+      <span className="flex items-end">
+        <CountryFlag country={event.country} size="large" />
+      </span>
+    </span>
+  </h1>
+</div>
+
             <div className="flex flex-col md:flex-row md:flex-wrap gap-2 md:gap-4 text-base md:text-xl text-white">
               <span className="flex items-center gap-1.5 md:gap-2">
                 <span className="flex-shrink-0">📅</span>

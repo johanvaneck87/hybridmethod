@@ -87,9 +87,18 @@ export function CountryFlag({ country, size = 'medium' }: CountryFlagProps) {
     }
   }
 
-  return (
-    <div className="inline-block">
-      {renderFlag()}
-    </div>
-  )
+return (
+  <div
+    className="
+      inline-block
+      scale-75
+      sm:scale-90
+      md:scale-100
+      origin-bottom
+    "
+  >
+    {renderFlag()}
+  </div>
+)
 }
+

@@ -587,7 +587,7 @@ export function FindARacePage() {
     <div className="bg-black">
       {/* Hero Section - Fixed below header, 26.25vh height (5% bigger) - Hidden on mobile */}
       <div className="hidden md:block sticky top-0 pt-16" style={{ height: 'calc(40vh + 64px)' }}>
-        <div className="h-full" style={{ height: '115%' }}>
+        <div className="h-full" style={{ height: '100%' }}>
           <div className="max-w-7xl mx-auto px-6 h-full">
             <div className="flex h-full items-start">
               {/* Left side - Image */}
@@ -602,8 +602,8 @@ export function FindARacePage() {
               </div>
 
               {/* Right side - Text box */}
-              <div className="w-1/2 bg-black flex items-start justify-end pl-12">
-                <div className="bg-[#D94800] w-full max-w-[28.8rem] flex items-center justify-center" style={{ aspectRatio: '1.6', padding: 'clamp(1.5rem, 3vw, 3rem) clamp(1rem, 2.5vw, 2.5rem)' }}>
+              <div className="w-1/2 bg-black flex items-start justify-end pl-12" style={{height: 'calc(64px + 40vh);'}}>
+                <div className="bg-[#D94800] w-full flex items-center justify-center" style={{ aspectRatio: '1.6', padding: 'clamp(1.5rem, 3vw, 3rem) clamp(1rem, 2.5vw, 2.5rem)', height: 'calc(64px + 40vh);' }}>
                   <h2 className="text-black font-semibold uppercase tracking-wide" style={{ fontSize: 'clamp(2rem, 3.5vw, 3.125rem)', lineHeight: '1.15' }}>
                     FIND YOUR
                     <br />

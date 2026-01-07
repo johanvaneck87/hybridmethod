@@ -1274,5 +1274,74 @@
     "ticketUrl": "https://www.hyrox.nl",
     "workoutWeights": "https://www.hyrox.nl",
     "contactEmail": "hyridraces@gmail.com"
+  },
+  {
+    "id": "hyrox-delft-2027-05",
+    "image": "https://images.unsplash.com/photo-1611672585731-fa10603fb9e0?w=800&h=800&fit=crop",
+    "eventname": "Hyrox Delft",
+    "localgym": "no",
+    "organizationgym": "MIFIT",
+    "startdate": "2027-01-01",
+    "enddate": "",
+    "location": "De Centrale, Delft",
+    "country": "NL",
+    "coordinates": {
+        "lat": 52.0117608,
+        "lng": 4.3578559
+    },
+    "typerace": [
+        "Solo",
+        "Duo / Buddy"
+    ],
+    "divisions": [
+        "Open / Regular",
+        "Pro / Heavy"
+    ],
+    "ticketpricelow": "50",
+    "ticketpricehigh": "",
+    "fitnessobstacle": "Fitness",
+    "indooroutdoor": "Indoor",
+    "hyroxworkout": "Yes",
+    "description": "dsfsdfsd",
+    "instagram": "@gymrace_",
+    "website": "https://www.hyrox.nl",
+    "ticketUrl": "",
+    "workoutWeights": "",
+    "contactEmail": "hybridraces@gmail.com"
+  },
+  {
+    "id": "hyrox-delft-2027-08",
+    "image": "https://images.hybridraces.fit/uploads/hyrox-delft-2027.jpeg",
+    "eventname": "Hyrox Delft",
+    "localgym": "no",
+    "organizationgym": "MIFIT",
+    "startdate": "2027-01-01",
+    "enddate": "",
+    "location": "Kek, Delft",
+    "country": "NL",
+    "coordinates": {
+        "lat": 52.0125705,
+        "lng": 4.3599088
+    },
+    "typerace": [
+        "Solo",
+        "Duo / Buddy",
+        "Relay"
+    ],
+    "divisions": [
+        "Open / Regular",
+        "Pro / Heavy"
+    ],
+    "ticketpricelow": "Sold out",
+    "ticketpricehigh": "",
+    "fitnessobstacle": "Fitness",
+    "indooroutdoor": "Indoor",
+    "hyroxworkout": "Yes",
+    "description": "fdsfsdf",
+    "instagram": "@https",
+    "website": "https://www.hyrox.nl",
+    "ticketUrl": "https://www.hyrox.nl",
+    "workoutWeights": "https://www.hyrox.nl",
+    "contactEmail": "hybridraces@gmail.com"
   }
 ]

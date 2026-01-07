@@ -602,7 +602,7 @@ export function FindARacePage() {
               </div>
 
               {/* Right side - Text box */}
-              <div className="w-1/3 bg-black flex items-start justify-end pl-12" style={{width:'380px'}}>
+              <div className="w-1/3 bg-black flex items-start justify-flex-end pl-12" style={{width:'380px'}}>
                <div
   className="bg-[#D94800] flex items-center justify-center"
   style={{

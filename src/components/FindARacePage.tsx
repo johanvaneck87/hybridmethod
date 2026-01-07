@@ -591,7 +591,7 @@ export function FindARacePage() {
           <div className="max-w-7xl mx-auto px-6 h-full">
             <div className="flex h-full items-start">
               {/* Left side - Image */}
-              <div className="w-1/2 relative h-full">
+              <div className="w-4/6 relative h-full">
                 <div
                   className="w-full h-full bg-cover bg-left bg-no-repeat rounded-lg"
                   style={{ backgroundImage: `url(${backgroundImage})` }}
@@ -602,8 +602,15 @@ export function FindARacePage() {
               </div>
 
               {/* Right side - Text box */}
-              <div className="w-1/2 bg-black flex items-start justify-end pl-12" style={{height: 'calc(64px + 40vh);'}}>
-                <div className="bg-[#D94800] w-full flex items-center justify-center" style={{ aspectRatio: '1.6', padding: 'clamp(1.5rem, 3vw, 3rem) clamp(1rem, 2.5vw, 2.5rem)', height: 'calc(64px + 40vh);' }}>
+              <div className="w-2/6 bg-black flex items-start justify-end pl-12">
+               <div
+  className="bg-[#D94800] max-w-[20.16rem] flex items-center justify-center"
+  style={{
+    aspectRatio: '1.6',
+    padding: 'clamp(1.5rem, 3vw, 3rem) clamp(1rem, 2.5vw, 2.5rem)',
+    height: 'calc(40vh + 64px)',
+  }}
+>
                   <h2 className="text-black font-semibold uppercase tracking-wide" style={{ fontSize: 'clamp(2rem, 3.5vw, 3.125rem)', lineHeight: '1.15' }}>
                     FIND YOUR
                     <br />

@@ -45,7 +45,7 @@ export function EventDetailPage({ eventId }: EventDetailPageProps) {
   return (
     <div className="bg-black min-h-screen relative">
       {/* Sticky background image and gradient */}
-      <div className="sticky top-0 z-0 h-[50vh] md:h-[60vh] min-h-[300px] md:min-h-[400px]">
+      <div className="sticky top-0 z-0 h-[60vh] min-h-[400px]">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${event.image})` }}
@@ -57,8 +57,8 @@ export function EventDetailPage({ eventId }: EventDetailPageProps) {
       {/* Content that scrolls over sticky background */}
       <div className="relative z-10">
         {/* Event Title Overlay - Scrolls with content */}
-        <div className="-mt-[50vh] md:-mt-[60vh] h-[50vh] md:h-[60vh] min-h-[300px] md:min-h-[400px] flex items-end">
-          <div className="max-w-7xl mx-auto px-6 pb-8 md:pb-12 w-full">
+        <div className="-mt-[60vh] h-[60vh] min-h-[400px] flex items-end">
+          <div className="max-w-7xl mx-auto px-6 pb-12 w-full">
             <div className="mb-3 md:mb-4">
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white uppercase tracking-wide leading-tight inline">
                 <span>{event.eventname} </span>

@@ -37,7 +37,7 @@ export function HomePage() {
         <div className="max-w-7xl mx-auto px-6 w-full h-full flex items-center">
           <div className="flex w-full">
             {/* Left side - Image */}
-            <div className="relative" style={{ width: '75%', height: '140vh', marginTop: '-20vh' }}>
+            <div className="relative" style={{ width: '75%', height: 'calc(40vh + 64px)' }}>
               <div
                 className="absolute inset-0 bg-cover bg-left-top bg-no-repeat rounded-lg"
                 style={{ backgroundImage: `url(${backgroundImage})` }}
@@ -48,8 +48,8 @@ export function HomePage() {
             </div>
 
             {/* Right side - Text box */}
-            <div className="flex items-center justify-end pl-12" style={{ width: '25%' }}>
-              <div className="bg-[#D94800] px-12 py-32">
+            <div className="flex items-center justify-end pl-12" style={{ width: '25%', height: 'calc(40vh + 64px)' }}>
+              <div className="bg-[#D94800] px-12 h-full flex items-center w-full">
                 <h2 className="text-black font-semibold text-4xl md:text-5xl lg:text-6xl leading-tight uppercase tracking-wide">
                   PREPARE
                   <br />

@@ -15,13 +15,18 @@ export function CountryFlag({ country, size = 'medium' }: CountryFlagProps) {
 
   const { width, height, borderPadding } = sizes[size]
   const strokeWidth = 2
-  const totalWidth = width + (borderPadding * 2) + strokeWidth
-  const totalHeight = height + (borderPadding * 2) + strokeWidth
+  const internalPadding = 2 // Padding between flag colors and border
+  const totalWidth = width + (borderPadding * 2) + strokeWidth + (internalPadding * 2)
+  const totalHeight = height + (borderPadding * 2) + strokeWidth + (internalPadding * 2)
 
   // Determine which flag to render
   const renderFlag = () => {
-    const flagX = borderPadding + (strokeWidth / 2)
-    const flagY = borderPadding + (strokeWidth / 2)
+    const flagX = borderPadding + (strokeWidth / 2) + internalPadding
+    const flagY = borderPadding + (strokeWidth / 2) + internalPadding
+    const borderX = borderPadding + (strokeWidth / 2)
+    const borderY = borderPadding + (strokeWidth / 2)
+    const borderWidth = width + (internalPadding * 2)
+    const borderHeight = height + (internalPadding * 2)
 
     if (countryCode === 'BE' || countryCode === 'BELGIUM') {
       // Belgian flag (vertical stripes: black, yellow, red)
@@ -32,7 +37,7 @@ export function CountryFlag({ country, size = 'medium' }: CountryFlagProps) {
           <rect x={flagX + width / 3} y={flagY} width={width / 3} height={height} fill="#FDDA24" />
           <rect x={flagX + (2 * width) / 3} y={flagY} width={width / 3} height={height} fill="#EF3340" />
           {/* Border around flag */}
-          <rect x={flagX} y={flagY} width={width} height={height} fill="none" stroke="rgba(255, 255, 255, 0.4)" strokeWidth={strokeWidth} />
+          <rect x={borderX} y={borderY} width={borderWidth} height={borderHeight} fill="none" stroke="rgba(255, 255, 255, 0.4)" strokeWidth={strokeWidth} />
         </svg>
       )
     } else if (countryCode === 'DE' || countryCode === 'GERMANY' || countryCode === 'DEUTSCHLAND') {
@@ -44,7 +49,7 @@ export function CountryFlag({ country, size = 'medium' }: CountryFlagProps) {
           <rect x={flagX} y={flagY + height / 3} width={width} height={height / 3} fill="#DD0000" />
           <rect x={flagX} y={flagY + (2 * height) / 3} width={width} height={height / 3} fill="#FFCE00" />
           {/* Border around flag */}
-          <rect x={flagX} y={flagY} width={width} height={height} fill="none" stroke="rgba(255, 255, 255, 0.4)" strokeWidth={strokeWidth} />
+          <rect x={borderX} y={borderY} width={borderWidth} height={borderHeight} fill="none" stroke="rgba(255, 255, 255, 0.4)" strokeWidth={strokeWidth} />
         </svg>
       )
     } else if (countryCode === 'GB' || countryCode === 'UK' || countryCode === 'UNITED KINGDOM' || countryCode === 'GREAT BRITAIN') {
@@ -64,7 +69,7 @@ export function CountryFlag({ country, size = 'medium' }: CountryFlagProps) {
           <rect x={flagX} y={flagY + (height / 2) - (redBarWidth / 2)} width={width} height={redBarWidth} fill="#C8102E" />
           <rect x={flagX + (width / 2) - (redBarWidth / 2)} y={flagY} width={redBarWidth} height={height} fill="#C8102E" />
           {/* Border around flag */}
-          <rect x={flagX} y={flagY} width={width} height={height} fill="none" stroke="rgba(255, 255, 255, 0.4)" strokeWidth={strokeWidth} />
+          <rect x={borderX} y={borderY} width={borderWidth} height={borderHeight} fill="none" stroke="rgba(255, 255, 255, 0.4)" strokeWidth={strokeWidth} />
         </svg>
       )
     } else {
@@ -76,7 +81,7 @@ export function CountryFlag({ country, size = 'medium' }: CountryFlagProps) {
           <rect x={flagX} y={flagY + height / 3} width={width} height={height / 3} fill="#FFFFFF" />
           <rect x={flagX} y={flagY + (2 * height) / 3} width={width} height={height / 3} fill="#21468B" />
           {/* Border around flag */}
-          <rect x={flagX} y={flagY} width={width} height={height} fill="none" stroke="rgba(255, 255, 255, 0.4)" strokeWidth={strokeWidth} />
+          <rect x={borderX} y={borderY} width={borderWidth} height={borderHeight} fill="none" stroke="rgba(255, 255, 255, 0.4)" strokeWidth={strokeWidth} />
         </svg>
       )
     }

@@ -183,10 +183,8 @@ function handleImageUpload($file, $eventId) {
 
     // Move uploaded file
     if (move_uploaded_file($file['tmp_name'], $filepath)) {
-        // Return the public URL
-        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
-        $host = $_SERVER['HTTP_HOST'];
-        $imageUrl = $protocol . $host . '/uploads/' . $filename;
+        // Return the public URL using images subdomain
+        $imageUrl = 'https://images.hybridraces.fit/uploads/' . $filename;
 
         return ['success' => true, 'url' => $imageUrl, 'filename' => $filename];
     } else {

@@ -326,7 +326,7 @@ export function EventMap({ events, highlightedEventId, selectedEventId, onEventC
                 {/* Content */}
                 <div className="relative z-20 h-full flex flex-col p-6">
                   {/* Event name - fixed height to reserve space for 2 lines */}
-                  <div className="pr-12 mb-0" style={{ height: '4.5rem' }}>
+                  <div className="pr-12 mb-2 md:mb-0" style={{ height: '4.5rem' }}>
                     <h3 className="text-[1.75rem] md:text-2xl font-bold text-white uppercase tracking-wide line-clamp-2 leading-tight flex items-start">
                       <span>{selectedEvent.eventname}</span>
                     </h3>

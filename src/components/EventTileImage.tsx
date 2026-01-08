@@ -60,7 +60,7 @@ export function EventTileImage({
     }
 
     const drawOverlay = () => {
-      const padding = 50
+      const padding = 70
       const contentWidth = width - padding * 2
 
       // ========== GRADIENT ==========
@@ -71,11 +71,11 @@ export function EventTileImage({
       ctx.fillStyle = gradient
       ctx.fillRect(0, 0, width, height)
 
-      // ========== FLAG ==========
-      const flagWidth = 90 // vergroot
+      // ========== FLAG (bovenin) ==========
+      const flagWidth = 90
       const flagHeight = 60
-      const flagX = width - flagWidth - 40 // iets meer naar links
-      const flagY = 40 // iets lager geplaatst
+      const flagX = padding + contentWidth - flagWidth
+      const flagY = 50
       ctx.strokeStyle = 'rgba(255,255,255,0.4)'
       ctx.lineWidth = 2
       ctx.strokeRect(flagX - 4, flagY - 4, flagWidth + 8, flagHeight + 8)
@@ -102,10 +102,10 @@ export function EventTileImage({
 
       // ========== EVENT NAME ==========
       ctx.fillStyle = '#FFF'
-      ctx.font = 'bold 64px Arial'
+      ctx.font = 'bold 58px Arial'
       ctx.textAlign = 'left'
       ctx.textBaseline = 'top'
-      const titleY = height * 0.12
+      const titleY = 140
 
       const eventWords = event.eventname.toUpperCase().split(' ')
       let line = ''
@@ -121,16 +121,16 @@ export function EventTileImage({
       }
       if (line) lines.push(line)
 
-      const eventLineHeight = 85 // ruimte tussen 1e en 2e regel
+      const eventLineHeight = 80
       lines.forEach((l, i) => ctx.fillText(l, padding, titleY + i * eventLineHeight))
 
       // ========== SUB INFORMATION ==========
-      ctx.font = '42px Arial'
+      ctx.font = '46px Arial'
       ctx.fillStyle = '#FFF'
-      let y = height * 0.37  // iets hoger geplaatst
+      let y = 360
       const lineHeight = 50
-      const iconOffset = 70      // ruimte tussen icoon en tekst
-      const itemSpacing = 40     // ruimte tussen subinfo-items
+      const iconOffset = 70
+      const itemSpacing = 40
 
       const drawSubInfo = (icon: string, text: string) => {
         const words = text.split(' ')
@@ -162,22 +162,24 @@ export function EventTileImage({
 
       // ========== ORANGE BAR ==========
       const barHeight = 80
-      const barY = height - barHeight - 48
+      const bottomMargin = 50
+      const extraTopPadding = 10 // schuift balk omhoog
+      const barY = height - barHeight - bottomMargin - extraTopPadding
       ctx.fillStyle = '#D94800'
       ctx.beginPath()
-      ctx.roundRect(48, barY, width - 96, barHeight, 8)
+      ctx.roundRect(padding, barY, contentWidth, barHeight, 8)
       ctx.fill()
 
-      // HYBRIDRACES.FIT OLD STYLE
+      // HYBRIDRACES.FIT (iets groter)
       const text = 'HYBRIDRACES.FIT'
       ctx.fillStyle = '#000'
-      ctx.font = 'bold 36px Arial'
+      ctx.font = 'bold 44px Arial'
       ctx.textAlign = 'left'
       ctx.textBaseline = 'middle'
       const letterSpacing = 10
       let totalWidth = 0
       for (let i = 0; i < text.length; i++) totalWidth += ctx.measureText(text[i]).width + (i < text.length - 1 ? letterSpacing : 0)
-      let startX = width / 2 - totalWidth / 2
+      let startX = padding + contentWidth / 2 - totalWidth / 2
       const textY = barY + barHeight / 2
       for (let i = 0; i < text.length; i++) {
         ctx.fillText(text[i], startX, textY)
@@ -188,6 +190,12 @@ export function EventTileImage({
 
   return <canvas ref={canvasRef} className="w-full h-full block" />
 }
+
+
+
+
+
+
 
 
 

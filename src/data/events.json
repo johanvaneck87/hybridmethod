@@ -375,7 +375,7 @@
     "localgym": "Yes",
     "organizationgym": "MIFIT Personal Sport Coaching",
     "startdate": "2025-11-02",
-    "enddate": "2025-11-02",
+    "enddate": "",
     "location": "MIFIT, Delft",
     "country": "NL",
     "coordinates": {
@@ -404,7 +404,7 @@
   },
   {
     "id": "hyrox-utrecht-2025",
-    "image": "https://images.unsplash.com/photo-1623428187969-5da2dcea5ebf?w=800&h=800&fit=crop",
+    "image": "https://images.hybridraces.fit/uploads/hyrox-utrecht-2025.jpg",
     "eventname": "HYROX Utrecht",
     "localgym": "No",
     "organizationgym": "HYROX",
@@ -709,7 +709,7 @@
     "localgym": "No",
     "organizationgym": "Gymrace",
     "startdate": "2026-02-27",
-    "enddate": "2026-01-03",
+    "enddate": "2026-03-01",
     "location": "RAI, Amsterdam",
     "country": "NL",
     "coordinates": {
@@ -906,7 +906,7 @@
   },
   {
     "id": "hyrox-heerenveen-2026",
-    "image": "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&h=800&fit=crop",
+    "image": "https://images.hybridraces.fit/uploads/hyrox-heerenveen-2026.jpg",
     "eventname": "HYROX Heerenveen",
     "localgym": "No",
     "organizationgym": "HYROX",
@@ -1248,7 +1248,7 @@
     "organizationgym": "STYREKX",
     "startdate": "2025-11-22",
     "enddate": "2025-11-23",
-    "location": "EXPO Greater Amsterdam, Vijfhuizen",
+    "location": "EXPO Greater A'dam, Vijfhuizen",
     "country": "NL",
     "coordinates": {
         "lat": 52.341813,
@@ -1270,7 +1270,7 @@
     "indooroutdoor": "Indoor",
     "hyroxworkout": "No",
     "description": "Kracht en conditie komen samen in \u00e9\u00e9n grensverleggende fitness race.\r\n\r\n10x de Olympische afstand van 800m rennen in combinatie met 10 intensieve workout stations. D\u00e1t is de perfecte hybride balans voor \u00e9\u00e9n ultiem doel. Tijdens STYREKX streef je om de perfectie van het nummer 10 te benaderen. This is your proving ground!",
-    "instagram": "@styrekxrace",
+    "instagram": "@styrekx",
     "website": "https://styrekx.nl/",
     "ticketUrl": "",
     "workoutWeights": "https://styrekx.nl/divisies",
@@ -1278,7 +1278,7 @@
 },
 {
     "id": "styrekx-gorinchem-2026",
-    "image": "https://images.unsplash.com/photo-1591940742878-13aba4b81587?w=800&h=800&fit=crop",
+    "image": "https://images.hybridraces.fit/uploads/styrekx-gorinchem-2026.jpg",
     "eventname": "STYREKX Gorinchem",
     "localgym": "no",
     "organizationgym": "STYREKX",
@@ -1306,7 +1306,7 @@
     "indooroutdoor": "Indoor",
     "hyroxworkout": "No",
     "description": "Kracht en conditie komen samen in \u00e9\u00e9n grensverleggende fitness race.\r\n\r\n10x de Olympische afstand van 800m rennen in combinatie met 10 intensieve workout stations. D\u00e1t is de perfecte hybride balans voor \u00e9\u00e9n ultiem doel. Tijdens STYREKX streef je om de perfectie van het nummer 10 te benaderen. This is your proving ground!",
-    "instagram": "@styrekxrace",
+    "instagram": "@styrekx",
     "website": "https://styrekx.nl/",
     "ticketUrl": "https://styrekx.nl/races/styrekx-evenementenhal-gorinchem",
     "workoutWeights": "https://styrekx.nl/divisies",
@@ -1342,7 +1342,7 @@
     "indooroutdoor": "Indoor",
     "hyroxworkout": "No",
     "description": "Kracht en conditie komen samen in \u00e9\u00e9n grensverleggende fitness race.\r\n\r\n10x de Olympische afstand van 800m rennen in combinatie met 10 intensieve workout stations. D\u00e1t is de perfecte hybride balans voor \u00e9\u00e9n ultiem doel. Tijdens STYREKX streef je om de perfectie van het nummer 10 te benaderen. This is your proving ground!",
-    "instagram": "@styrekxrace",
+    "instagram": "@styrekx",
     "website": "https://styrekx.nl/",
     "ticketUrl": "https://styrekx.nl/races/styrekx-nekkerhal-mechelen",
     "workoutWeights": "https://styrekx.nl/divisies",
@@ -1356,7 +1356,7 @@
     "organizationgym": "STYREKX",
     "startdate": "2026-11-21",
     "enddate": "2026-11-22",
-    "location": "EXPO Greater Amsterdam, Vijfhuizen",
+    "location": "EXPO Greater A'dam, Vijfhuizen",
     "country": "NL",
     "coordinates": {
         "lat": 52.341813,
@@ -1378,10 +1378,44 @@
     "indooroutdoor": "Indoor",
     "hyroxworkout": "No",
     "description": "Kracht en conditie komen samen in \u00e9\u00e9n grensverleggende fitness race.\r\n\r\n10x de Olympische afstand van 800m rennen in combinatie met 10 intensieve workout stations. D\u00e1t is de perfecte hybride balans voor \u00e9\u00e9n ultiem doel. Tijdens STYREKX streef je om de perfectie van het nummer 10 te benaderen. This is your proving ground!",
-    "instagram": "@styrekxrace",
+    "instagram": "@styrekx",
     "website": "https://styrekx.nl/",
     "ticketUrl": "https://styrekx.nl/races/styrekx-expo-greater-amsterdam-2026",
     "workoutWeights": "https://styrekx.nl/divisies",
     "contactEmail": "info@styrekx.com"
+},
+{
+    "id": "the-change-games-2025",
+    "image": "https://images.unsplash.com/photo-1535743686920-55e4145369b9?w=800&h=800&fit=crop",
+    "eventname": "The Change Games",
+    "localgym": "no",
+    "organizationgym": "The Change Starts",
+    "startdate": "2025-11-09",
+    "enddate": "",
+    "location": "Sportlab, Almere",
+    "country": "NL",
+    "coordinates": {
+        "lat": 0,
+        "lng": 0
+    },
+    "typerace": [
+        "Solo",
+        "Duo / Buddy"
+    ],
+    "divisions": [
+        "Open / Regular",
+        "Pro / Heavy"
+    ],
+    "ticketpricelow": "40",
+    "ticketpricehigh": "",
+    "fitnessobstacle": "Fitness",
+    "indooroutdoor": "Indoor",
+    "hyroxworkout": "No",
+    "description": "Sweat, going hard & especially laugh a lot! We are ready for the Change Games IIII edition.\r\nThe event will be held on Sunday the 9th of November at the Sportlab in Almere. Heat times will be anywhere between 10:00 and 15:00 for you specific. Price includes custom socks & patch, a Change fuel supplements!\r\nThe Games consists of 3 events: Strength, Endurance & a Metcon.",
+    "instagram": "@thechangegames",
+    "website": "https://thechangestarts.com/products/change-games",
+    "ticketUrl": "https://thechangestarts.com/products/change-games",
+    "workoutWeights": "https://thechangestarts.com/products/change-games",
+    "contactEmail": ""
 }
 ]

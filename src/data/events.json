@@ -1241,107 +1241,147 @@
     "contactEmail": "info@protocolseries.nl"
   },
   {
-    "id": "hyrox-delft-2026",
-    "image": "https://images.hybridraces.fit/uploads/hyrox-delft-2026.jpg",
-    "eventname": "Hyrox Delft",
-    "localgym": "no",
-    "organizationgym": "HYROX",
-    "startdate": "2026-01-01",
-    "enddate": "",
-    "location": "Oude Kerk, Delft",
-    "country": "NL",
-    "coordinates": {
-      "lat": 52.0125957,
-      "lng": 4.355906
-    },
-    "typerace": [
-      "Solo",
-      "Duo / Buddy",
-      "Relay"
-    ],
-    "divisions": [
-      "Open / Regular",
-      "Pro / Heavy"
-    ],
-    "ticketpricelow": "50",
-    "ticketpricehigh": "",
-    "fitnessobstacle": "Fitness",
-    "indooroutdoor": "Indoor",
-    "hyroxworkout": "Yes",
-    "description": "Test voor Hyrox",
-    "instagram": "",
-    "website": "https://www.hyrox.nl",
-    "ticketUrl": "https://www.hyrox.nl",
-    "workoutWeights": "https://www.hyrox.nl",
-    "contactEmail": "hyridraces@gmail.com"
-  },
-  {
-    "id": "hyrox-delft-2027-05",
+    "id": "styrekx-amsterdam-2025",
     "image": "https://images.unsplash.com/photo-1611672585731-fa10603fb9e0?w=800&h=800&fit=crop",
-    "eventname": "Hyrox Delft",
+    "eventname": "STYREKX Amsterdam",
     "localgym": "no",
-    "organizationgym": "MIFIT",
-    "startdate": "2027-01-01",
-    "enddate": "",
-    "location": "De Centrale, Delft",
+    "organizationgym": "STYREKX",
+    "startdate": "2025-11-22",
+    "enddate": "2025-11-23",
+    "location": "EXPO Greater Amsterdam, Vijfhuizen",
     "country": "NL",
     "coordinates": {
-        "lat": 52.0117608,
-        "lng": 4.3578559
-    },
-    "typerace": [
-        "Solo",
-        "Duo / Buddy"
-    ],
-    "divisions": [
-        "Open / Regular",
-        "Pro / Heavy"
-    ],
-    "ticketpricelow": "50",
-    "ticketpricehigh": "",
-    "fitnessobstacle": "Fitness",
-    "indooroutdoor": "Indoor",
-    "hyroxworkout": "Yes",
-    "description": "dsfsdfsd",
-    "instagram": "@gymrace_",
-    "website": "https://www.hyrox.nl",
-    "ticketUrl": "",
-    "workoutWeights": "",
-    "contactEmail": "hybridraces@gmail.com"
-  },
-  {
-    "id": "hyrox-delft-2027-08",
-    "image": "https://images.hybridraces.fit/uploads/hyrox-delft-2027.jpeg",
-    "eventname": "Hyrox Delft",
-    "localgym": "no",
-    "organizationgym": "MIFIT",
-    "startdate": "2027-01-01",
-    "enddate": "",
-    "location": "Kek, Delft",
-    "country": "NL",
-    "coordinates": {
-        "lat": 52.0125705,
-        "lng": 4.3599088
+        "lat": 52.341813,
+        "lng": 4.6783911
     },
     "typerace": [
         "Solo",
         "Duo / Buddy",
-        "Relay"
+        "Team"
     ],
     "divisions": [
         "Open / Regular",
-        "Pro / Heavy"
+        "Pro / Heavy",
+        "Other"
     ],
     "ticketpricelow": "Sold out",
     "ticketpricehigh": "",
     "fitnessobstacle": "Fitness",
     "indooroutdoor": "Indoor",
-    "hyroxworkout": "Yes",
-    "description": "fdsfsdf",
-    "instagram": "@https",
-    "website": "https://www.hyrox.nl",
-    "ticketUrl": "https://www.hyrox.nl",
-    "workoutWeights": "https://www.hyrox.nl",
-    "contactEmail": "hybridraces@gmail.com"
-  }
+    "hyroxworkout": "No",
+    "description": "Kracht en conditie komen samen in \u00e9\u00e9n grensverleggende fitness race.\r\n\r\n10x de Olympische afstand van 800m rennen in combinatie met 10 intensieve workout stations. D\u00e1t is de perfecte hybride balans voor \u00e9\u00e9n ultiem doel. Tijdens STYREKX streef je om de perfectie van het nummer 10 te benaderen. This is your proving ground!",
+    "instagram": "@styrekxrace",
+    "website": "https://styrekx.nl/",
+    "ticketUrl": "",
+    "workoutWeights": "https://styrekx.nl/divisies",
+    "contactEmail": "info@styrekx.com"
+},
+{
+    "id": "styrekx-gorinchem-2026",
+    "image": "https://images.unsplash.com/photo-1591940742878-13aba4b81587?w=800&h=800&fit=crop",
+    "eventname": "STYREKX Gorinchem",
+    "localgym": "no",
+    "organizationgym": "STYREKX",
+    "startdate": "2026-03-28",
+    "enddate": "2026-03-29",
+    "location": "Evenementenhal Gorinchem, Gorinchem",
+    "country": "NL",
+    "coordinates": {
+        "lat": 51.8398689,
+        "lng": 5.0092503
+    },
+    "typerace": [
+        "Solo",
+        "Duo / Buddy",
+        "Team"
+    ],
+    "divisions": [
+        "Open / Regular",
+        "Pro / Heavy",
+        "Other"
+    ],
+    "ticketpricelow": "55",
+    "ticketpricehigh": "95",
+    "fitnessobstacle": "Fitness",
+    "indooroutdoor": "Indoor",
+    "hyroxworkout": "No",
+    "description": "Kracht en conditie komen samen in \u00e9\u00e9n grensverleggende fitness race.\r\n\r\n10x de Olympische afstand van 800m rennen in combinatie met 10 intensieve workout stations. D\u00e1t is de perfecte hybride balans voor \u00e9\u00e9n ultiem doel. Tijdens STYREKX streef je om de perfectie van het nummer 10 te benaderen. This is your proving ground!",
+    "instagram": "@styrekxrace",
+    "website": "https://styrekx.nl/",
+    "ticketUrl": "https://styrekx.nl/races/styrekx-evenementenhal-gorinchem",
+    "workoutWeights": "https://styrekx.nl/divisies",
+    "contactEmail": "info@styrekx.com"
+},
+{
+    "id": "styrekx-mechelen-2026",
+    "image": "https://images.unsplash.com/photo-1594381898411-846e7d193883?w=800&h=800&fit=crop",
+    "eventname": "STYREKX Mechelen",
+    "localgym": "no",
+    "organizationgym": "STYREKX",
+    "startdate": "2026-10-10",
+    "enddate": "2026-10-11",
+    "location": "Nekkerhal Mechelen, Mechelen",
+    "country": "NL",
+    "coordinates": {
+        "lat": 0,
+        "lng": 0
+    },
+    "typerace": [
+        "Solo",
+        "Duo / Buddy",
+        "Team"
+    ],
+    "divisions": [
+        "Open / Regular",
+        "Pro / Heavy",
+        "Other"
+    ],
+    "ticketpricelow": "55",
+    "ticketpricehigh": "95",
+    "fitnessobstacle": "Fitness",
+    "indooroutdoor": "Indoor",
+    "hyroxworkout": "No",
+    "description": "Kracht en conditie komen samen in \u00e9\u00e9n grensverleggende fitness race.\r\n\r\n10x de Olympische afstand van 800m rennen in combinatie met 10 intensieve workout stations. D\u00e1t is de perfecte hybride balans voor \u00e9\u00e9n ultiem doel. Tijdens STYREKX streef je om de perfectie van het nummer 10 te benaderen. This is your proving ground!",
+    "instagram": "@styrekxrace",
+    "website": "https://styrekx.nl/",
+    "ticketUrl": "https://styrekx.nl/races/styrekx-nekkerhal-mechelen",
+    "workoutWeights": "https://styrekx.nl/divisies",
+    "contactEmail": "info@styrekx.com"
+},
+{
+    "id": "styrekx-amsterdam-2026",
+    "image": "https://images.unsplash.com/photo-1535743686920-55e4145369b9?w=800&h=800&fit=crop",
+    "eventname": "STYREKX Amsterdam",
+    "localgym": "no",
+    "organizationgym": "STYREKX",
+    "startdate": "2026-11-21",
+    "enddate": "2026-11-22",
+    "location": "EXPO Greater Amsterdam, Vijfhuizen",
+    "country": "NL",
+    "coordinates": {
+        "lat": 52.341813,
+        "lng": 4.6783911
+    },
+    "typerace": [
+        "Solo",
+        "Duo / Buddy",
+        "Team"
+    ],
+    "divisions": [
+        "Open / Regular",
+        "Pro / Heavy",
+        "Other"
+    ],
+    "ticketpricelow": "55",
+    "ticketpricehigh": "95",
+    "fitnessobstacle": "Fitness",
+    "indooroutdoor": "Indoor",
+    "hyroxworkout": "No",
+    "description": "Kracht en conditie komen samen in \u00e9\u00e9n grensverleggende fitness race.\r\n\r\n10x de Olympische afstand van 800m rennen in combinatie met 10 intensieve workout stations. D\u00e1t is de perfecte hybride balans voor \u00e9\u00e9n ultiem doel. Tijdens STYREKX streef je om de perfectie van het nummer 10 te benaderen. This is your proving ground!",
+    "instagram": "@styrekxrace",
+    "website": "https://styrekx.nl/",
+    "ticketUrl": "https://styrekx.nl/races/styrekx-expo-greater-amsterdam-2026",
+    "workoutWeights": "https://styrekx.nl/divisies",
+    "contactEmail": "info@styrekx.com"
+}
 ]

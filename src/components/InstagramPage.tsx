@@ -2,12 +2,8 @@ import eventsData from '../data/events.json'
 import { EventTileImage } from './EventTileImage'
 import type { RaceEvent as Event } from '../types/Event'
 
-
-
 export function InstagramPage() {
   const events = eventsData as Event[]
-
-  // Reverse the array so the last added event appears first
   const sortedEvents = [...events].reverse()
 
   return (
@@ -17,12 +13,17 @@ export function InstagramPage() {
           Instagram
         </h1>
 
-        {/* Grid of event tiles - 4 columns on desktop */}
         <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {sortedEvents.map((event) => (
             <div key={event.id} className="space-y-4">
               <p className="text-sm text-gray-400">{event.id}</p>
-              <EventTileImage event={event} />
+
+              {/* Instagram 4:5 */}
+              <div className="relative aspect-[4/5] w-full overflow-hidden bg-black">
+                <div className="absolute inset-0">
+                  <EventTileImage event={event} aspect="instagram" />
+                </div>
+              </div>
             </div>
           ))}
         </div>
@@ -30,3 +31,4 @@ export function InstagramPage() {
     </div>
   )
 }
+

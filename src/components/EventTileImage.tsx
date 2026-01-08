@@ -1,362 +1,200 @@
 import { useEffect, useRef } from 'preact/hooks'
 import type { RaceEvent as Event } from '../types/Event'
 
-
-
 interface EventTileImageProps {
   event: Event
+  aspect?: 'square' | 'instagram'
 }
 
-export function EventTileImage({ event }: EventTileImageProps) {
+export function EventTileImage({
+  event,
+  aspect = 'square',
+}: EventTileImageProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
-    const month = date.toLocaleDateString('en-US', { month: 'long' })
-    const day = date.toLocaleDateString('en-US', { day: 'numeric' })
-    const year = date.toLocaleDateString('en-US', { year: 'numeric' })
-    return `${month} ${day}, ${year}`
+    return date.toLocaleDateString('en-US', {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+    })
   }
 
-  const formatDateRange = (startDateString: string, endDateString: string) => {
-    const startDate = new Date(startDateString)
-    const endDate = new Date(endDateString)
-
-    const startMonth = startDate.toLocaleDateString('en-US', { month: 'long' })
-    const startDay = startDate.toLocaleDateString('en-US', { day: 'numeric' })
-    const endMonth = endDate.toLocaleDateString('en-US', { month: 'long' })
-    const endDay = endDate.toLocaleDateString('en-US', { day: 'numeric' })
-    const year = endDate.toLocaleDateString('en-US', { year: 'numeric' })
-
-    return `${startMonth} ${startDay} - ${endMonth} ${endDay}, ${year}`
+  const formatDateRange = (start: string, end: string) => {
+    const s = new Date(start)
+    const e = new Date(end)
+    return `${s.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })} - ${e.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`
   }
 
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
-
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
-    // Set canvas size (square)
-    const size = 800
-    canvas.width = size
-    canvas.height = size
+    const width = 800
+    const height = aspect === 'instagram' ? 1000 : 800
+    canvas.width = width
+    canvas.height = height
 
-    // Load and draw background image
     const img = new Image()
-
-    // Only set crossOrigin for external URLs (Unsplash)
-    // For uploaded images (hybridraces.fit/uploads), don't use crossOrigin to avoid CORS issues
-    if (event.image.includes('unsplash.com')) {
-      img.crossOrigin = 'anonymous'
-    }
-
-    img.onerror = () => {
-      console.error(`Failed to load image for event ${event.id}:`, event.image)
-      // Draw a fallback solid color background
-      ctx.fillStyle = '#1a1a1a'
-      ctx.fillRect(0, 0, size, size)
-      drawOverlay()
-    }
-
+    if (event.image.includes('unsplash.com')) img.crossOrigin = 'anonymous'
     img.src = event.image
 
     img.onload = () => {
-      // Draw background image with cover/crop (like CSS background-size: cover)
       const imgAspect = img.width / img.height
-      const canvasAspect = size / size // 1:1 square
-
+      const canvasAspect = width / height
       let sx = 0, sy = 0, sWidth = img.width, sHeight = img.height
 
       if (imgAspect > canvasAspect) {
-        // Image is wider than canvas - crop width
         sWidth = img.height * canvasAspect
         sx = (img.width - sWidth) / 2
       } else {
-        // Image is taller than canvas - crop height
         sHeight = img.width / canvasAspect
         sy = (img.height - sHeight) / 2
       }
 
-      ctx.drawImage(img, sx, sy, sWidth, sHeight, 0, 0, size, size)
+      ctx.drawImage(img, sx, sy, sWidth, sHeight, 0, 0, width, height)
       drawOverlay()
     }
 
     const drawOverlay = () => {
+      const padding = 50
+      const contentWidth = width - padding * 2
 
-      // Draw gradient overlay
-      const gradient = ctx.createLinearGradient(0, 0, 0, size)
-      gradient.addColorStop(0, 'rgba(0, 0, 0, 0.6)')
-      gradient.addColorStop(0.5, 'rgba(0, 0, 0, 0.7)')
-      gradient.addColorStop(1, 'rgba(0, 0, 0, 0.9)')
+      // ========== GRADIENT ==========
+      const gradient = ctx.createLinearGradient(0, 0, 0, height)
+      gradient.addColorStop(0, 'rgba(0,0,0,0.55)')
+      gradient.addColorStop(0.6, 'rgba(0,0,0,0.7)')
+      gradient.addColorStop(1, 'rgba(0,0,0,0.9)')
       ctx.fillStyle = gradient
-      ctx.fillRect(0, 0, size, size)
+      ctx.fillRect(0, 0, width, height)
 
-      // Draw flag in top right corner
-      const flagWidth = 72
-      const flagHeight = 48
-      const flagX = size - flagWidth - 21  // Was 16, now 21 (increased by 5px)
-      const flagY = 21                      // Was 16, now 21 (increased by 5px)
-
-      // Draw subtle border around flag (similar to filter bar)
-      const borderPadding = 4
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)'
+      // ========== FLAG ==========
+      const flagWidth = 90 // vergroot
+      const flagHeight = 60
+      const flagX = width - flagWidth - 40 // iets meer naar links
+      const flagY = 40 // iets lager geplaatst
+      ctx.strokeStyle = 'rgba(255,255,255,0.4)'
       ctx.lineWidth = 2
-      ctx.strokeRect(flagX - borderPadding, flagY - borderPadding, flagWidth + (borderPadding * 2), flagHeight + (borderPadding * 2))
+      ctx.strokeRect(flagX - 4, flagY - 4, flagWidth + 8, flagHeight + 8)
 
-      // Draw flag based on country
       const country = event.country.toUpperCase()
-      if (country === 'BE' || country === 'BELGIUM') {
-        // Belgian flag (vertical stripes: black, yellow, red)
-        // Black stripe
-        ctx.fillStyle = '#000000'
-        ctx.fillRect(flagX, flagY, flagWidth / 3, flagHeight)
+      const drawRect = (x: number, y: number, w: number, h: number, col: string) => {
+        ctx.fillStyle = col
+        ctx.fillRect(x, y, w, h)
+      }
 
-        // Yellow stripe
-        ctx.fillStyle = '#FDDA24'
-        ctx.fillRect(flagX + flagWidth / 3, flagY, flagWidth / 3, flagHeight)
-
-        // Red stripe
-        ctx.fillStyle = '#EF3340'
-        ctx.fillRect(flagX + (2 * flagWidth / 3), flagY, flagWidth / 3, flagHeight)
-      } else if (country === 'DE' || country === 'GERMANY' || country === 'DEUTSCHLAND') {
-        // German flag (horizontal stripes: black, red, gold)
-        // Black stripe
-        ctx.fillStyle = '#000000'
-        ctx.fillRect(flagX, flagY, flagWidth, flagHeight / 3)
-
-        // Red stripe
-        ctx.fillStyle = '#DD0000'
-        ctx.fillRect(flagX, flagY + flagHeight / 3, flagWidth, flagHeight / 3)
-
-        // Gold stripe
-        ctx.fillStyle = '#FFCE00'
-        ctx.fillRect(flagX, flagY + (2 * flagHeight / 3), flagWidth, flagHeight / 3)
-      } else if (country === 'GB' || country === 'UK' || country === 'UNITED KINGDOM' || country === 'GREAT BRITAIN') {
-        // UK flag - simplified version with cross
-        // Blue background
-        ctx.fillStyle = '#012169'
-        ctx.fillRect(flagX, flagY, flagWidth, flagHeight)
-
-        // White cross (St. George's Cross background for red cross)
-        ctx.fillStyle = '#FFFFFF'
-        // Horizontal bar
-        ctx.fillRect(flagX, flagY + (flagHeight / 2) - 7, flagWidth, 14)
-        // Vertical bar
-        ctx.fillRect(flagX + (flagWidth / 2) - 7, flagY, 14, flagHeight)
-
-        // Red cross (St. George's Cross)
-        ctx.fillStyle = '#C8102E'
-        // Horizontal bar
-        ctx.fillRect(flagX, flagY + (flagHeight / 2) - 4, flagWidth, 8)
-        // Vertical bar
-        ctx.fillRect(flagX + (flagWidth / 2) - 4, flagY, 8, flagHeight)
+      if (country === 'BE') {
+        drawRect(flagX, flagY, flagWidth / 3, flagHeight, '#000')
+        drawRect(flagX + flagWidth / 3, flagY, flagWidth / 3, flagHeight, '#FDDA24')
+        drawRect(flagX + (2 * flagWidth) / 3, flagY, flagWidth / 3, flagHeight, '#EF3340')
+      } else if (country === 'DE') {
+        drawRect(flagX, flagY, flagWidth, flagHeight / 3, '#000')
+        drawRect(flagX, flagY + flagHeight / 3, flagWidth, flagHeight / 3, '#DD0000')
+        drawRect(flagX, flagY + (2 * flagHeight) / 3, flagWidth, flagHeight / 3, '#FFCE00')
       } else {
-        // Dutch flag (horizontal stripes: red, white, blue) - default for NL, Netherlands, etc.
-        // Red stripe
-        ctx.fillStyle = '#AE1C28'
-        ctx.fillRect(flagX, flagY, flagWidth, flagHeight / 3)
-
-        // White stripe
-        ctx.fillStyle = '#FFFFFF'
-        ctx.fillRect(flagX, flagY + flagHeight / 3, flagWidth, flagHeight / 3)
-
-        // Blue stripe
-        ctx.fillStyle = '#21468B'
-        ctx.fillRect(flagX, flagY + (2 * flagHeight / 3), flagWidth, flagHeight / 3)
+        drawRect(flagX, flagY, flagWidth, flagHeight / 3, '#AE1C28')
+        drawRect(flagX, flagY + flagHeight / 3, flagWidth, flagHeight / 3, '#FFF')
+        drawRect(flagX, flagY + (2 * flagHeight) / 3, flagWidth, flagHeight / 3, '#21468B')
       }
 
-      // Draw event name - fixed font size, wrap to 2 lines if needed
-      ctx.fillStyle = '#FFFFFF'
-      const name = event.eventname.toUpperCase()
-      const maxWidth = size - 100 // Leave padding on both sides
+      // ========== EVENT NAME ==========
+      ctx.fillStyle = '#FFF'
+      ctx.font = 'bold 64px Arial'
+      ctx.textAlign = 'left'
+      ctx.textBaseline = 'top'
+      const titleY = height * 0.12
 
-      // Fixed font size - always 64px
-      const fontSize = 64
-      ctx.font = `bold ${fontSize}px Arial`
-
-      // Word wrapping logic
-      const words = name.split(' ')
+      const eventWords = event.eventname.toUpperCase().split(' ')
+      let line = ''
       const lines: string[] = []
-      let currentLine = words[0]
-
-      for (let i = 1; i < words.length; i++) {
-        const testLine = currentLine + ' ' + words[i]
-        const metrics = ctx.measureText(testLine)
-        if (metrics.width > maxWidth && lines.length < 1) {
-          // Only wrap to second line if we haven't already wrapped
-          lines.push(currentLine)
-          currentLine = words[i]
+      for (const word of eventWords) {
+        const testLine = line ? line + ' ' + word : word
+        if (ctx.measureText(testLine).width > contentWidth && line) {
+          lines.push(line)
+          line = word
         } else {
-          currentLine = testLine
+          line = testLine
         }
       }
-      lines.push(currentLine)
+      if (line) lines.push(line)
 
-      // Draw each line with extra spacing between lines
-      const lineHeight = fontSize * 1.15
-      const extraLineSpacing = 20 // Extra space between first and second line
-      let yPos = 130 // Increased from 100 for more space above event name
-      lines.forEach((line, index) => {
-        const additionalSpacing = index > 0 ? extraLineSpacing : 0
-        ctx.fillText(line, 50, yPos + (index * lineHeight) + additionalSpacing)
-      })
+      const eventLineHeight = 85 // ruimte tussen 1e en 2e regel
+      lines.forEach((l, i) => ctx.fillText(l, padding, titleY + i * eventLineHeight))
 
-      // Draw event details - ALWAYS at same position (reserve space for 2 lines of event name)
-      const reservedNameHeight = (lineHeight * 2) + extraLineSpacing // Space for 2 lines max
-      let detailsStartY = yPos + reservedNameHeight + 30 // Increased spacing between name and details
-      ctx.font = '42px Arial' // Increased from 36px for larger text
+      // ========== SUB INFORMATION ==========
+      ctx.font = '42px Arial'
+      ctx.fillStyle = '#FFF'
+      let y = height * 0.37  // iets hoger geplaatst
+      const lineHeight = 50
+      const iconOffset = 70      // ruimte tussen icoon en tekst
+      const itemSpacing = 40     // ruimte tussen subinfo-items
 
-      // Helper function to wrap text with emoji centered on text height
-      const wrapText = (text: string, x: number, y: number, maxWidth: number, lineHeight: number): number => {
-        // Split text into emoji and rest
-        const emojiMatch = text.match(/^([\u{1F300}-\u{1F9FF}])\s*/u)
-        const emoji = emojiMatch ? emojiMatch[1] + ' ' : ''
-        const textWithoutEmoji = emoji && emojiMatch ? text.slice(emojiMatch[0].length) : text
-
-        const words = textWithoutEmoji.split(' ')
-        const allLines: string[] = []
-        let line = ''
-
-        // Measure emoji width to account for it in first line
-        const emojiWidth = emoji ? ctx.measureText(emoji).width : 0
-
-        // First pass: collect all lines
-        for (let i = 0; i < words.length; i++) {
-          const testLine = line + words[i] + ' '
-          const lineWidth = ctx.measureText(testLine).width
-          const totalWidth = (allLines.length === 0 ? emojiWidth : 0) + lineWidth
-
-          if (totalWidth > maxWidth && i > 0) {
-            allLines.push(line.trim())
-            line = words[i] + ' '
-          } else {
-            line = testLine
-          }
-        }
-        allLines.push(line.trim())
-
-        // Calculate total text height and emoji vertical offset
-        const totalTextHeight = allLines.length * lineHeight
-        const emojiVerticalOffset = allLines.length > 1 ? (totalTextHeight - lineHeight) / 2 : 0
-
-        // Draw emoji vertically centered
-        if (emoji) {
-          ctx.fillText(emoji, x, y + emojiVerticalOffset)
-        }
-
-        // Draw all text lines aligned with emoji width offset
-        for (let i = 0; i < allLines.length; i++) {
-          ctx.fillText(allLines[i], x + emojiWidth, y + (i * lineHeight))
-        }
-
-        return totalTextHeight // Return total height used
-      }
-
-      const detailMaxWidth = size - 100 // Same max width as event name
-      const detailLineHeight = 50 // Line height for wrapped detail text
-      const itemSpacing = 30 // Spacing between items (similar to space-y-2)
-
-      const formattedDate = event.enddate
-        ? formatDateRange(event.startdate, event.enddate)
-        : formatDate(event.startdate)
-
-      let currentY = detailsStartY
-      currentY += wrapText(`📅 ${formattedDate}`, 50, currentY, detailMaxWidth, detailLineHeight)
-      currentY += itemSpacing
-      currentY += wrapText(`📍 ${event.location}`, 50, currentY, detailMaxWidth, detailLineHeight)
-      currentY += itemSpacing
-
-      // Draw race types or difficulty
-      if (event.typerace) {
-        // For race types, don't use wrapText to avoid extracting the runner emoji
-        const raceText = event.typerace.join(', ')
-        const words = raceText.split(' ')
+      const drawSubInfo = (icon: string, text: string) => {
+        const words = text.split(' ')
         const lines: string[] = []
         let line = ''
-
-        for (let i = 0; i < words.length; i++) {
-          const testLine = line + words[i] + ' '
-          const lineWidth = ctx.measureText(testLine).width
-
-          if (lineWidth > detailMaxWidth && i > 0) {
-            lines.push(line.trim())
-            line = words[i] + ' '
+        for (const word of words) {
+          const testLine = line ? line + ' ' + word : word
+          if (ctx.measureText(testLine).width > contentWidth - iconOffset && line) {
+            lines.push(line)
+            line = word
           } else {
             line = testLine
           }
         }
-        lines.push(line.trim())
+        if (line) lines.push(line)
 
-        // Draw runner emoji at base position
-        ctx.fillText('🏃‍♂️', 50, currentY)
-        const emojiWidth = ctx.measureText('🏃‍♂️ ').width
+        const totalHeight = lines.length * lineHeight
+        const iconY = y + totalHeight / 2 - lineHeight / 2
+        ctx.fillText(icon, padding, iconY)
 
-        // Draw text lines offset by emoji width
-        for (let i = 0; i < lines.length; i++) {
-          ctx.fillText(lines[i], 50 + emojiWidth, currentY + (i * detailLineHeight))
-        }
-
-        currentY += lines.length * detailLineHeight
+        lines.forEach((l, i) => ctx.fillText(l, padding + iconOffset, y + i * lineHeight))
+        y += totalHeight + itemSpacing
       }
 
-      // Draw organization if present (as last item)
-      if (event.organizationgym) {
-        currentY += itemSpacing
-        wrapText(`🏢 ${event.organizationgym}`, 50, currentY, detailMaxWidth, detailLineHeight)
-      }
+      drawSubInfo('📅', event.enddate ? formatDateRange(event.startdate, event.enddate) : formatDate(event.startdate))
+      drawSubInfo('📍', event.location)
+      if (event.typerace?.length) drawSubInfo('🏃‍♂️', event.typerace.join(', '))
+      if (event.organizationgym) drawSubInfo('🏢', event.organizationgym)
 
-      // Draw orange bar at bottom with rounded corners
-      ctx.fillStyle = '#D94800'
+      // ========== ORANGE BAR ==========
       const barHeight = 80
-      const barY = size - barHeight - 48 // 48px from bottom (6 * 8px)
-      const borderRadius = 8
-
-      // Draw rounded rectangle for orange bar
+      const barY = height - barHeight - 48
+      ctx.fillStyle = '#D94800'
       ctx.beginPath()
-      ctx.moveTo(48 + borderRadius, barY)
-      ctx.lineTo(size - 48 - borderRadius, barY)
-      ctx.quadraticCurveTo(size - 48, barY, size - 48, barY + borderRadius)
-      ctx.lineTo(size - 48, barY + barHeight - borderRadius)
-      ctx.quadraticCurveTo(size - 48, barY + barHeight, size - 48 - borderRadius, barY + barHeight)
-      ctx.lineTo(48 + borderRadius, barY + barHeight)
-      ctx.quadraticCurveTo(48, barY + barHeight, 48, barY + barHeight - borderRadius)
-      ctx.lineTo(48, barY + borderRadius)
-      ctx.quadraticCurveTo(48, barY, 48 + borderRadius, barY)
-      ctx.closePath()
+      ctx.roundRect(48, barY, width - 96, barHeight, 8)
       ctx.fill()
 
-      // Draw text on orange bar with letter spacing
-      ctx.fillStyle = '#000000'
-      ctx.font = 'bold 36px Arial' // Increased from 28px
-      ctx.textAlign = 'left'
-      ctx.textBaseline = 'middle' // Align text vertically in the middle
+      // HYBRIDRACES.FIT OLD STYLE
       const text = 'HYBRIDRACES.FIT'
-      const letterSpacing = 10 // Increased from 8 to maintain proportions
-
-      // Manual letter spacing
-      let textX = size / 2
-      const textY = barY + barHeight / 2
-
-      // Measure total width with spacing
+      ctx.fillStyle = '#000'
+      ctx.font = 'bold 36px Arial'
+      ctx.textAlign = 'left'
+      ctx.textBaseline = 'middle'
+      const letterSpacing = 10
       let totalWidth = 0
+      for (let i = 0; i < text.length; i++) totalWidth += ctx.measureText(text[i]).width + (i < text.length - 1 ? letterSpacing : 0)
+      let startX = width / 2 - totalWidth / 2
+      const textY = barY + barHeight / 2
       for (let i = 0; i < text.length; i++) {
-        totalWidth += ctx.measureText(text[i]).width + (i < text.length - 1 ? letterSpacing : 0)
-      }
-
-      // Start position (centered)
-      let currentX = textX - totalWidth / 2
-
-      // Draw each character with spacing
-      for (let i = 0; i < text.length; i++) {
-        ctx.fillText(text[i], currentX, textY)
-        currentX += ctx.measureText(text[i]).width + letterSpacing
+        ctx.fillText(text[i], startX, textY)
+        startX += ctx.measureText(text[i]).width + letterSpacing
       }
     }
-  }, [event])
+  }, [event, aspect])
 
-  return (
-    <canvas ref={canvasRef} className="w-full h-auto" />
-  )
+  return <canvas ref={canvasRef} className="w-full h-full block" />
 }
+
+
+
+
+
+
+
+
+
+

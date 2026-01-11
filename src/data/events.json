@@ -1449,5 +1449,37 @@
     "ticketUrl": "https://valkencourt.nl/fitness/hyrox-event/",
     "workoutWeights": "",
     "contactEmail": "info@valkencourt.nl"
+},
+{
+    "id": "6blox-2026",
+    "image": "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=800&h=800&fit=crop",
+    "eventname": "6BLOX",
+    "localgym": "yes",
+    "organizationgym": "HRX Experience",
+    "startdate": "2026-02-01",
+    "enddate": "",
+    "location": "HRX Experience, Amsterdam",
+    "country": "NL",
+    "coordinates": {
+        "lat": 0,
+        "lng": 0
+    },
+    "typerace": [
+        "Duo / Buddy"
+    ],
+    "divisions": [
+        "Open / Regular"
+    ],
+    "ticketpricelow": "60",
+    "ticketpricehigh": "",
+    "fitnessobstacle": "Fitness",
+    "indooroutdoor": "Indoor & Outdoor",
+    "hyroxworkout": "No",
+    "description": "6BLOX is a hybrid fitness event where you compete in pairs over a one-hour race designed to test not just strength, speed, and stamina, but strategy too.\r\n\r\nMore than just a physical challenge, 6BLOX is about community - bringing people together to compete, connect, and have a great time.\r\n\r\nWhether you're chasing the podium or looking for a new kind of challenge, you'll find your place and your pace at 6BLOX.",
+    "instagram": "@6blox_fit",
+    "website": "https://www.6bloxfit.com/",
+    "ticketUrl": "https://atleta.cc/e/6QrFGhEZ2tIv",
+    "workoutWeights": "https://www.6bloxfit.com/how-it-works",
+    "contactEmail": "info@6bloxfit.com"
 }
 ]

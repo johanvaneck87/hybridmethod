@@ -32,40 +32,6 @@
     "contactEmail": "info@hexafit.nl"
   },
   {
-    "id": "gymrace-london-2025",
-    "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=800&fit=crop",
-    "eventname": "Gymrace London",
-    "localgym": "No",
-    "organizationgym": "Gymrace",
-    "startdate": "2025-03-21",
-    "enddate": "2025-03-22",
-    "location": "Excel London, London",
-    "country": "GB",
-    "coordinates": {
-      "lat": 51.5081127,
-      "lng": 0.0297071
-    },
-    "typerace": [
-      "Solo",
-      "Duo / Buddy"
-    ],
-    "divisions": [
-      "Open / Regular",
-      "Pro / Heavy"
-    ],
-    "ticketpricelow": "82,5",
-    "ticketpricehigh": "97,5",
-    "fitnessobstacle": "Fitness",
-    "indooroutdoor": "Indoor",
-    "hyroxworkout": "No",
-    "description": "GYMRACE challenges you to test your fitness and have a great day. The average finish time is 1 hour and 20 minutes. You can race solo or with your buddy. With your buddy, you run together from start to finish and divide the work at the stations. There are different weights for women, men, and... there's the heavy category. In the heavy category, the strength stations are heavier. Choose a category that suits you and challenges you. You can do more than you think.",
-    "instagram": "@gymrace_",
-    "website": "https://www.gymrace.com/",
-    "ticketUrl": "https://www.gymrace.com/",
-    "workoutWeights": "https://www.gymrace.com/nl/de-race",
-    "contactEmail": "service@gymrace.com"
-  },
-  {
     "id": "gymrace-utrecht-2025",
     "image": "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&h=800&fit=crop",
     "eventname": "Gymrace Utrecht",
@@ -1417,5 +1383,72 @@
     "ticketUrl": "https://thechangestarts.com/products/change-games",
     "workoutWeights": "https://thechangestarts.com/products/change-games",
     "contactEmail": ""
+},
+{
+    "id": "hyrox-simulation-2befit-2026",
+    "image": "https://images.unsplash.com/photo-1547919307-1ecb10702e6f?w=800&h=800&fit=crop",
+    "eventname": "HYROX Simulation 2BEFIT",
+    "localgym": "yes",
+    "organizationgym": "2BEFIT Gym & Coaching",
+    "startdate": "2026-01-18",
+    "enddate": "",
+    "location": "2BEFIT HYROX Gym, Rheden",
+    "country": "NL",
+    "coordinates": {
+        "lat": 0,
+        "lng": 0
+    },
+    "typerace": [
+        "Solo",
+        "Duo / Buddy"
+    ],
+    "divisions": [
+        "Open / Regular",
+        "Pro / Heavy"
+    ],
+    "ticketpricelow": "30",
+    "ticketpricehigh": "40",
+    "fitnessobstacle": "Fitness",
+    "indooroutdoor": "Indoor & Outdoor",
+    "hyroxworkout": "Yes",
+    "description": "Op 18 Januari brengen we de volledige HYROX-beleving naar Rheden. Train onder wedstrijdomstandigheden: heldere heats, strakke time caps, professionele begeleiding en support langs de lijn.",
+    "instagram": "@2befit_lifestyle",
+    "website": "https://www.2befitlifestyle.nl/strong-strike-event-8",
+    "ticketUrl": "https://www.2befitlifestyle.nl/strong-strike-event-8",
+    "workoutWeights": "",
+    "contactEmail": "info@2befitlifestyle.nl"
+},
+{
+    "id": "hyrox-simulation-valkenswaard-2026",
+    "image": "https://images.unsplash.com/photo-1521804906057-1df8fdb718b7?w=800&h=800&fit=crop",
+    "eventname": "HYROX Simulation Valkenswaard",
+    "localgym": "yes",
+    "organizationgym": "Health & Sports Club Valkencourt",
+    "startdate": "2026-01-18",
+    "enddate": "",
+    "location": "Health & Sports Club Valkencourt, Valkenswaard",
+    "country": "NL",
+    "coordinates": {
+        "lat": 0,
+        "lng": 0
+    },
+    "typerace": [
+        "Solo",
+        "Duo / Buddy"
+    ],
+    "divisions": [
+        "Open / Regular"
+    ],
+    "ticketpricelow": "5",
+    "ticketpricehigh": "10",
+    "fitnessobstacle": "Fitness",
+    "indooroutdoor": "Indoor",
+    "hyroxworkout": "Yes",
+    "description": "Dit is h\u00e9t moment waarmee jij 2026 sportief begint. Op 18 januari lanceren we officieel HYROX bij Valkencourt, speciaal voor iedereen die deze unieke, krachtige trainingsvorm wil ontdekken! Met \u00e9\u00e9n van de grootste Hyrox-ruimtes in de regio worden wij een offici\u00eble Hyrox Training Club en dit is jouw kans om als eerste deel te nemen aan deze nieuwe sportbeleving bij Valkencourt.",
+    "instagram": "@healthsportsclubvalkencourt",
+    "website": "https://valkencourt.nl/fitness/hyrox-event/",
+    "ticketUrl": "https://valkencourt.nl/fitness/hyrox-event/",
+    "workoutWeights": "",
+    "contactEmail": "info@valkencourt.nl"
 }
 ]

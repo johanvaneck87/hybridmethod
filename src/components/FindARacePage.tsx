@@ -1204,8 +1204,8 @@ export function FindARacePage() {
                 <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/70 to-black/90"></div>
               </div>
 
-              {/* Country Flag - Top Right */}
-              <div className="absolute top-1 right-1 z-10">
+              {/* Country Flag - Top Right - Responsive */}
+              <div className="absolute top-1 right-1 z-10 scale-75 md:scale-100">
                 <CountryFlag country={event.country} size="small" />
               </div>
 

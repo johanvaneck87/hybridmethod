@@ -81,24 +81,48 @@ export function EventTileImage({
       ctx.strokeRect(flagX - 4, flagY - 4, flagWidth + 8, flagHeight + 8)
 
       const country = event.country.toUpperCase()
-      const drawRect = (x: number, y: number, w: number, h: number, col: string) => {
-        ctx.fillStyle = col
-        ctx.fillRect(x, y, w, h)
-      }
+      const drawFlag = () => {
+        const drawRect = (x: number, y: number, w: number, h: number, col: string) => {
+          ctx.fillStyle = col
+          ctx.fillRect(x, y, w, h)
+        }
 
-      if (country === 'BE') {
-        drawRect(flagX, flagY, flagWidth / 3, flagHeight, '#000')
-        drawRect(flagX + flagWidth / 3, flagY, flagWidth / 3, flagHeight, '#FDDA24')
-        drawRect(flagX + (2 * flagWidth) / 3, flagY, flagWidth / 3, flagHeight, '#EF3340')
-      } else if (country === 'DE') {
-        drawRect(flagX, flagY, flagWidth, flagHeight / 3, '#000')
-        drawRect(flagX, flagY + flagHeight / 3, flagWidth, flagHeight / 3, '#DD0000')
-        drawRect(flagX, flagY + (2 * flagHeight) / 3, flagWidth, flagHeight / 3, '#FFCE00')
-      } else {
-        drawRect(flagX, flagY, flagWidth, flagHeight / 3, '#AE1C28')
-        drawRect(flagX, flagY + flagHeight / 3, flagWidth, flagHeight / 3, '#FFF')
-        drawRect(flagX, flagY + (2 * flagHeight) / 3, flagWidth, flagHeight / 3, '#21468B')
+        switch (country) {
+          case 'BE':
+          case 'BELGIUM':
+            drawRect(flagX, flagY, flagWidth / 3, flagHeight, '#000000')
+            drawRect(flagX + flagWidth / 3, flagY, flagWidth / 3, flagHeight, '#FDDA24')
+            drawRect(flagX + (2 * flagWidth) / 3, flagY, flagWidth / 3, flagHeight, '#EF3340')
+            break
+          case 'DE':
+          case 'GERMANY':
+          case 'DEUTSCHLAND':
+            drawRect(flagX, flagY, flagWidth, flagHeight / 3, '#000000')
+            drawRect(flagX, flagY + flagHeight / 3, flagWidth, flagHeight / 3, '#DD0000')
+            drawRect(flagX, flagY + (2 * flagHeight) / 3, flagWidth, flagHeight / 3, '#FFCE00')
+            break
+          case 'GB':
+          case 'UK':
+          case 'UNITED KINGDOM':
+          case 'GREAT BRITAIN':
+            drawRect(flagX, flagY, flagWidth, flagHeight, '#012169')
+            ctx.fillStyle = '#FFFFFF'
+            ctx.fillRect(flagX, flagY + flagHeight / 2 - 7, flagWidth, 14)
+            ctx.fillRect(flagX + flagWidth / 2 - 7, flagY, 14, flagHeight)
+            ctx.fillStyle = '#C8102E'
+            ctx.fillRect(flagX, flagY + flagHeight / 2 - 4, flagWidth, 8)
+            ctx.fillRect(flagX + flagWidth / 2 - 4, flagY, 8, flagHeight)
+            break
+          case 'NL':
+          case 'NETHERLANDS':
+          default:
+            drawRect(flagX, flagY, flagWidth, flagHeight / 3, '#AE1C28')
+            drawRect(flagX, flagY + flagHeight / 3, flagWidth, flagHeight / 3, '#FFFFFF')
+            drawRect(flagX, flagY + (2 * flagHeight) / 3, flagWidth, flagHeight / 3, '#21468B')
+            break
+        }
       }
+      drawFlag()
 
       // ========== EVENT NAME ==========
       ctx.fillStyle = '#FFF'
@@ -163,14 +187,14 @@ export function EventTileImage({
       // ========== ORANGE BAR ==========
       const barHeight = 80
       const bottomMargin = 50
-      const extraTopPadding = 10 // schuift balk omhoog
+      const extraTopPadding = 10
       const barY = height - barHeight - bottomMargin - extraTopPadding
       ctx.fillStyle = '#D94800'
       ctx.beginPath()
       ctx.roundRect(padding, barY, contentWidth, barHeight, 8)
       ctx.fill()
 
-      // HYBRIDRACES.FIT (iets groter)
+      // HYBRIDRACES.FIT
       const text = 'HYBRIDRACES.FIT'
       ctx.fillStyle = '#000'
       ctx.font = 'bold 44px Arial'
@@ -190,6 +214,9 @@ export function EventTileImage({
 
   return <canvas ref={canvasRef} className="w-full h-full block" />
 }
+
+
+
 
 
 

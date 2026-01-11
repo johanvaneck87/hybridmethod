@@ -39,7 +39,8 @@
       "Bash(git log:*)",
       "Bash(gh workflow run:*)",
       "Bash(git pull:*)",
-      "Bash(git stash:*)"
+      "Bash(git stash:*)",
+      "Bash(git checkout:*)"
     ],
     "deny": [],
     "ask": []

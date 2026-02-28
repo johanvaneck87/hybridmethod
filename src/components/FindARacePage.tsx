@@ -13,7 +13,7 @@ type VenueType = 'all' | 'indoor' | 'outdoor' | 'indoor-outdoor'
 export function FindARacePage() {
   // Temporary filter states (not yet applied)
   const [tempFilterType, setTempFilterType] = useState<FilterType>('all')
-  const [tempOnlyUpcomingEvents, setTempOnlyUpcomingEvents] = useState(false)
+  const [tempOnlyUpcomingEvents, setTempOnlyUpcomingEvents] = useState(true)
   const [tempLocationSearch, setTempLocationSearch] = useState('')
   const [tempDistanceKm, setTempDistanceKm] = useState('')
   const [tempHyroxOnly, setTempHyroxOnly] = useState(false)
@@ -26,7 +26,7 @@ export function FindARacePage() {
 
   // Applied filter states (actually used for filtering)
   const [filterType, setFilterType] = useState<FilterType>('all')
-  const [onlyUpcomingEvents, setOnlyUpcomingEvents] = useState(false)
+  const [onlyUpcomingEvents, setOnlyUpcomingEvents] = useState(true)
   const [locationSearch, setLocationSearch] = useState('')
   const [distanceKm, setDistanceKm] = useState('')
   const [hyroxOnly, setHyroxOnly] = useState(false)

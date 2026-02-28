@@ -306,7 +306,7 @@
     "image": "https://images.unsplash.com/photo-1577221084712-45b0445d2b00?w=800&h=800&fit=crop",
     "eventname": "HealthROX",
     "localgym": "Yes",
-    "organizationgym": "Health Platform",
+    "organizationgym": "Healthrox",
     "startdate": "2025-09-27",
     "enddate": "2025-09-28",
     "location": "Olympus '70, Naaldwijk",
@@ -737,40 +737,6 @@
     "contactEmail": "info@hybridebattle.nl"
   },
   {
-    "id": "myrox-delft-2026",
-    "image": "https://images.hybridraces.fit/uploads/myrox-delft-2026.jpeg",
-    "eventname": "Myrox Delft",
-    "localgym": "Yes",
-    "organizationgym": "MIFIT Personal Sport Coaching",
-    "startdate": "2026-04-01",
-    "enddate": "",
-    "location": "MIFIT, Delft",
-    "country": "NL",
-    "coordinates": {
-      "lat": 51.9946661,
-      "lng": 4.3878072
-    },
-    "typerace": [
-      "Solo",
-      "Duo / Buddy"
-    ],
-    "divisions": [
-      "Open / Regular",
-      "Pro / Heavy"
-    ],
-    "ticketpricelow": "15",
-    "ticketpricehigh": "30",
-    "fitnessobstacle": "Fitness",
-    "indooroutdoor": "Indoor & Outdoor",
-    "hyroxworkout": "Yes",
-    "description": "Myrox - The ultimate HYROX race at Mifit. Test your endurance and fitness during our Myrox event with 8 challenging workout stations.",
-    "instagram": "@mifit_personal_sport_coach",
-    "website": "https://mifitsport.nl/myrox/",
-    "ticketUrl": "https://mifitsport.nl/myrox/",
-    "workoutWeights": "https://hyroxbenelux.com/about-race/",
-    "contactEmail": "info@mifitsport.nl"
-  },
-  {
     "id": "hybrid-games-nl-3rd-edition-2026",
     "image": "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&h=800&fit=crop",
     "eventname": "Hybrid Games NL 3rd Edition",
@@ -907,10 +873,10 @@
   },
   {
     "id": "healthrox-2026",
-    "image": "https://images.unsplash.com/photo-1556817411-31ae72fa3ea0?w=800&h=800&fit=crop",
+    "image": "https://images.hybridraces.fit/uploads/healthrox-2026.jpeg",
     "eventname": "HealthROX",
     "localgym": "Yes",
-    "organizationgym": "Health Platform",
+    "organizationgym": "Healthrox",
     "startdate": "2026-05-29",
     "enddate": "2026-05-31",
     "location": "Olympus '70, Naaldwijk",
@@ -935,7 +901,7 @@
     "description": "New edition with extra heats and festival atmosphere. Challenge yourself as an athlete across 8 explosive workouts combined with running. Experience the ultimate fitness race in a vibrant setting.",
     "instagram": "@healthplatform.nl",
     "website": "https://www.health-platform.nl/nl/HealthROX",
-    "ticketUrl": "https://www.health-platform.nl/nl/HealthROX",
+    "ticketUrl": "https://shop.weeztix.com/660e67ed-45dd-11f0-a9cb-7e126431635e/tickets",
     "workoutWeights": "https://www.health-platform.nl/nl/HealthROX",
     "contactEmail": "info@health-platform.nl"
   },
@@ -1617,5 +1583,141 @@
     "ticketUrl": "https://bootcamper.sportbitapp.nl/web/nl/events/15841",
     "workoutWeights": "https://bootcamper.sportbitapp.nl/web/nl/events/15841",
     "contactEmail": "contact@hrxcoaching.nl"
+},
+{
+    "id": "myrox-2026",
+    "image": "https://images.hybridraces.fit/uploads/myrox-delft-2026.jpeg",
+    "eventname": "Myrox Delft",
+    "localgym": "yes",
+    "organizationgym": "MIFIT Personal Sport Coaching",
+    "startdate": "2026-03-22",
+    "enddate": "",
+    "location": "Delft",
+    "country": "NL",
+    "coordinates": {
+        "lat": 52.0114017,
+        "lng": 4.35839
+    },
+    "typerace": [
+        "Solo",
+        "Duo / Buddy"
+    ],
+    "divisions": [
+        "Open / Regular",
+        "Pro / Heavy"
+    ],
+    "ticketpricelow": "30.00",
+    "ticketpricehigh": "",
+    "fitnessobstacle": "Fitness",
+    "indooroutdoor": "Indoor & Outdoor",
+    "hyroxworkout": "Yes",
+    "description": "Hyrox race",
+    "instagram": "@mifit_personal_sport_coach",
+    "website": "https://mifitsport.nl/myrox/",
+    "ticketUrl": "https://mifitsport.nl/myrox/",
+    "workoutWeights": "",
+    "contactEmail": "evert@mifitsport.nl"
+},
+{
+    "id": "athx-amsterdam-2026",
+    "image": "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&h=800&fit=crop",
+    "eventname": "ATHX Amsterdam",
+    "localgym": "no",
+    "organizationgym": "ATHX",
+    "startdate": "2026-11-07",
+    "enddate": "",
+    "location": "RAI, Amsterdam",
+    "country": "NL",
+    "coordinates": {
+        "lat": 52.3412264,
+        "lng": 4.8899065
+    },
+    "typerace": [
+        "Solo",
+        "Duo / Buddy"
+    ],
+    "divisions": [
+        "Open / Regular",
+        "Pro / Heavy"
+    ],
+    "ticketpricelow": "110",
+    "ticketpricehigh": "",
+    "fitnessobstacle": "Fitness",
+    "indooroutdoor": "Indoor",
+    "hyroxworkout": "No",
+    "description": "ATHX is a 2.5-hour continuous fitness competition across six zones, with one set challenge designed to test every aspect of fitness and push you to the next level.",
+    "instagram": "@athx_games",
+    "website": "https://athxgames.com/events/01k8b7nxgwcr70a86vqf2y6ck4",
+    "ticketUrl": "https://athxgames.com/events/01k8b7nxgwcr70a86vqf2y6ck4",
+    "workoutWeights": "https://athxgames.com/#howItWorks",
+    "contactEmail": "hello@athxgames.com"
+},
+{
+    "id": "cfc-karakter-games-2026",
+    "image": "https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=800&h=800&fit=crop",
+    "eventname": "CFC Karakter Games",
+    "localgym": "yes",
+    "organizationgym": "CrossFit Castricum",
+    "startdate": "2026-05-17",
+    "enddate": "",
+    "location": "AVC, Castricum",
+    "country": "NL",
+    "coordinates": {
+        "lat": 0,
+        "lng": 0
+    },
+    "typerace": [
+        "Duo / Buddy"
+    ],
+    "divisions": [
+        "Open / Regular",
+        "Pro / Heavy",
+        "Other"
+    ],
+    "ticketpricelow": "40",
+    "ticketpricehigh": "80",
+    "fitnessobstacle": "Fitness",
+    "indooroutdoor": "Outdoor",
+    "hyroxworkout": "No",
+    "description": "De CFC Karakter Games is een energieke fitnessrace waarin kracht, conditie en doorzettingsvermogen samenkomen. Met onderdelen zoals hardlopen, fietsen, roeien, ski\u00ebn, burpees, wall balls en meer, is uitdaging gegarandeerd.\r\n\r\nMeld je aan voor de tweede editie op zondag 17 mei 2026!\r\n\r\nOf je nu traint voor prestaties of vooral komt voor het plezier en de sfeer: er is altijd een categorie die bij jou past. Geschikt voor zowel fanatieke sporters als enthousiaste beginners. Samen ren je zij aan zij door de race en kun je onderdelen verdelen. Hoe je het ook aanpakt: je gaat naar huis met een voldaan gevoel.",
+    "instagram": "@club_karakter",
+    "website": "https://cfckaraktergames.nl/",
+    "ticketUrl": "https://shop.tickets.cm.com/cf3d11c0-0b52-3a30-1b5b-0f86ce3dac78",
+    "workoutWeights": "https://cfckaraktergames.nl/games/",
+    "contactEmail": "info@cfckaraktergames.nl"
+},
+{
+    "id": "hyrox-simulation-lansingerland-2026",
+    "image": "https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=800&h=800&fit=crop",
+    "eventname": "HYROX Simulation Lansingerland",
+    "localgym": "yes",
+    "organizationgym": "HYROX Lansingerland",
+    "startdate": "2026-05-31",
+    "enddate": "",
+    "location": "FMB Sport Club",
+    "country": "NL",
+    "coordinates": {
+        "lat": 0,
+        "lng": 0
+    },
+    "typerace": [
+        "Solo",
+        "Duo / Buddy"
+    ],
+    "divisions": [
+        "Open / Regular",
+        "Pro / Heavy"
+    ],
+    "ticketpricelow": "0",
+    "ticketpricehigh": "",
+    "fitnessobstacle": "Fitness",
+    "indooroutdoor": "Indoor",
+    "hyroxworkout": "Yes",
+    "description": "Na meerdere succesvolle Hyrox Lansingerland edities lanceren we iets nieuws!\r\n\r\nHYROX Family Edition\r\n\r\nOp zondag 31-05-2026 organiseren we een nieuwe Hyrox Lansingerland editie met de eerste ouder - kind run.",
+    "instagram": "@hyroxlansingerland",
+    "website": "https://pages.cm.com/17050742000/02f41f62-ac09-45db-a31e-0e88fa61bbcd/section/0?utm_medium=paid&utm_source=ig&utm_id=120244200338170079&utm_content=120244200338190079&utm_term=120244200338180079&utm_campaign=120244200338170079",
+    "ticketUrl": "https://pages.cm.com/17050742000/02f41f62-ac09-45db-a31e-0e88fa61bbcd/section/0?utm_medium=paid&utm_source=ig&utm_id=120244200338170079&utm_content=120244200338190079&utm_term=120244200338180079&utm_campaign=120244200338170079",
+    "workoutWeights": "",
+    "contactEmail": ""
 }
 ]

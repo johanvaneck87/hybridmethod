@@ -182,7 +182,7 @@ export function FindARacePage() {
 
   const resetFilters = () => {
     setTempFilterType('all')
-    setTempOnlyUpcomingEvents(false)
+    setTempOnlyUpcomingEvents(true)
     setTempLocationSearch('')
     setTempDistanceKm('')
     setTempHyroxOnly(false)
@@ -194,7 +194,7 @@ export function FindARacePage() {
     setTempNewestFirst(false)
     // Also apply the reset immediately
     setFilterType('all')
-    setOnlyUpcomingEvents(false)
+    setOnlyUpcomingEvents(true)
     setLocationSearch('')
     setDistanceKm('')
     setHyroxOnly(false)
